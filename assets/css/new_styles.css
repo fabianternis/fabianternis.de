@@ -86,7 +86,6 @@
     transition: all .145s ease-in;
 }
 
-
 #themeToggle:hover svg {
     transition: transform .45s ease-in-out;
     transform: rotate(17.5deg);
@@ -148,6 +147,12 @@ a.button {
     transition: all 0.1s ease-out;
 }
 
+/*
+a.button img {
+    filter: invert(var(--filter-svg-invert))
+}
+*/
+
 a.button:focus {
     outline: none;
     text-decoration: none;
@@ -156,12 +161,14 @@ a.button:focus {
 a.button:hover {
     text-decoration: none;
     background-color: var(--button-bg);
-    transform: translate(-1px, -1px);
+    /*transform: translate(-1px, -1px);*/
+    scale: 1.025 1.01;
 }
 
 a.button:active {
     outline: 0;
-    transform: translate(calc(var(--button-offset) / 2), calc(var(--button-offset) / 2));
+    /*transform: translate(calc(var(--button-offset) / 2), calc(var(--button-offset) / 2));*/
+    scale: .95 .974;
 }
 
 @media (min-width: 768px) {
@@ -846,7 +853,8 @@ html[lang="de"] [data-language="de"] {
 .site-info p {
     font-size: 1.2rem;
     line-height: 1.6;
-    max-width: 600px;
+    /*max-width: 700px;*/
+    max-width: clamp(400px, 60vw, 700px);
 }
 
 .text-animated {
