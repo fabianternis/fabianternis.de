@@ -61,13 +61,22 @@
     color: var(--text-color);
     border: 1px solid var(--main-border-color);
     box-shadow: var(--shadow-light);
-    transition: all 0.2s ease-in-out;
+    transition: all 0.145s ease-in-out;
 }
 
 #themeToggle:hover {
     background-color: var(--link-hover-bg);
     color: var(--link-hover-color);
     box-shadow: var(--shadow-medium);
+}
+
+#themeToggle:hover {
+    transform: rotate(-10deg);
+}
+
+#themeToggle:active {
+    transform: rotate(-15deg);
+    scale: 1.125;
 }
 
 #themeToggle svg {
@@ -77,9 +86,15 @@
     transition: all .145s ease-in;
 }
 
-
 #themeToggle:hover svg {
-    transform: rotate(23deg);
+    transition: transform .45s ease-in-out;
+    transform: rotate(17.5deg);
+}
+
+#themeToggle:active svg {
+    transform: rotate(375deg);
+    width: 24px;
+    height: 24px;
 }
 
 [data-theme="light"] #themeToggle .light-icon {
@@ -132,6 +147,12 @@ a.button {
     transition: all 0.1s ease-out;
 }
 
+/*
+a.button img {
+    filter: invert(var(--filter-svg-invert))
+}
+*/
+
 a.button:focus {
     outline: none;
     text-decoration: none;
@@ -140,12 +161,14 @@ a.button:focus {
 a.button:hover {
     text-decoration: none;
     background-color: var(--button-bg);
-    transform: translate(-1px, -1px);
+    /*transform: translate(-1px, -1px);*/
+    scale: 1.025 1.01;
 }
 
 a.button:active {
     outline: 0;
-    transform: translate(calc(var(--button-offset) / 2), calc(var(--button-offset) / 2));
+    /*transform: translate(calc(var(--button-offset) / 2), calc(var(--button-offset) / 2));*/
+    scale: .95 .974;
 }
 
 @media (min-width: 768px) {
@@ -215,9 +238,11 @@ main {
     margin-inline-start: clamp(2px, 3vw, 30px);
 }
 
+/*
 .introduction h2:hover {
     cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>👋</text></svg>") 16 0, auto;
 }
+*/
 
 .introduction h2 .animated-hand {
     display: inline-block;
@@ -828,7 +853,8 @@ html[lang="de"] [data-language="de"] {
 .site-info p {
     font-size: 1.2rem;
     line-height: 1.6;
-    max-width: 600px;
+    /*max-width: 700px;*/
+    max-width: clamp(400px, 60vw, 700px);
 }
 
 .text-animated {
@@ -868,7 +894,7 @@ html[lang="de"] [data-language="de"] {
 }
 
 .cursor-animated:hover {
-    animation: cursor-change-animated 1.5s infinite;
+    /*animation: cursor-change-animated 1.5s infinite;*/
     color: var(--accent-color);
 }
 
