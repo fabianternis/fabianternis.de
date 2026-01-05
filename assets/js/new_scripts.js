@@ -5,7 +5,7 @@ const body = document.body;
 
 const getStoredTheme = () => localStorage.getItem("theme") || "auto";
 const getStoredLang = () => localStorage.getItem("lang") || "en";
-
+/*
 const applyTheme = (theme) => {
     themeToggle.classList.add("is-rotating");
     //body.classList.add("content-reload");
@@ -19,6 +19,11 @@ const applyTheme = (theme) => {
             themeToggle.classList.remove("is-rotating");
         }, 300);
     }, 300);
+};*/
+
+const applyTheme = (theme) => {
+    htmlElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
 };
 
 const executeWithTransition = (callback) => {
