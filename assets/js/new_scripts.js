@@ -7,8 +7,18 @@ const getStoredTheme = () => localStorage.getItem("theme") || "auto";
 const getStoredLang = () => localStorage.getItem("lang") || "en";
 
 const applyTheme = (theme) => {
-    htmlElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
+    themeToggle.classList.add("is-rotating");
+    //body.classList.add("content-reload");
+
+    setTimeout(() => {
+        htmlElement.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+
+        //body.classList.remove("content-reload");
+        setTimeout(() => {
+            themeToggle.classList.remove("is-rotating");
+        }, 300);
+    }, 300);
 };
 
 const executeWithTransition = (callback) => {
@@ -16,10 +26,10 @@ const executeWithTransition = (callback) => {
 
     setTimeout(() => {
         callback();
-        
+
         setTimeout(() => {
             body.classList.remove("content-reload");
-        }, 100); 
+        }, 100);
     }, 400);
 };
 
@@ -35,7 +45,7 @@ const initNameAnimations = () => {
     const activeIntroduction = document.querySelector(
         `.introduction[data-language="${lang}"]`
     );
-    
+
     if (!activeIntroduction) return;
 
     const nameContainer = activeIntroduction.querySelector(".name");
@@ -46,22 +56,37 @@ const initNameAnimations = () => {
 
     characters.forEach((char) => {
         char.style.cursor = cursorUrl;
-        char.addEventListener("mouseenter", () => char.classList.add("bounce"));
-        char.addEventListener("animationend", () => char.classList.remove("bounce"));
+        let startTime;
+
+        char.addEventListener("mouseenter", () => {
+            startTime = Date.now();
+            char.classList.add("bounce");
+            char.classList.remove("after-bounce");
+        });
+
+        char.addEventListener("mouseleave", () => {
+            const elapsedTime = Date.now() - startTime;
+            const remainingTime = Math.max(0, 300 - elapsedTime);
+
+            setTimeout(() => {
+                char.classList.remove("bounce");
+                char.classList.add("after-bounce");
+            }, remainingTime);
+        });
     });
 };
 
 themeToggle.addEventListener("click", () => {
     const themes = ["auto", "light", "dark"];
     const nextTheme = themes[(themes.indexOf(getStoredTheme()) + 1) % themes.length];
-    
+
     //executeWithTransition(() => applyTheme(nextTheme));
     applyTheme(nextTheme);
 });
 
 langToggle.addEventListener("click", () => {
     const nextLang = htmlElement.getAttribute("lang") === "en" ? "de" : "en";
-    
+
     executeWithTransition(() => applyLanguage(nextLang));
 });
 

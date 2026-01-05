@@ -18,6 +18,7 @@
     --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.08);
     --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.12);
     --nav-distance-to-top: 4rem;
+    --nav-scrolled-background: light-dark(rgba(200, 200, 200, 0.4), rgba(45, 45, 45, 0.4));
     --skeleton-base: light-dark(#e0e0e0, #2a2a2a);
     --skeleton-highlight: light-dark(#f5f5f5, #3a3a3a);
 
@@ -62,6 +63,8 @@
     border: 1px solid var(--main-border-color);
     box-shadow: var(--shadow-light);
     transition: all 0.145s ease-in-out;
+
+    cursor: url('/assets/svg/hand-pointer.svg'), pointer !important;
 }
 
 #themeToggle:hover {
@@ -91,10 +94,17 @@
     transform: rotate(17.5deg);
 }
 
-#themeToggle:active svg {
-    transform: rotate(375deg);
-    width: 24px;
-    height: 24px;
+
+#themeToggle.is-rotating {
+    scale: 1.33;
+}
+
+/*#themeToggle:active svg,*/
+#themeToggle.is-rotating svg {
+  transform: rotate(375deg);
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
 }
 
 [data-theme="light"] #themeToggle .light-icon {
@@ -195,7 +205,7 @@ body {
 }
 
 body.scrolled nav {
-    background-color: rgba(45, 45, 45, 0.4);
+    background-color: var(--nav-scrolled-background);
     backdrop-filter: blur(10px);
     border-radius: 12px;
     padding-inline: 16px;
@@ -307,14 +317,24 @@ main {
 .name span {
     display: inline-block;
     cursor: default;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, transform 0.4s ease;
+    transform: translateY(0) scale(1);
 }
 
 .name span.bounce {
-    animation: letter-bounce 0.4s ease;
+    animation: letter-bounce 0.4s ease forwards;
     color: #f560fa;
+    transition: color 0.2s ease, transform 0.4s ease;
+    transform: translateY(-10px) scale(1.2);
 }
 
+.name span.after-bounce {
+    color: inherit;
+    animation: letter-unbounce 0.2s ease;
+    transition: color 0.2s ease, transform 0.4s ease;
+    transform: translateY(0) scale(1);
+}
+/*
 @keyframes letter-bounce {
 
     0%,
@@ -324,6 +344,28 @@ main {
 
     50% {
         transform: translateY(-10px) scale(1.2);
+    }
+}
+*/
+@keyframes letter-bounce {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-10px) scale(1.2);
+    }
+}
+
+@keyframes letter-unbounce {
+
+    0% {
+        transform: translateY(-10px) scale(1.2);
+    }
+
+    100% {
+        transform: translateY(0);
     }
 }
 
@@ -351,17 +393,20 @@ main {
     bottom: 0;
     left: 0;
     width: 0;
+    /*margin-left: -5px;*/
     height: 100%;
     background-color: yellow;
-    opacity: 0.3;
-    transition: width 0.3s ease-in-out;
+    opacity: -0.1;
+    transition: width 0.3s ease-in-out, opacity .2s ease-in;
     /*z-index: -1;*/
     z-index: 1;
-    border-radius: 5% .33rem 3% 12px;
+    /*border-radius: 5% .33rem 3% 12px;*/
+    border-radius: 14.5px;
 }
 
 .introduction .location:hover::after {
-    width: 102%;
+    opacity: 0.3;
+    width: 103%;
 }
 
 nav {
@@ -411,20 +456,25 @@ h1 {
 }
 
 a.logo {
-    font-size: calc(var(--base-size) * 1.2);
+    font-size: calc(var(--base-size) * 1.35);
     line-height: 1;
     font-family: var(--font-display);
     font-weight: 50;
     margin: 0;
     text-decoration: none;
-    color: var(--text-color);
+    color: light-dark(#0a0a0a, var(--text-color));
+    letter-spacing: -0.05em;
+    transition: letter-spacing 0.4s cubic-bezier(0.4, 0, 0.2, 1), font-weight 0.4s ease;
+    display: inline-block;
 }
 
 a.logo:hover {
     text-decoration: none;
-    color: var(--text-color);
-    background-color: var(--background-color);
+    /*color: var(--text-color);*/
+    background-color: transparent;
     transform: none;
+    letter-spacing: 0.1em;
+    font-weight: 400;
 }
 
 h2 {
@@ -434,12 +484,24 @@ h2 {
     margin-bottom: calc(var(--base-size) / 2);
 }
 
+/*
 .socials-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3.69px;
+    /*gap: 3.69px;*//*
     margin-bottom: var(--base-size);
+    transition: scale .4s ease;
+    padding: 75px;
+    padding-inline: 175px;
+    padding-bottom: 200px;
+    margin: -75px;
+    margin-top: -50px;
+    margin-bottom: -70px;
+}
+
+.socials-container:hover {
+    scale: 1.2;
 }
 
 .social-links-container {
@@ -449,6 +511,43 @@ h2 {
     gap: clamp(5px, 2vw, 50px);
     margin-top: 16px;
     justify-content: center;
+    transition: all .4s ease;
+}
+
+.socials-container:hover .social-links-container {
+    gap: clamp(3px, 1.5vw, 35px);
+}*/
+
+.socials-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform .4s ease;
+    
+    padding: 120px 150px;
+    margin: -100px -130px;
+    
+    pointer-events: all;
+    position: relative;
+    z-index: 10;
+}
+
+.socials-container:hover {
+    transform: scale(1.1);
+}
+
+.social-links-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: clamp(5px, 2vw, 50px);
+    margin-top: 16px;
+    justify-content: center;
+    transition: gap .4s ease;
+}
+
+.socials-container:hover .social-links-container {
+    gap: clamp(3px, 1.5vw, 35px);
 }
 
 .social-links-container a:hover {
@@ -524,6 +623,7 @@ h2 {
 
 a:hover {
     cursor: url('/assets/svg/hand-pointer.svg'), pointer;
+    /*cursor: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='black' width='48' height='48'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25' /%3E%3C/svg%3E"), pointer;*/
 }
 
 .top-bg {
@@ -545,7 +645,7 @@ a:hover {
     position: fixed;
     top: 20px;
     border-radius: 24px 24px 0 0;
-    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+    transition: height 0.55s cubic-bezier(0.4, 0, 0.2, 1), 
                 /*top 0.4s cubic-bezier(0.4, 0, 0.2, 1),
                 left 0.4s cubic-bezier(0.4, 0, 0.2, 1),
                 right 0.4s cubic-bezier(0.4, 0, 0.2, 1),*/
@@ -554,6 +654,7 @@ a:hover {
 }
 
 body.content-reload .top-bg::after {
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
     /*height: calc(100vh - 36px);*/
     height: 100vh;
     border-radius: 24px;
@@ -809,6 +910,8 @@ html[lang="de"] [data-language="de"] {
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease-in-out;
+
+    cursor: url('/assets/svg/hand-pointer.svg'), pointer !important;
 }
 
 #languageSwitch:hover {
