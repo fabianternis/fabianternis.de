@@ -35,7 +35,7 @@ const initNameAnimations = () => {
     const activeIntroduction = document.querySelector(
         `.introduction[data-language="${lang}"]`
     );
-    
+
     if (!activeIntroduction) return;
 
     const nameContainer = activeIntroduction.querySelector(".name");
@@ -46,10 +46,23 @@ const initNameAnimations = () => {
 
     characters.forEach((char) => {
         char.style.cursor = cursorUrl;
-        
-        char.addEventListener("mouseenter", () => { char.classList.add("bounce"); });
+        let startTime;
 
-        char.addEventListener("mouseleave", () => { char.classList.remove("bounce"); });
+        char.addEventListener("mouseenter", () => {
+            startTime = Date.now();
+            char.classList.add("bounce");
+            char.classList.remove("after-bounce");
+        });
+
+        char.addEventListener("mouseleave", () => {
+            const elapsedTime = Date.now() - startTime;
+            const remainingTime = Math.max(0, 400 - elapsedTime);
+
+            setTimeout(() => {
+                char.classList.remove("bounce");
+                char.classList.add("after-bounce");
+            }, remainingTime);
+        });
     });
 };
 
