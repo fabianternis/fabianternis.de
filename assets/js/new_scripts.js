@@ -46,8 +46,10 @@ const initNameAnimations = () => {
 
     characters.forEach((char) => {
         char.style.cursor = cursorUrl;
-        char.addEventListener("mouseenter", () => char.classList.add("bounce"));
-        char.addEventListener("animationend", () => char.classList.remove("bounce"));
+        
+        char.addEventListener("mouseenter", () => { char.classList.add("bounce"); });
+
+        char.addEventListener("mouseleave", () => { char.classList.remove("bounce"); });
     });
 };
 

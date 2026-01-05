@@ -62,6 +62,8 @@
     border: 1px solid var(--main-border-color);
     box-shadow: var(--shadow-light);
     transition: all 0.145s ease-in-out;
+
+    cursor: url('/assets/svg/hand-pointer.svg'), pointer !important;
 }
 
 #themeToggle:hover {
@@ -307,14 +309,16 @@ main {
 .name span {
     display: inline-block;
     cursor: default;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, transform 0.4s ease;
+    transform: translateY(0) scale(1);
 }
 
 .name span.bounce {
-    animation: letter-bounce 0.4s ease;
+    animation: letter-bounce 0.4s ease forwards;
     color: #f560fa;
+    /*transform: translateY(-10px) scale(1.2);*/
 }
-
+/*
 @keyframes letter-bounce {
 
     0%,
@@ -323,6 +327,17 @@ main {
     }
 
     50% {
+        transform: translateY(-10px) scale(1.2);
+    }
+}
+*/
+@keyframes letter-bounce {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
         transform: translateY(-10px) scale(1.2);
     }
 }
@@ -809,6 +824,8 @@ html[lang="de"] [data-language="de"] {
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease-in-out;
+
+    cursor: url('/assets/svg/hand-pointer.svg'), pointer !important;
 }
 
 #languageSwitch:hover {
