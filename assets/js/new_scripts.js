@@ -7,8 +7,18 @@ const getStoredTheme = () => localStorage.getItem("theme") || "auto";
 const getStoredLang = () => localStorage.getItem("lang") || "en";
 
 const applyTheme = (theme) => {
-    htmlElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
+    themeToggle.classList.add("is-rotating");
+    //body.classList.add("content-reload");
+
+    setTimeout(() => {
+        htmlElement.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+
+        //body.classList.remove("content-reload");
+        setTimeout(() => {
+            themeToggle.classList.remove("is-rotating");
+        }, 300);
+    }, 300);
 };
 
 const executeWithTransition = (callback) => {
@@ -16,10 +26,10 @@ const executeWithTransition = (callback) => {
 
     setTimeout(() => {
         callback();
-        
+
         setTimeout(() => {
             body.classList.remove("content-reload");
-        }, 100); 
+        }, 100);
     }, 400);
 };
 
@@ -56,7 +66,7 @@ const initNameAnimations = () => {
 
         char.addEventListener("mouseleave", () => {
             const elapsedTime = Date.now() - startTime;
-            const remainingTime = Math.max(0, 400 - elapsedTime);
+            const remainingTime = Math.max(0, 300 - elapsedTime);
 
             setTimeout(() => {
                 char.classList.remove("bounce");
@@ -69,14 +79,14 @@ const initNameAnimations = () => {
 themeToggle.addEventListener("click", () => {
     const themes = ["auto", "light", "dark"];
     const nextTheme = themes[(themes.indexOf(getStoredTheme()) + 1) % themes.length];
-    
+
     //executeWithTransition(() => applyTheme(nextTheme));
     applyTheme(nextTheme);
 });
 
 langToggle.addEventListener("click", () => {
     const nextLang = htmlElement.getAttribute("lang") === "en" ? "de" : "en";
-    
+
     executeWithTransition(() => applyLanguage(nextLang));
 });
 
