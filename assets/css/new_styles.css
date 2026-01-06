@@ -128,63 +128,71 @@ body {
 }
 
 a.button {
-    appearance: none;
-    background-color: var(--button-bg);
-    background-image: none;
-    border: 1px solid var(--button-border-color);
-    border-radius: 4px;
-    box-sizing: border-box;
-    color: var(--button-text-color);
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-body);
-    font-size: var(--base-size);
-    font-weight: 400;
-    line-height: 20px;
-    margin: 0 5px 10px 0;
-    overflow: visible;
-    padding: 12px 40px;
-    text-align: center;
-    text-transform: none;
-    touch-action: manipulation;
-    user-select: none;
-    -webkit-user-select: none;
-    vertical-align: middle;
-    white-space: nowrap;
-    text-decoration: none;
-    transition: all 0.1s ease-out;
+  appearance: none;
+  background-color: var(--button-bg);
+  background-image: none;
+  border: 1px solid var(--button-border-color);
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: var(--button-text-color);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: var(--base-size);
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0 5px 10px 0;
+  overflow: visible;
+  padding: 12px 40px;
+  text-align: center;
+  text-transform: none;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: all 0.1s ease-out;
 }
-
-/*
-a.button img {
-    filter: invert(var(--filter-svg-invert))
-}
-*/
 
 a.button:focus {
-    outline: none;
-    text-decoration: none;
+  outline: none;
+  text-decoration: none;
 }
 
 a.button:hover {
-    text-decoration: none;
-    background-color: var(--button-bg);
-    /*transform: translate(-1px, -1px);*/
-    scale: 1.025 1.01;
+  text-decoration: none;
+  background-color: var(--button-bg);
+  scale: 1.025 1.01;
 }
 
 a.button:active {
-    outline: 0;
-    /*transform: translate(calc(var(--button-offset) / 2), calc(var(--button-offset) / 2));*/
-    scale: .95 .974;
+  outline: 0;
+  scale: 0.95 0.974;
 }
 
 @media (min-width: 768px) {
-    a.button {
-        padding: 12px 50px;
-    }
+  a.button {
+    padding: 12px 50px;
+  }
+}
+
+.button-icon {
+  width: 1.2em;
+  height: 1.2em;
+  vertical-align: middle;
+  transition: transform 0.3s, filter 0.3s;
+  filter: light-dark(invert(1), invert(0));
+}
+
+a.button:hover .button-icon {
+  transform: rotate(-12deg) scale(1.1) translateX(-3px);
+  filter: light-dark(
+    invert(1) brightness(0) saturate(100%) invert(50%) sepia(1) hue-rotate(200deg),
+    invert(0) brightness(0) saturate(100%) invert(50%) sepia(1) hue-rotate(200deg)
+  );
 }
 
 ::selection {
@@ -407,6 +415,7 @@ main {
 .introduction .location:hover::after {
     opacity: 0.3;
     width: 103%;
+    scale: 1.025;
 }
 
 nav {
@@ -464,7 +473,7 @@ a.logo {
     text-decoration: none;
     color: light-dark(#0a0a0a, var(--text-color));
     letter-spacing: -0.05em;
-    transition: letter-spacing 0.4s cubic-bezier(0.4, 0, 0.2, 1), font-weight 0.4s ease;
+    transition: letter-spacing 0.4s cubic-bezier(0.4, 0, 0.2, 1), font-weight 0.4s ease, -webkit-text-stroke 0.5s ease;
     display: inline-block;
 }
 
@@ -475,6 +484,8 @@ a.logo:hover {
     transform: none;
     letter-spacing: 0.1em;
     font-weight: 400;
+    /*-webkit-text-stroke: .75px var(--accent-color);*/
+    -webkit-text-stroke: 1px var(--accent-color);
 }
 
 h2 {
@@ -525,7 +536,7 @@ h2 {
     transition: transform .4s ease;
     
     padding: 120px 150px;
-    margin: -100px -130px;
+    margin: -75px -130px;
     
     pointer-events: all;
     position: relative;
@@ -541,7 +552,7 @@ h2 {
     flex-direction: row;
     flex-wrap: wrap;
     gap: clamp(5px, 2vw, 50px);
-    margin-top: 16px;
+    margin-top: 24px;
     justify-content: center;
     transition: gap .4s ease;
 }
@@ -569,7 +580,8 @@ h2 {
     transition:
         background-color 0.2s ease,
         transform 0.1s ease,
-        color 0.2s ease;
+        color 0.2s ease,
+        scale .3s ease-in;
 }
 
 .social-icon-link img {
@@ -580,8 +592,12 @@ h2 {
     rotate: 0deg;
 }
 
+.social-icon-link:hover {
+    scale: 1.1;
+}
+
 .social-icon-link:hover img {
-    scale: 1.35;
+    scale: 1.33;
     rotate: -4.5deg;
 }
 
@@ -682,7 +698,7 @@ span.marker-highlight:after {
     background-image: url('/assets/svg/marker/aggressive-stroak-sm.svg');
     background-size: contain;
     background-repeat: no-repeat;
-    opacity: 0.369;
+    opacity: 0.33;
     filter: brightness(0) saturate(100%) invert(75%) sepia(90%) hue-rotate(369deg) saturate(300%) contrast(100%);
     transition-duration: 0.25s;
 }
@@ -813,24 +829,6 @@ footer .footer-content ul li a {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-}
-
-.button-icon {
-    width: 1.2em;
-    height: 1.2em;
-    margin-right: 0.5rem;
-    vertical-align: middle;
-    filter: invert(var(--filter-svg-invert, 0%));
-}
-
-@media (prefers-color-scheme: dark) {
-    .button-icon {
-        --filter-svg-invert: 0%;
-    }
-}
-
-a.button:hover .button-icon {
-    transform: rotate(-5deg);
 }
 
 .project-item .project-image {
@@ -970,7 +968,7 @@ html[lang="de"] [data-language="de"] {
 .text-animated:hover {
     font-weight: 666;
     color: var(--accent-color);
-    scale: 1.075;
+    scale: 1.025;
 }
 
 .text-animated::after {
@@ -1029,4 +1027,24 @@ html[lang="de"] [data-language="de"] {
         margin: 1rem 0;
         padding: 1.5rem;
     }
+}
+
+#my-work .projects-grid .section-title,
+#link-category .section-title {
+    width: fit-content;
+}
+
+#my-work .projects-grid .section-title::after,
+#link-category .section-title::after {
+  content: "";
+  display: block;
+  width: 7.5%;
+  height: 2px;
+  background-color: var(--accent-color);
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#my-work:hover .projects-grid .section-title::after,
+#link-category .section-title::after {
+  width: 88%;
 }
