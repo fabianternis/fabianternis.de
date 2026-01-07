@@ -97,3 +97,45 @@ langToggle.addEventListener("click", () => {
 
 applyTheme(getStoredTheme());
 applyLanguage(getStoredLang());
+
+
+const trackProjectScroll = () => {
+  const items = document.querySelectorAll(".project-item");
+
+  const observerOptions = {
+    threshold: Array.from({ length: 101 }, (_, i) => i / 100),
+  };
+
+  const handleScroll = () => {
+    const vh = window.innerHeight;
+
+    items.forEach((item, index) => {
+      const rect = item.getBoundingClientRect();
+      const itemCenter = rect.top + rect.height / 2;
+      
+      const distanceFromCenter = itemCenter - vh / 2;
+      
+      if (rect.top < vh && rect.bottom > 0) {
+        let progress = distanceFromCenter / (vh / 2);
+        
+        progress = Math.min(Math.max(progress, 0), 1);
+
+        const direction = index % 2 === 0 ? 1 : -1;
+        const maxMove = 100; 
+        const translateX = progress * maxMove * direction;
+        const opacity = 1 - (progress * 0.5);
+
+        item.style.transform = `translateX(${translateX}px)`;
+        item.style.opacity = opacity;
+      }
+    });
+  };
+
+  window.addEventListener("scroll", () => {
+    requestAnimationFrame(handleScroll);
+  });
+  
+  handleScroll();
+};
+
+document.addEventListener("DOMContentLoaded", trackProjectScroll);
