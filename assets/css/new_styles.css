@@ -14,6 +14,7 @@
     --link-hover-color: light-dark(#1a1a1a, #fef9f3);
     --link-hover-bg: light-dark(#e5e5e5, #525252);
     --accent-color: light-dark(#3b5af6, #60a5fa);
+    --accent-color-reversed: light-dark(#60a5fa, #3b5af6);
     --marker-color: light-dark(yellow, #fbbf24);
     --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.08);
     --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.12);
@@ -234,6 +235,9 @@ main {
     overflow-y: auto;
     position: relative;
     top: 0;
+
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 .content-wrapper {
@@ -485,7 +489,7 @@ a.logo:hover {
     letter-spacing: 0.1em;
     font-weight: 400;
     /*-webkit-text-stroke: .75px var(--accent-color);*/
-    -webkit-text-stroke: 1px var(--accent-color);
+    -webkit-text-stroke: .25px var(--accent-color-reversed);
 }
 
 h2 {
