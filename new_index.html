@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fabian Ternis</title>
     <link rel="stylesheet" href="assets/css/new_styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Montserrat:wght@500;700&display=swap" rel="stylesheet"/>
 
     <script>
-        const theme = localStorage.getItem('theme-preference') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', theme);
+      const theme = localStorage.getItem("theme-preference") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); document.documentElement.setAttribute("data-theme", theme);
     </script>
   </head>
   <body class="scrolled">
@@ -40,38 +39,74 @@
     <main>
       <div class="content-wrapper">
         <div class="hero-container">
-            <div class="introduction" data-language="en">
-                <h2>Hey there <span class="animated-hand">👋</span><span class="animated-exclamation_mark">!</span></h2>
-                <h3>I'm <span class="name"><span aria-label="F">F</span><span aria-label="a">a</span><span aria-label="b">b</span><span aria-label="i">i</span><span aria-label="a">a</span><span aria-label="n">n</span>
-                    <span aria-label="T">T</span><span aria-label="e">e</span><span aria-label="r">r</span><span aria-label="n">n</span><span aria-label="i">i</span><span aria-label="s">s</span></span>, a self-taught <span class="location">German</span> web developer <span class="specialization">specializing in Laravel and PHP.</span></h3>
-            </div>
-            <div class="introduction" data-language="de">
-                <h2>Hallo <span class="animated-hand">👋</span><span class="animated-exclamation_mark">!</span></h2>
-                <h3>Ich bin <span class="name"><span aria-label="F">F</span><span aria-label="a">a</span><span aria-label="b">b</span><span aria-label="i">i</span><span aria-label="a">a</span><span aria-label="n">n</span>
-                    <span aria-label="T">T</span><span aria-label="e">e</span><span aria-label="r">r</span><span aria-label="n">n</span><span aria-label="i">i</span><span aria-label="s">s</span></span>.<br>Ein selbsterlernter Webentwickler aus <span class="location">Rheinland-Pfalz</span>, der sich auf <span class="specialization">Laravel und PHP spezialisiert</span> hat.</h3>
-            </div>
+          <div class="introduction" data-language="en">
+            <h2>Hey there <span class="animated-hand">👋</span><span class="animated-exclamation_mark">!</span></h2>
+            <h3>
+              I'm
+              <span class="name"
+                ><span aria-label="F">F</span><span aria-label="a">a</span><span aria-label="b">b</span><span aria-label="i">i</span><span aria-label="a">a</span><span aria-label="n">n</span>
+                <span aria-label="T">T</span><span aria-label="e">e</span><span aria-label="r">r</span><span aria-label="n">n</span><span aria-label="i">i</span><span aria-label="s">s</span></span
+              >, a self-taught <span class="location">German</span> web developer
+              <span class="specialization">specializing in Laravel and PHP.</span>
+            </h3>
+          </div>
+          <div class="introduction" data-language="de">
+            <h2>Hallo <span class="animated-hand">👋</span><span class="animated-exclamation_mark">!</span></h2>
+            <h3>
+              Ich bin
+              <span class="name"
+                ><span aria-label="F">F</span><span aria-label="a">a</span><span aria-label="b">b</span><span aria-label="i">i</span><span aria-label="a">a</span><span aria-label="n">n</span>
+                <span aria-label="T">T</span><span aria-label="e">e</span><span aria-label="r">r</span><span aria-label="n">n</span><span aria-label="i">i</span><span aria-label="s">s</span></span
+              >.<br />Ein selbsterlernter Webentwickler aus <span class="location">Rheinland-Pfalz</span>, der sich auf
+              <span class="specialization">Laravel und PHP spezialisiert</span> hat.
+            </h3>
+          </div>
         </div>
         <div class="site-info">
-            <div data-language="de">
-                <h2>Wofür ist diese Seite?</h2>
-                <p>Diese Seite ist für das <span class="cursor-animated text-animated">spielvolle</span> präsentieren meines Webentwicklungs-könnens.</p>
-            </div>
-            <div data-language="en">
-                <h2>What is this site for?</h2>
-                <p>This website is for presenting my Webdevelopment-skills in a <span class="cursor-animated text-animated">playful</span> way.</p>
-            </div>
+          <div data-language="de">
+            <h2>Wofür ist diese Seite?</h2>
+            <p>Diese Seite ist für das <span class="cursor-animated text-animated">spielvolle</span> präsentieren meines Webentwicklungs-könnens.</p>
+          </div>
+          <div data-language="en">
+            <h2>What is this site for?</h2>
+            <p>This website is for presenting my Webdevelopment-skills in a <span class="cursor-animated text-animated">playful</span> way.</p>
+          </div>
         </div>
         <div class="socials-container">
           <h2 class="prevent-select"><span class="marker-highlight">Socialmedia</span> & Co.</h2>
           <div class="social-links-container">
-            <a href="https://github.com/michaelninder" target="_blank" class="social-icon-link"><div class="tooltip">GitHub</div><img src="assets/svg/socials/github.svg" alt="GitHub" /></a>
-            <a href="https://codepen.io/Michaelninder" target="_blank" class="social-icon-link"><div class="tooltip">CodePen</div><img src="assets/svg/socials/codepen.svg" alt="CodePen" /></a>
-            <a href="https://youtube.com/@michaelninder" target="_blank" class="social-icon-link"><div class="tooltip">YouTube</div><img src="assets/svg/socials/youtube.svg" alt="YouTube" /></a>
-            <a href="https://tiktok.com/michaelninder" target="_blank" class="social-icon-link"><div class="tooltip">TikTok</div><img src="assets/svg/socials/tiktok.svg" alt="TikTok" /></a>
-            <a href="https://twitch.tv/michaelninder" target="_blank" class="social-icon-link"><div class="tooltip">Twitch</div><img src="assets/svg/socials/twitch.svg" alt="Twitch" /></a>
-            <a href="https://x.com/micha_was_taken" target="_blank" class="social-icon-link"><div class="tooltip">X / Twitter</div><img src="assets/svg/socials/twitter.svg" alt="X / Twitter" /></a>
-            <a href="https://instagram.com/fabianternis" target="_blank" class="social-icon-link"><div class="tooltip">Instagram</div><img src="assets/svg/socials/instagram.svg" alt="Instagram" /></a>
-            <a href="https://modrinth.com/user/michaelninder" target="_blank" class="social-icon-link"><div class="tooltip">Modrinth</div><img src="assets/svg/socials/modrinth.svg" alt="Modrinth" /></a>
+            <a href="https://github.com/michaelninder" target="_blank" class="social-icon-link"
+              ><div class="tooltip">GitHub</div>
+              <img src="assets/svg/socials/github.svg" alt="GitHub"
+            /></a>
+            <a href="https://codepen.io/Michaelninder" target="_blank" class="social-icon-link"
+              ><div class="tooltip">CodePen</div>
+              <img src="assets/svg/socials/codepen.svg" alt="CodePen"
+            /></a>
+            <a href="https://youtube.com/@michaelninder" target="_blank" class="social-icon-link"
+              ><div class="tooltip">YouTube</div>
+              <img src="assets/svg/socials/youtube.svg" alt="YouTube"
+            /></a>
+            <a href="https://tiktok.com/michaelninder" target="_blank" class="social-icon-link"
+              ><div class="tooltip">TikTok</div>
+              <img src="assets/svg/socials/tiktok.svg" alt="TikTok"
+            /></a>
+            <a href="https://twitch.tv/michaelninder" target="_blank" class="social-icon-link"
+              ><div class="tooltip">Twitch</div>
+              <img src="assets/svg/socials/twitch.svg" alt="Twitch"
+            /></a>
+            <a href="https://x.com/micha_was_taken" target="_blank" class="social-icon-link"
+              ><div class="tooltip">X / Twitter</div>
+              <img src="assets/svg/socials/twitter.svg" alt="X / Twitter"
+            /></a>
+            <a href="https://instagram.com/fabianternis" target="_blank" class="social-icon-link"
+              ><div class="tooltip">Instagram</div>
+              <img src="assets/svg/socials/instagram.svg" alt="Instagram"
+            /></a>
+            <a href="https://modrinth.com/user/michaelninder" target="_blank" class="social-icon-link"
+              ><div class="tooltip">Modrinth</div>
+              <img src="assets/svg/socials/modrinth.svg" alt="Modrinth"
+            /></a>
           </div>
         </div>
         <div class="links-grid">
@@ -92,11 +127,16 @@
               <div class="project-item">
                 <div class="project-info">
                   <h3 class="project-title">fabianternis.dev</h3>
-                  <div class="project-description">Meine persönliche Webseite, die einen Überblick über meine Projekte und Arbeiten bietet, ergänzt durch Informationen über mich und meine Interessen.</div>
+                  <div class="project-description">
+                    <span data-language="de">Meine persönliche Webseite, die einen Überblick über meine Projekte und Arbeiten bietet, ergänzt durch Informationen über mich und meine Interessen.</span>
+                    <span data-language="en">My personal website, providing an overview of my projects and work, complemented by information about me and my interests.</span>
+                  </div>
                   <div class="technology-tags"><span class="technology-tag">localStorage</span></div>
                   <div class="project-links">
                     <a href="https://fabianternis.dev" class="project-link button" target="_blank"><img src="assets/svg/open-link.svg" class="button-icon" />Webseite öffnen</a>
-                    <a href="https://github.com/Michaelninder/websites-sm/blob/main/fabianternis.dev.html" class="project-link button" target="_blank"><img src="assets/svg/socials/github.svg" class="button-icon" />Github Repo</a>
+                    <a href="https://github.com/Michaelninder/websites-sm/blob/main/fabianternis.dev.html" class="project-link button" target="_blank"
+                      ><img src="assets/svg/socials/github.svg" class="button-icon" />Github Repo</a
+                    >
                   </div>
                 </div>
                 <img src="assets/img/projects/fabianternis-dev.png" alt="fabianternis.dev Landingpage" class="project-image" />
@@ -104,7 +144,10 @@
               <div class="project-item">
                 <div class="project-info">
                   <h3 class="project-title">louixch.de</h3>
-                  <div class="project-description">Eine Webseite für Louixch, die seine Projekte und Arbeiten vorstellt und Einblicke in seine Interessen und Fähigkeiten gibt.</div>
+                  <div class="project-description">
+                    <span data-language="de">Eine Webseite für Louixch, die seine Projekte und Arbeiten vorstellt und Einblicke in seine Interessen und Fähigkeiten gibt.</span>
+                    <span data-language="en">A website for Louixch, showcasing his projects and work while providing insights into his interests and skills.</span>
+                  </div>
                   <div class="technology-tags"><span class="technology-tag">External REST-API</span><span class="technology-tag">skinview3d</span></div>
                   <div class="project-links">
                     <a href="https://louixch.de" class="project-link button" target="_blank"><img src="assets/svg/open-link.svg" class="button-icon" />Webseite öffnen</a>
@@ -116,7 +159,10 @@
               <div class="project-item">
                 <div class="project-info">
                   <h3 class="project-title">ivoternis.de</h3>
-                  <div class="project-description">Eine Webseite für Ivo Ternis, die seine Projekte und Arbeiten präsentiert, einschließlich Informationen zu seinen Interessen und Fähigkeiten.</div>
+                  <div class="project-description">
+                    <span data-language="de">Eine Webseite für Ivo Ternis, die seine Projekte und Arbeiten präsentiert, einschließlich Informationen zu seinen Interessen und Fähigkeiten.</span>
+                    <span data-language="en">A website for Ivo Ternis, presenting his projects and work, including information about his interests and skills.</span>
+                  </div>
                   <div class="technology-tags"><span class="technology-tag">External REST-API</span><span class="technology-tag">Chess.com</span></div>
                   <div class="project-links">
                     <a href="https://ivoternis.de" class="project-link button" target="_blank"><img src="assets/svg/open-link.svg" class="button-icon" />Webseite öffnen</a>
@@ -128,7 +174,10 @@
               <div class="project-item">
                 <div class="project-info">
                   <h3 class="project-title">fternis.de</h3>
-                  <div class="project-description">Meine persönliche Webseite, die meine Projekte und Arbeiten vorstellt und detaillierte Informationen über mich und meine Interessen enthält.</div>
+                  <div class="project-description">
+                    <span data-language="de">Meine persönliche Webseite, die meine Projekte und Arbeiten vorstellt und detaillierte Informationen über mich und meine Interessen enthält.</span>
+                    <span data-language="en">My personal website, introducing my projects and work and containing detailed information about me and my interests.</span>
+                  </div>
                   <div class="technology-tags"><span class="technology-tag">TailwindCSS</span><span class="technology-tag">Laravel</span></div>
                   <div class="project-links">
                     <a href="https://fternis.de" class="project-link button" target="_blank"><img src="assets/svg/open-link.svg" class="button-icon" />Webseite öffnen</a>
@@ -140,7 +189,10 @@
               <div class="project-item">
                 <div class="project-info">
                   <h3 class="project-title">dsc.pics</h3>
-                  <div class="project-description">Eine Bilder- und Videohosting-Plattform (bis zu 50MB), ideal für Discord und andere soziale Medien, inklusive Link-Kürzungsfunktion.</div>
+                  <div class="project-description">
+                    <span data-language="de">Eine Bilder- und Videohosting-Plattform (bis zu 50MB), ideal für Discord und andere soziale Medien, inklusive Link-Kürzungsfunktion.</span>
+                    <span data-language="en">An image and video hosting platform (up to 50MB), ideal for Discord and other social media, including a link-shortening function.</span>
+                  </div>
                   <div class="technology-tags"><span class="technology-tag">Laravel Sanctum</span><span class="technology-tag">MySQL</span><span class="technology-tag">TailwindCSS</span></div>
                   <div class="project-links">
                     <a href="https://dsc.pics" class="project-link button" target="_blank"><img src="assets/svg/open-link.svg" class="button-icon" />Webseite öffnen</a>
@@ -152,7 +204,10 @@
               <div class="project-item">
                 <div class="project-info">
                   <h3 class="project-title">heimatverein-floersheim-dalsheim.de</h3>
-                  <div class="project-description">Eine Webseite für den Heimatverein Flörsheim-Dalsheim mit Funktionen zur Buchbestellung, inklusive E-Mail-Bestätigung.</div>
+                  <div class="project-description">
+                    <span data-language="de">Eine Webseite für den Heimatverein Flörsheim-Dalsheim mit Funktionen zur Buchbestellung, inklusive E-Mail-Bestätigung.</span>
+                    <span data-language="en">A website for the Flörsheim-Dalsheim historical society with book ordering functions, including email confirmation.</span>
+                  </div>
                   <div class="technology-tags"><span class="technology-tag">Laravel</span><span class="technology-tag">MySQL</span><span class="technology-tag">TailwindCSS</span></div>
                   <div class="project-links">
                     <a href="https://heimatverein-floersheim-dalsheim.de" class="project-link button" target="_blank"><img src="assets/svg/open-link.svg" class="button-icon" />Webseite öffnen</a>
@@ -163,7 +218,10 @@
               <div class="project-item">
                 <div class="project-info">
                   <h3 class="project-title">Kaufenhof.de</h3>
-                  <div class="project-description">Onlineshop zum kaufen von (von Admins) eingestellten Süßigkeiten. Nur Barzahlung.</div>
+                  <div class="project-description">
+                    <span data-language="de">Onlineshop zum kaufen von (von Admins) eingestellten Süßigkeiten. Nur Barzahlung.</span>
+                    <span data-language="en">Online shop for buying sweets listed by admins. Cash payment only.</span>
+                  </div>
                   <div class="technology-tags"><span class="technology-tag">Laravel</span><span class="technology-tag">MySQL</span><span class="technology-tag">TailwindCSS</span></div>
                   <div class="project-links">
                     <a href="https://kaufenhof.de" class="project-link button" target="_blank"><img src="assets/svg/open-link.svg" class="button-icon" />Webseite öffnen</a>
