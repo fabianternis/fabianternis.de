@@ -121,9 +121,9 @@ const trackProjectScroll = () => {
         progress = Math.min(Math.max(progress, 0), 1);
 
         const direction = index % 2 === 0 ? 1 : -1;
-        const maxMove = 100; 
+        const maxMove = 50; 
         const translateX = progress * maxMove * direction;
-        const opacity = 1 - (progress * 0.5);
+        const opacity = 1 - (progress * 0.35);
 
         item.style.transform = `translateX(${translateX}px)`;
         item.style.opacity = opacity;
