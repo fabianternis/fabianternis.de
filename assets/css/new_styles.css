@@ -592,7 +592,7 @@ h2 {
     width: 24px;
     height: 24px;
     filter: invert(var(--filter-svg-invert, 0%));
-    transition-duration: 0.3s;
+    transition: all 0.3s ease, rotate .275s cubic-bezier(.15, .83, .62, .84);
     rotate: 0deg;
 }
 
@@ -779,6 +779,7 @@ footer .footer-content ul li a {
         opacity: 0;
         scale: 0.75;
     }
+
     to {
         opacity: 1;
         scale: 1;
@@ -839,6 +840,10 @@ footer .footer-content ul li a {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+}
+
+.project-link .button img {
+    filter: invert(100%);
 }
 
 .project-item .project-image {
@@ -1049,21 +1054,22 @@ html[lang="de"] [data-language="de"] {
 }
 
 #my-work .projects-grid .section-title,
-#link-category .section-title {
+.link-category .section-title {
     width: fit-content;
 }
 
 #my-work .projects-grid .section-title::after,
-#link-category .section-title::after {
+.link-category .section-title::after {
     content: "";
     display: block;
     width: 7.5%;
     height: 2px;
     background-color: var(--accent-color);
-    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /*transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);*/
+    transition: width 0.4s cubic-bezier(.96, .63, .43, .91);
 }
 
 #my-work:hover .projects-grid .section-title::after,
-#link-category .section-title::after {
+.link-category:hover .section-title::after {
     width: 88%;
 }
