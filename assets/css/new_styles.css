@@ -426,7 +426,6 @@ nav {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--base-size);
     position: sticky;
     margin-bottom: calc(-1.45 * var(--nav-distance-to-top));
     top: 48px;
@@ -459,6 +458,52 @@ nav ul li a {
         background-color 0.2s ease,
         color 0.2s ease;
     font-family: var(--font-body);
+}
+
+.nav-links-container {
+    background-color: light-dark(rgba(255, 255, 255, 0.2), rgba(40, 40, 40, 0.2));
+    backdrop-filter: blur(-20px);
+    padding: 6px;
+    border-radius: 12px;
+    border: 1px solid var(--main-border-color);
+}
+
+.nav-link a {
+    position: relative;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+.nav-link a:hover {
+    color: var(--link-hover-color);
+}
+
+.nav-link.active {
+    background-color: var(--nav-scrolled-background);
+    backdrop-filter: blur(-12px);
+    border-radius: 12px;
+    z-index: 234;
+}
+
+.nav-link.active a::after {
+    width: 10%;
+    left: 45%;
+}
+
+.nav-link a::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-link a:hover::after {
+    width: 60%;
+    left: 20%;
 }
 
 h1 {
@@ -592,7 +637,7 @@ h2 {
     width: 24px;
     height: 24px;
     filter: invert(var(--filter-svg-invert, 0%));
-    transition-duration: 0.3s;
+    transition: all 0.3s ease, rotate .275s cubic-bezier(.15, .83, .62, .84);
     rotate: 0deg;
 }
 
@@ -779,6 +824,7 @@ footer .footer-content ul li a {
         opacity: 0;
         scale: 0.75;
     }
+
     to {
         opacity: 1;
         scale: 1;
@@ -839,6 +885,10 @@ footer .footer-content ul li a {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+}
+
+.project-link .button img {
+    filter: invert(100%);
 }
 
 .project-item .project-image {
@@ -1049,21 +1099,22 @@ html[lang="de"] [data-language="de"] {
 }
 
 #my-work .projects-grid .section-title,
-#link-category .section-title {
+.link-category .section-title {
     width: fit-content;
 }
 
 #my-work .projects-grid .section-title::after,
-#link-category .section-title::after {
+.link-category .section-title::after {
     content: "";
     display: block;
     width: 7.5%;
     height: 2px;
     background-color: var(--accent-color);
-    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /*transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);*/
+    transition: width 0.4s cubic-bezier(.96, .63, .43, .91);
 }
 
 #my-work:hover .projects-grid .section-title::after,
-#link-category .section-title::after {
+.link-category:hover .section-title::after {
     width: 88%;
 }
