@@ -11,6 +11,7 @@
     z-index: 9999;
     backdrop-filter: blur(5px);
     animation: fadeIn 0.3s ease-out;
+    transition: opacity 0.3s ease;
 }
 
 @keyframes fadeIn {
@@ -35,6 +36,30 @@
     }
 }
 
+@keyframes slideDown {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+}
+
+.popup-overlay.hidden {
+    display: none !important;
+}
+
+.popup-overlay.closing {
+    animation: fadeIn 0.3s ease-out reverse;
+}
+
+.popup-overlay.closing .popup-content {
+    animation: slideUp 0.4s ease-out reverse;
+}
+
 .popup-content {
     background: linear-gradient(135deg, #1a1a1a 0%, #242424 100%);
     padding: 2.5rem;
@@ -51,8 +76,17 @@
     backdrop-filter: blur(10px);
 }
 
-.hidden {
-    display: none !important;
+.popup-content h3 {
+    margin: 0 0 1rem 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.popup-content p {
+    margin: 0 0 0.5rem 0;
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.6;
 }
 
 .close-btn {
@@ -71,6 +105,7 @@
     transition: all 0.2s ease;
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0;
 }
 
 .close-btn:hover {
@@ -78,6 +113,11 @@
     background-color: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.2);
     transform: rotate(90deg);
+}
+
+.close-btn:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
 }
 
 .popup-link-btn {
@@ -106,4 +146,26 @@
 .popup-link-btn:active {
     transform: translateY(0);
     box-shadow: 0 2px 8px rgba(0, 123, 255, 0.4);
+}
+
+.popup-link-btn:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+    .popup-content {
+        max-width: 100%;
+        width: 85%;
+        padding: 2rem;
+    }
+
+    .popup-content h3 {
+        font-size: 20px;
+    }
+
+    .popup-link-btn {
+        font-size: 13px;
+        padding: 10px 24px;
+    }
 }
