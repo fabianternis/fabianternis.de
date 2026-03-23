@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fabian Ternis | Web Developer</title>
+    <meta name="description" content="Portfolio of Fabian Ternis, a web developer specializing in Laravel and PHP.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-heading: "Space Grotesk", sans-serif;
+            --font-display: "Playfair Display", serif;
+            --font-mono: "JetBrains Mono", monospace;
+
+            --bg-body: #f8f9fa;
+            --bg-surface: #ffffff;
+            --bg-surface-translucent: rgba(255, 255, 255, 0.85);
+            
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --text-inverted: #ffffff;
+
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --accent: #f59e0b;
+            
+            --border: #e5e7eb;
+            --border-hover: #d1d5db;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+            --nav-height: 70px;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0f172a;
+            --bg-surface: #1e293b;
+            --bg-surface-translucent: rgba(30, 41, 59, 0.85);
+            
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --text-inverted: #0f172a;
+
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --accent: #fbbf24;
+
+            --border: #334155;
+            --border-hover: #475569;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- GLOBAL STYLES --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            transition: background-color var(--transition-smooth), color var(--transition-smooth);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition-fast); }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+        
+        button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+        /* Utility: Selection */
+        ::selection {
+            background-color: var(--primary);
+            color: var(--text-inverted);
+        }
+
+        /* --- LAYOUT --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(1rem, 5vw, 2rem);
+        }
+
+        /* --- NAVIGATION --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: transform var(--transition-smooth), background-color var(--transition-smooth);
+        }
+
+        .navbar-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 clamp(1rem, 5vw, 2rem);
+        }
+
+        .navbar.scrolled {
+            background-color: var(--bg-surface-translucent);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+        .logo:hover { color: var(--primary); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active { color: var(--text-main); }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width var(--transition-fast);
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        .nav-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* --- BUTTONS & CONTROLS --- */
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            background-color: var(--bg-surface);
+            color: var(--text-main);
+            transition: all var(--transition-fast);
+        }
+
+        .icon-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .icon-btn svg { width: 20px; height: 20px; }
+        
+        /* Hide icons based on theme */
+        [data-theme="light"] .icon-moon, [data-theme="light"] .icon-auto,
+        [data-theme="dark"] .icon-sun, [data-theme="dark"] .icon-auto,
+        [data-theme="auto"] .icon-sun, [data-theme="auto"] .icon-moon {
+            display: none;
+        }
+        /* Show relevant icon */
+        [data-theme="light"] .icon-sun, [data-theme="dark"] .icon-moon, [data-theme="auto"] .icon-auto {
+            display: block;
+        }
+
+        .lang-btn {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            background: var(--bg-surface);
+            color: var(--text-main);
+        }
+        .lang-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding-top: calc(var(--nav-height) + 4rem);
+            padding-bottom: 4rem;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-greeting {
+            font-size: clamp(1.5rem, 4vw, 2.25rem);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .wave-hand {
+            display: inline-block;
+            animation: wave 2.5s infinite;
+            transform-origin: 70% 70%;
+        }
+
+        @keyframes wave {
+            0% { transform: rotate(0deg); }
+            10% { transform: rotate(14deg); }
+          20% { transform: rotate(-8deg); }
+          30% { transform: rotate(14deg); }
+          40% { transform: rotate(-4deg); }
+          50% { transform: rotate(10deg); }
+          60% { transform: rotate(0deg); }
+          100% { transform: rotate(0deg); }
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            line-height: 1.1;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .name-span {
+            display: inline-block;
+            background: linear-gradient(120deg, var(--primary) 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: default;
+        }
+        
+        .name-span span { display: inline-block; transition: transform 0.2s; }
+        .name-span span:hover { transform: translateY(-5px) scale(1.1); color: var(--accent); -webkit-text-fill-color: var(--accent); }
+
+        .hero-description {
+            font-size: 1.25rem;
+            max-width: 600px;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        
+        .highlight { color: var(--primary); font-weight: 500; }
+
+        /* --- SITE INFO / BANNER --- */
+        .info-banner {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: linear-gradient(to right, var(--bg-surface), transparent);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .info-banner h2 { font-family: var(--font-display); font-style: italic; font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .info-banner p { color: var(--text-muted); }
+
+        /* --- SOCIALS --- */
+        .social-section { padding: 3rem 0; text-align: center; }
+        .social-title { font-family: var(--font-heading); margin-bottom: 2rem; font-size: 2rem; }
+        .marker { position: relative; white-space: nowrap; }
+        .marker::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background-color: var(--accent);
+            opacity: 0.3;
+            z-index: -1;
+            border-radius: 4px;
+        }
+
+        .social-grid {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-full);
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .social-link svg { width: 24px; height: 24px; fill: currentColor; }
+
+        /* Tooltip */
+        .social-link::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: var(--text-main);
+            color: var(--bg-body);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+        .social-link:hover::before { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* --- PROJECTS --- */
+        .section-header { margin-bottom: 3rem; margin-top: 4rem; }
+        .section-title { font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .section-subtitle { color: var(--text-muted); font-size: 1.1rem; }
+
+        .project-card {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            
+            /* Animation setup */
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        /* Desktop Layout for Projects */
+        @media(min-width: 768px) {
+            .project-card { grid-template-columns: 1fr 1fr; align-items: center; }
+            .project-card:nth-child(even) .project-image { order: -1; }
+            .project-card:nth-child(even) .project-content { order: 1; }
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--border-hover);
+        }
+        
+        /* Reveal Animation Class (added by JS) */
+        .project-card.visible { opacity: 1; transform: translateY(0); }
+
+        .project-image {
+            width: 100%;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .project-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .project-card:hover .project-image img { transform: scale(1.03); }
+
+        .project-content { display: flex; flex-direction: column; height: 100%; }
+        
+        .project-title { font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 0.75rem; }
+        .project-desc { color: var(--text-muted); margin-bottom: 1.5rem; flex-grow: 1; }
+
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .tech-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            background-color: var(--bg-body);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            color: var(--text-main);
+        }
+
+        .project-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--text-inverted);
+            border: 1px solid var(--primary);
+        }
+        .btn-primary:hover { background-color: var(--primary-hover); border-color: var(--primary-hover); transform: translateY(-1px); }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { border-color: var(--text-main); background-color: var(--bg-body); }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            background-color: var(--bg-surface);
+        }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; }
+        .footer-links a { color: var(--text-muted); font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--primary); }
+
+        /* --- UTILS --- */
+        .hidden { display: none !important; }
+        
+        /* Loading Skeletons (kept for visual reference but styled better) */
+        .skeleton-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .skeleton {
+            height: 200px;
+            background: linear-gradient(90deg, var(--bg-body) 25%, var(--border) 50%, var(--bg-body) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    </style>
+  </head>
+  <body data-theme="auto">
+
+    <!-- NAV -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="#" class="logo">fabianternis</a>
+            
+            <ul class="nav-links">
+                <li><a href="#my-work" class="nav-link">Work</a></li>
+                <li><a href="#mtexdotdev" class="nav-link">MTEX.dev</a></li>
+            </ul>
+
+            <div class="nav-controls">
+                <!-- Theme Toggle -->
+                <button id="themeToggle" class="icon-btn" aria-label="Toggle Theme">
+                    <!-- Sun -->
+                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" /></svg>
+                    <!-- Moon -->
+                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" /></svg>
+                    <!-- Auto -->
+                    <svg class="icon-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" /></svg>
+                </button>
+                
+                <!-- Language Toggle -->
+                <button id="languageSwitch" class="lang-btn">DE</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-greeting" data-lang="en">Hey there <span class="wave-hand">👋</span>!</div>
+                <div class="hero-greeting" data-lang="de" class="hidden">Hallo <span class="wave-hand">👋</span>!</div>
+
+                <h1 class="hero-title">
+                    <span data-lang="en">I'm</span><span data-lang="de">Ich bin</span>
+                    <br>
+                    <span class="name-span">
+                        <span>F</span><span>a</span><span>b</span><span>i</span><span>a</span><span>n</span>&nbsp;
+                        <span>T</span><span>e</span><span>r</span><span>n</span><span>i</span><span>s</span>
+                    </span>
+                </h1>
+
+                <p class="hero-description" data-lang="en">
+                    A self-taught <span class="highlight">German</span> web developer specializing in Laravel and PHP.
+                </p>
+                <p class="hero-description hidden" data-lang="de">
+                    Ein selbsterlernter Webentwickler aus <span class="highlight">Rheinland-Pfalz</span>, spezialisiert auf Laravel und PHP.
+                </p>
+            </div>
+        </section>
+
+        <!-- INFO BANNER -->
+        <div class="info-banner">
+            <h2 data-lang="de">Wofür ist diese Seite?</h2>
+            <h2 data-lang="en" class="hidden">What is this site for?</h2>
+            <p data-lang="de">
+                Diese Seite ist für das <span style="color:var(--primary); font-weight:600;">spielweise</span> präsentieren meines Webentwicklungs-könnens.
+            </p>
+            <p data-lang="en" class="hidden">
+                This website is for presenting my Webdevelopment-skills in a <span style="color:var(--primary); font-weight:600;">playful</span> way.
+            </p>
+        </div>
+
+        <!-- SOCIALS -->
+        <section class="social-section">
+            <h2 class="social-title"><span class="marker">Socialmedia</span> & Co.</h2>
+            <div class="social-grid">
+                <!-- Github -->
+                <a href="https://github.com/michaelninder" target="_blank" class="social-link" data-tooltip="GitHub">
+                    <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                <!-- Codepen -->
+                <a href="https://codepen.io/Michaelninder" target="_blank" class="social-link" data-tooltip="CodePen">
+                    <svg viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.246 16.749l-1.572 1.088-1.572-1.088v-2.176l1.572-1.088 1.572 1.088v2.176zm-2.936-3.515l-1.945 1.346v-2.669l1.945-1.346v2.669zm-4.61-6.248l1.945-1.346 1.945 1.346-1.945 1.346-1.945-1.346zm2.665 4.414l-1.945 1.346v-2.669l1.945-1.346v2.669zm-.72 6.349l-1.572-1.088v-2.176l1.572-1.088 1.572 1.088v2.176l-1.572 1.088zm2.144-3.515l-1.945-1.346v-2.669l1.945 1.346v2.669zm-4.61-6.248l1.945-1.346 1.945 1.346-1.945 1.346-1.945-1.346zm2.665 4.414l-1.945 1.346v-2.669l1.945-1.346v2.669zm.72 6.349l-1.572-1.088v-2.176l1.572-1.088 1.572 1.088v2.176l-1.572 1.088zm-2.144-3.515l-1.945-1.346v-2.669l1.945 1.346v2.669z"/></svg>
+                </a>
+                <!-- Youtube -->
+                <a href="https://youtube.com/@michaelninder" target="_blank" class="social-link" data-tooltip="YouTube">
+                    <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                </a>
+                <!-- Instagram -->
+                <a href="https://instagram.com/fabianternis" target="_blank" class="social-link" data-tooltip="Instagram">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="my-work">
+            <div class="section-header">
+                <h2 class="section-title" data-lang="de">Meine Arbeiten</h2>
+                <h2 class="section-title hidden" data-lang="en">My Work</h2>
+            </div>
+
+            <div class="projects-grid">
+                
+                <!-- Project 1 -->
+                <article class="project-card">
+                    <div class="project-image">
+                        <!-- Placeholder Image -->
+                        <img src="https://picsum.photos/seed/fabian/600/400" alt="fabianternis.dev" loading="lazy">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">fabianternis.dev</h3>
+                        <p class="project-desc" data-lang="de">Meine persönliche Webseite, die einen Überblick über meine Projekte und Arbeiten bietet.</p>
+                        <p class="project-desc hidden" data-lang="en">My personal website, providing an overview of my projects and work.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">JS</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://fabianternis.dev" target="_blank" class="btn btn-primary" data-lang="de">Webseite öffnen</a>
+                            <a href="https://fabianternis.dev" target="_blank" class="btn btn-primary hidden" data-lang="en">Visit Website</a>
+                            <a href="#" class="btn btn-secondary">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card">
+                    <div class="project-image">
+                        <img src="https://picsum.photos/seed/louixch/600/400" alt="louixch.de" loading="lazy">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">louixch.de</h3>
+                        <p class="project-desc" data-lang="de">Eine Webseite für Louixch, die seine Projekte und Arbeiten vorstellt.</p>
+                        <p class="project-desc hidden" data-lang="en">A website for Louixch, showcasing his projects and work.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">REST-API</span>
+                            <span class="tech-tag">3D View</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://louixch.de" target="_blank" class="btn btn-primary" data-lang="de">Webseite öffnen</a>
+                            <a href="https://louixch.de" target="_blank" class="btn btn-primary hidden" data-lang="en">Visit Website</a>
+                            <a href="#" class="btn btn-secondary">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project-card">
+                    <div class="project-image">
+                        <img src="https://picsum.photos/seed/fternis/600/400" alt="fternis.de" loading="lazy">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">fternis.de</h3>
+                        <p class="project-desc" data-lang="de">Meine persönliche Webseite, detaillierte Informationen über mich und meine Interessen.</p>
+                        <p class="project-desc hidden" data-lang="en">My personal website and detailed information about me and my interests.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">TailwindCSS</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://fternis.de" target="_blank" class="btn btn-primary" data-lang="de">Webseite öffnen</a>
+                            <a href="https://fternis.de" target="_blank" class="btn btn-primary hidden" data-lang="en">Visit Website</a>
+                            <a href="#" class="btn btn-secondary">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 4 -->
+                <article class="project-card">
+                    <div class="project-image">
+                        <img src="https://picsum.photos/seed/dsc/600/400" alt="dsc.pics" loading="lazy">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">dsc.pics</h3>
+                        <p class="project-desc" data-lang="de">Bilder- und Videohosting-Plattform (bis zu 50MB), inklusive Link-Kürzungsfunktion.</p>
+                        <p class="project-desc hidden" data-lang="en">Image and video hosting platform (up to 50MB), including link-shortening.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Laravel Sanctum</span>
+                            <span class="tech-tag">MySQL</span>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://github.com/EuropeHost/dsc.pics" target="_blank" class="btn btn-secondary">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- MTEX SECTION -->
+        <section id="mtexdotdev">
+            <div class="section-header">
+                <h2 class="section-title">MTEX.dev</h2>
+                <p class="section-subtitle" data-lang="de">Ein Entwickler-Ökosystem fokussiert auf Einfachheit und Open-Source.</p>
+                <p class="section-subtitle hidden" data-lang="en">A developer-first ecosystem focused on simplicity, speed, and open-source.</p>
+            </div>
+            
+            <!-- Skeletons to represent upcoming features -->
+            <div class="skeleton-grid">
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <ul class="footer-links">
+                <li><a href="https://fternis.de/imprint" target="_blank">Impressum</a></li>
+                <li><a href="https://fternis.de/privacy" target="_blank">Datenschutz</a></li>
+            </ul>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">&copy; <span id="year"></span> Fabian Ternis</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 1. YEAR UPDATE ---
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // --- 2. THEME SWITCHER ---
+            const themeToggle = document.getElementById('themeToggle');
+            const themes = ['auto', 'light', 'dark'];
+            let currentThemeIndex = parseInt(localStorage.getItem('themeIndex')) || 0;
+            
+            // Apply saved theme
+            document.body.setAttribute('data-theme', themes[currentThemeIndex]);
+
+            themeToggle.addEventListener('click', () => {
+                currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+                const newTheme = themes[currentThemeIndex];
+                
+                // Animation for button
+                themeToggle.style.transform = 'scale(0.9) rotate(15deg)';
+                setTimeout(() => themeToggle.style.transform = 'scale(1) rotate(0deg)', 200);
+
+                document.body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('themeIndex', currentThemeIndex);
+            });
+
+            // --- 3. LANGUAGE SWITCHER ---
+            const langToggle = document.getElementById('languageSwitch');
+            let currentLang = localStorage.getItem('lang') || 'de';
+            
+            const updateLanguage = (lang) => {
+                // Update Button Text
+                langToggle.textContent = lang === 'de' ? 'EN' : 'DE'; // Shows option to switch TO
+                
+                // Toggle Content Visibility
+                document.querySelectorAll('[data-lang]').forEach(el => {
+                    if (el.getAttribute('data-lang') === lang) {
+                        el.classList.remove('hidden');
+                    } else {
+                        el.classList.add('hidden');
+                    }
+                });
+                
+                // Set HTML lang attr
+                document.documentElement.lang = lang;
+            };
+
+            // Initialize
+            updateLanguage(currentLang);
+
+            langToggle.addEventListener('click', () => {
+                currentLang = currentLang === 'de' ? 'en' : 'de';
+                localStorage.setItem('lang', currentLang);
+                updateLanguage(currentLang);
+            });
+
+            // --- 4. NAVBAR SCROLL EFFECT ---
+            const navbar = document.querySelector('.navbar');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            window.addEventListener('scroll', () => {
+                // Glass effect on scroll
+                if (window.scrollY > 20) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+
+                // Active Link Highlighting
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 150)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // --- 5. PROJECT SCROLL ANIMATION (Intersection Observer) ---
+            // This replaces the jittery manual scroll calculation with a performant fade-up
+            const observerOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Stagger effect based on index in observer
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 100); 
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.project-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // --- 6. NAME ANIMATION (Micro-interaction) ---
+            const nameLetters = document.querySelectorAll('.name-span span');
+            nameLetters.forEach(letter => {
+                letter.addEventListener('mouseenter', () => {
+                    letter.style.color = 'var(--accent)';
+                    letter.style.transform = 'translateY(-5px) scale(1.2)';
+                });
+                letter.addEventListener('mouseleave', () => {
+                    letter.style.color = '';
+                    letter.style.transform = '';
+                });
+            });
+        });
+    </script>
+  </body>
+</html>
