@@ -63,32 +63,27 @@
 .name span {
     display: inline-block;
     cursor: default;
-    transition: color 0.2s ease, transform 0.4s ease;
-    transform: translateY(0) scale(1);
+    transition: color 0.2s ease;
 }
 
 .name span.bounce {
     animation: letter-bounce 0.4s ease forwards;
     color: #f560fa;
-    transition: color 0.2s ease, transform 0.4s ease;
-    transform: translateY(-10px) scale(1.2);
 }
 
 .name span.after-bounce {
     color: inherit;
-    animation: letter-unbounce 0.2s ease;
-    transition: color 0.2s ease, transform 0.4s ease;
-    transform: translateY(0) scale(1);
+    animation: letter-unbounce 0.2s ease forwards;
 }
 
 @keyframes letter-bounce {
-    0%   { transform: translateY(0); }
+    0%   { transform: translateY(0) scale(1); }
     100% { transform: translateY(-10px) scale(1.2); }
 }
 
 @keyframes letter-unbounce {
     0%   { transform: translateY(-10px) scale(1.2); }
-    100% { transform: translateY(0); }
+    100% { transform: translateY(0) scale(1); }
 }
 
 .introduction .location {
