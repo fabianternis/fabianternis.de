@@ -51,7 +51,7 @@ body.scrolled nav {
 .nav-links-container {
     background-color: light-dark(rgba(255, 255, 255, 0.2), rgba(40, 40, 40, 0.2));
     backdrop-filter: blur(-20px);
-    padding: 6px;
+    padding: 5px;
     border-radius: 12px;
     border: 1px solid var(--main-border-color);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -62,29 +62,54 @@ body.scrolled nav {
     box-shadow: 0 0 0 3px light-dark(rgba(59, 90, 246, 0.06), rgba(96, 165, 250, 0.06));
 }
 
+.nav-links-container .nav-link {
+    padding: 2px 3px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
 .nav-link a {
     position: relative;
     font-weight: 500;
-    letter-spacing: -0.01em;
+    font-size: 0.92em;
+    letter-spacing: 0.01em;
     transition:
         color 0.2s ease,
         background-color 0.2s ease,
-        transform 0.15s ease;
+        transform 0.15s ease,
+        opacity 0.2s ease;
+}
+
+/* Dim inactive when something is active */
+.nav-links-container:has(.nav-link.active) .nav-link:not(.active) a {
+    opacity: 0.5;
+}
+
+.nav-links-container:has(.nav-link.active) .nav-link:not(.active) a:hover {
+    opacity: 1;
+}
+
+/* Active pill */
+.nav-link.active a {
+    background-color: light-dark(rgba(255, 255, 255, 0.9), rgba(90, 90, 90, 0.5));
+    color: var(--text-color);
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.12),
+        0 0 0 1px light-dark(rgba(0, 0, 0, 0.07), rgba(255, 255, 255, 0.1));
+    font-weight: 600;
 }
 
 .nav-link a:hover {
     color: var(--link-hover-color);
-    background-color: var(--link-hover-bg);
+    background-color: light-dark(rgba(255,255,255,0.5), rgba(90,90,90,0.3));
     transform: translateY(-1px);
 }
 
-.nav-link.active {
-    background-color: var(--nav-scrolled-background);
-    backdrop-filter: blur(-12px);
-    border-radius: 12px;
-    z-index: 234;
+.nav-link.active a:hover {
+    transform: translateY(-1px);
 }
 
+/* Hover underline — inactive only */
 .nav-link a::after {
     content: '';
     position: absolute;
@@ -94,17 +119,20 @@ body.scrolled nav {
     height: 2px;
     background: linear-gradient(90deg, var(--accent-color), var(--accent-color-reversed));
     border-radius: 2px;
-    transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1), left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 0.22s cubic-bezier(0.4, 0, 0.2, 1), left 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.nav-link:not(.active) a:hover::after {
+    width: 55%;
+    left: 22.5%;
+}
+
+/* Active accent bar at bottom */
 .nav-link.active a::after {
     width: 40%;
     left: 30%;
-}
-
-.nav-link a:hover::after {
-    width: 65%;
-    left: 17.5%;
+    background: var(--accent-color);
+    opacity: 0.6;
 }
 
 /* ── Logo ── */
@@ -191,28 +219,33 @@ a.logo:hover {
 
 #languageSwitch {
     cursor: url('/assets/svg/hand-pointer.svg'), pointer !important;
-    padding: 2px 4px;
-    border: 1px solid var(--border-color);
-    background: var(--bg-secondary);
-    border-radius: 6px;
+    padding: 3px 5px;
+    border: 1px solid var(--main-border-color);
+    background: transparent;
+    border-radius: 8px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease-in-out;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 #languageSwitch:hover {
-    background: var(--bg-hover);
-    border: 0px solid transparent;
-    transform: scale(1.1) rotate(2deg);
+    background: var(--link-hover-bg);
+    border-color: light-dark(rgba(59, 90, 246, 0.35), rgba(96, 165, 250, 0.35));
+    transform: scale(1.08) rotate(2deg);
+    box-shadow: var(--shadow-light);
 }
 
 #languageSwitch img.flag {
-    width: 36px;
+    width: 34px;
     height: auto;
     display: block;
-    border-radius: 2px;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+    border-radius: 3px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.12));
 }
 
 /* Flag flip animation on language switch */

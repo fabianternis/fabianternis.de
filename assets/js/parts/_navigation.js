@@ -29,6 +29,9 @@ export const initNavigation = () => {
             const href = anchor.getAttribute("href");
             if (href.startsWith("#") && href.length > 1) {
                 e.preventDefault();
+                // Immediately reflect active state on click
+                navLinks.forEach(l => l.classList.remove("active"));
+                link.classList.add("active");
                 const target = document.querySelector(href);
                 if (target) {
                     window.scrollTo({ top: target.offsetTop - 80, behavior: "smooth" });
