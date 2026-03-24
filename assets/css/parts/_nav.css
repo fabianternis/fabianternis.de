@@ -1,0 +1,203 @@
+/* ── Navigation ── */
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    margin-bottom: calc(-1.45 * var(--nav-distance-to-top));
+    top: 48px;
+    z-index: 1000;
+    transition:
+        background-color 0.3s ease,
+        backdrop-filter 0.3s ease,
+        border-radius 0.3s ease,
+        padding 0.3s ease,
+        margin 0.3s ease;
+    padding-inline: 0.25rem;
+    padding-block: 1rem;
+}
+
+nav ul {
+    display: flex;
+    gap: clamp(7px, 2vw, 27px);
+    flex-direction: row;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+    font-family: var(--font-body);
+}
+
+body.scrolled nav {
+    background-color: var(--nav-scrolled-background);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding-inline: 16px;
+    margin-inline: calc(var(--main-margin) + 4vw);
+    z-index: 234;
+}
+
+.nav-links-container {
+    background-color: light-dark(rgba(255, 255, 255, 0.2), rgba(40, 40, 40, 0.2));
+    backdrop-filter: blur(-20px);
+    padding: 6px;
+    border-radius: 12px;
+    border: 1px solid var(--main-border-color);
+}
+
+.nav-link a {
+    position: relative;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+.nav-link a:hover {
+    color: var(--link-hover-color);
+}
+
+.nav-link.active {
+    background-color: var(--nav-scrolled-background);
+    backdrop-filter: blur(-12px);
+    border-radius: 12px;
+    z-index: 234;
+}
+
+.nav-link a::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-link.active a::after {
+    width: 30%;
+    left: 35%;
+}
+
+.nav-link a:hover::after {
+    width: 60%;
+    left: 20%;
+}
+
+/* ── Logo ── */
+
+a.logo {
+    font-size: calc(var(--base-size) * 1.35);
+    line-height: 1;
+    font-family: var(--font-display);
+    font-weight: 50;
+    margin: 0;
+    text-decoration: none;
+    color: light-dark(#0a0a0a, var(--text-color));
+    letter-spacing: -0.05em;
+    transition: letter-spacing 0.4s cubic-bezier(0.4, 0, 0.2, 1), font-weight 0.4s ease, -webkit-text-stroke 0.5s ease;
+    display: inline-block;
+}
+
+a.logo:hover {
+    text-decoration: none;
+    background-color: transparent;
+    transform: none;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+    -webkit-text-stroke: .25px var(--accent-color-reversed);
+}
+
+/* ── Theme Toggle ── */
+
+#themeToggle {
+    cursor: url('/assets/svg/hand-pointer.svg'), pointer !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background-color: var(--main-bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--main-border-color);
+    box-shadow: var(--shadow-light);
+    transition: all 0.145s ease-in-out;
+}
+
+#themeToggle:hover {
+    background-color: var(--link-hover-bg);
+    color: var(--link-hover-color);
+    box-shadow: var(--shadow-medium);
+    transform: rotate(-10deg);
+}
+
+#themeToggle:active {
+    transform: rotate(-15deg);
+    scale: 1.125;
+}
+
+#themeToggle svg {
+    width: 22px;
+    height: 22px;
+    display: none;
+    transition: all .145s ease-in;
+}
+
+#themeToggle:hover svg {
+    transition: transform .45s ease-in-out;
+    transform: rotate(17.5deg);
+}
+
+#themeToggle.is-rotating {
+    scale: 1.33;
+}
+
+#themeToggle.is-rotating svg {
+    transform: rotate(375deg);
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
+
+[data-theme="light"] #themeToggle .light-icon { display: block; }
+[data-theme="dark"]  #themeToggle .dark-icon  { display: block; }
+[data-theme="auto"]  #themeToggle .auto-icon  { display: block; }
+
+/* ── Language Switch ── */
+
+#languageSwitch {
+    cursor: url('/assets/svg/hand-pointer.svg'), pointer !important;
+    padding: 2px 4px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+}
+
+#languageSwitch:hover {
+    background: var(--bg-hover);
+    border: 0px solid transparent;
+    transform: scale(1.1) rotate(2deg);
+}
+
+#languageSwitch img.flag {
+    width: 36px;
+    height: auto;
+    display: block;
+    border-radius: 2px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
