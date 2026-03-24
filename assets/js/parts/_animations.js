@@ -33,28 +33,23 @@ export const initNameAnimations = () => {
 export const trackProjectScroll = () => {
     const items = document.querySelectorAll(".project-item");
 
-    const handleScroll = () => {
-        const vh = window.innerHeight;
+    // Set initial off-screen state based on alternating direction
+    items.forEach((item, index) => {
+        const direction = index % 2 === 0 ? 1 : -1;
+        item.style.transform = `translateX(${50 * direction}px)`;
+        item.style.opacity = "0";
+    });
 
-        items.forEach((item, index) => {
-            const rect = item.getBoundingClientRect();
-            const itemCenter = rect.top + rect.height / 2;
-            const distanceFromCenter = itemCenter - vh / 2;
-
-            if (rect.top < vh && rect.bottom > 0) {
-                let progress = distanceFromCenter / (vh / 2);
-                progress = Math.min(Math.max(progress, 0), 1);
-
-                const direction = index % 2 === 0 ? 1 : -1;
-                const translateX = progress * 50 * direction;
-                const opacity = 1 - (progress * 0.35);
-
-                item.style.transform = `translateX(${translateX}px)`;
-                item.style.opacity = opacity;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.style.transform = "translateX(0)";
+                entry.target.style.opacity = "1";
+                // Once visible, stop observing so it never resets
+                observer.unobserve(entry.target);
             }
         });
-    };
+    }, { threshold: 0.15 });
 
-    window.addEventListener("scroll", () => requestAnimationFrame(handleScroll));
-    handleScroll();
+    items.forEach((item) => observer.observe(item));
 };
