@@ -12,18 +12,43 @@ export const applyTheme = (theme) => {
 };
 
 export const executeWithTransition = (callback) => {
-    body.classList.add("content-reload");
+    // Fade-out all language-sensitive elements, swap, then fade back in
+    const targets = document.querySelectorAll("[data-language]");
+    targets.forEach(el => {
+        el.style.transition = "opacity 0.18s ease, transform 0.18s ease";
+        el.style.opacity = "0";
+        el.style.transform = "translateY(6px)";
+    });
     setTimeout(() => {
         callback();
-        setTimeout(() => body.classList.remove("content-reload"), 100);
-    }, 400);
+        // After language swap, fade back in
+        const updated = document.querySelectorAll("[data-language]");
+        updated.forEach(el => {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(-6px)";
+        });
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                updated.forEach(el => {
+                    el.style.opacity = "";
+                    el.style.transform = "";
+                });
+            });
+        });
+    }, 200);
 };
 
 export const applyLanguage = (lang, initNameAnimationsFn) => {
     htmlElement.setAttribute("lang", lang);
     localStorage.setItem("lang", lang);
     if (initNameAnimationsFn) initNameAnimationsFn();
-    langToggle.innerHTML = `<img src="assets/img/flags/${lang}.png" class="flag">`;
+
+    // Flip the flag button
+    langToggle.classList.add("flag-flip");
+    setTimeout(() => {
+        langToggle.innerHTML = `<img src="assets/img/flags/${lang}.png" class="flag">`;
+        langToggle.classList.remove("flag-flip");
+    }, 150);
 };
 
 themeToggle.addEventListener("click", () => {
