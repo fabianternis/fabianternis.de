@@ -72,34 +72,18 @@ a.button:hover .button-icon {
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: transform .4s ease;
-    padding: 120px 150px;
-    margin: -75px -130px;
-    pointer-events: all;
+    padding-block: 2.5rem;
     position: relative;
     z-index: 10;
-}
-
-.socials-container:hover {
-    transform: scale(1.1);
 }
 
 .social-links-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: clamp(5px, 2vw, 50px);
-    margin-top: 24px;
+    gap: 12px;
+    margin-top: 20px;
     justify-content: center;
-    transition: gap .4s ease;
-}
-
-.socials-container:hover .social-links-container {
-    gap: clamp(3px, 1.5vw, 35px);
-}
-
-.social-links-container a:hover {
-    transform: none;
 }
 
 .social-icon-link {
@@ -109,62 +93,81 @@ a.button:hover .button-icon {
     justify-content: center;
     width: 48px;
     height: 48px;
-    border-radius: 50%;
+    border-radius: 14px;
     background-color: var(--background-color);
     border: 1px solid var(--main-border-color);
     color: var(--text-color);
     text-decoration: none;
     transition:
         background-color 0.2s ease,
-        transform 0.1s ease,
-        color 0.2s ease,
-        scale .3s ease-in;
+        border-color 0.2s ease,
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.2s ease;
 }
 
 .social-icon-link img {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     filter: invert(var(--filter-svg-invert, 0%));
-    transition: all 0.3s ease, rotate .275s cubic-bezier(.15, .83, .62, .84);
-    rotate: 0deg;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
 }
 
 .social-icon-link:hover {
-    scale: 1.1;
+    transform: translateY(-4px);
+    border-color: light-dark(rgba(59, 90, 246, 0.4), rgba(96, 165, 250, 0.4));
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.1),
+        0 0 0 3px light-dark(rgba(59, 90, 246, 0.08), rgba(96, 165, 250, 0.08));
+    background-color: var(--link-hover-bg);
 }
 
 .social-icon-link:hover img {
-    scale: 1.33;
-    rotate: -4.5deg;
+    transform: scale(1.2) rotate(-6deg);
+}
+
+.social-icon-link:active {
+    transform: translateY(-1px) scale(0.95);
+}
+
+/* Stagger siblings down slightly when one is hovered */
+.social-links-container:has(.social-icon-link:hover) .social-icon-link:not(:hover) {
+    transform: translateY(2px);
+    opacity: 0.65;
 }
 
 .social-icon-link .tooltip {
     position: absolute;
-    bottom: 110%;
+    bottom: calc(100% + 8px);
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(4px);
     background-color: var(--text-color);
     color: var(--background-color);
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 7px;
+    font-size: 0.75rem;
+    font-weight: 500;
     white-space: nowrap;
     opacity: 0;
-    transition:
-        opacity 0.369s ease,
-        visibility 0.2s ease,
-        rotate 0.33s ease-in-out,
-        transform 0.3s ease-in-out,
-        scale 0.25s ease-in;
     pointer-events: none;
-    rotate: -4.5deg;
+    transition:
+        opacity 0.18s ease,
+        transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Tooltip arrow */
+.social-icon-link .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--text-color);
 }
 
 .social-icon-link:hover .tooltip {
-    rotate: 0deg;
     opacity: 1;
-    transform: translateX(-50%) translateY(-2px);
-    scale: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 /* ── Links Grid ── */
