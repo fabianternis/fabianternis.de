@@ -631,11 +631,110 @@
     transform: translate(2px, -2px);
 }
 
+/* ── Domains layout: counter + examples side by side ── */
+
+.domains-layout {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem;
+    align-items: stretch;
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .domains-layout {
+        grid-template-columns: 1fr;
+    }
+    .domains-counter-card {
+        min-width: unset;
+        width: 100%;
+        padding: 2rem;
+    }
+}
+
+.domains-counter-card {
+    margin-bottom: 0;
+}
+
+.domains-examples-card {
+    background-color: var(--main-bg-color);
+    border: 1px solid var(--main-border-color);
+    border-radius: 20px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+    transition:
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.domains-examples-card:hover {
+    transform: translateY(-4px);
+    border-color: light-dark(rgba(59, 90, 246, 0.35), rgba(96, 165, 250, 0.35));
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 0 0 3px light-dark(rgba(59, 90, 246, 0.06), rgba(96, 165, 250, 0.06));
+}
+
+.domains-examples-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    opacity: 0.45;
+    margin: 0;
+}
+
+.domains-examples-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.domain-chip {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--main-border-color);
+    border-radius: 99px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.2s ease;
+}
+
+a.domain-chip:hover {
+    border-color: light-dark(rgba(59, 90, 246, 0.5), rgba(96, 165, 250, 0.5));
+    background-color: light-dark(rgba(59, 90, 246, 0.05), rgba(96, 165, 250, 0.05));
+    transform: translateY(-2px);
+    color: var(--accent-color);
+}
+
+a.domain-chip:active {
+    transform: translateY(0) scale(0.97);
+}
+
+.domains-examples-grid:has(a.domain-chip:hover) .domain-chip:not(:hover) {
+    opacity: 0.45;
+}
+
+.domain-chip--muted {
+    opacity: 0.4;
+    font-style: italic;
+    border-style: dashed;
+}
+
 .domains-tld-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 .domains-tld {
