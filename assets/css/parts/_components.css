@@ -5,7 +5,7 @@ a.button {
     background-color: var(--button-bg);
     background-image: none;
     border: 1px solid var(--button-border-color);
-    border-radius: 4px;
+    border-radius: 10px;
     box-sizing: border-box;
     color: var(--button-text-color);
     cursor: pointer;
@@ -27,7 +27,11 @@ a.button {
     vertical-align: middle;
     white-space: nowrap;
     text-decoration: none;
-    transition: all 0.1s ease-out;
+    transition:
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease;
 }
 
 a.button:focus {
@@ -37,13 +41,19 @@ a.button:focus {
 
 a.button:hover {
     text-decoration: none;
-    background-color: var(--button-bg);
-    scale: 1.025 1.01;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15), 0 0 0 3px light-dark(rgba(59, 90, 246, 0.12), rgba(96, 165, 250, 0.12));
 }
 
 a.button:active {
     outline: 0;
-    scale: 0.95 0.974;
+    transform: translateY(-1px) scale(0.97);
+    box-shadow: none;
+}
+
+/* Dim sibling buttons when one is hovered */
+.project-links:has(a.button:hover) a.button:not(:hover) {
+    opacity: 0.6;
 }
 
 @media (min-width: 768px) {
@@ -56,12 +66,12 @@ a.button:active {
     width: 1.2em;
     height: 1.2em;
     vertical-align: middle;
-    transition: transform 0.3s, filter 0.3s;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
     filter: light-dark(invert(1), invert(0));
 }
 
 a.button:hover .button-icon {
-    transform: rotate(-12deg) scale(1.1) translateX(-3px);
+    transform: rotate(-12deg) scale(1.15) translateX(-2px);
     filter: light-dark(invert(1) brightness(0) saturate(100%) invert(50%) sepia(1) hue-rotate(200deg),
             invert(0) brightness(0) saturate(100%) invert(50%) sepia(1) hue-rotate(200deg));
 }
@@ -179,8 +189,9 @@ a.button:hover .button-icon {
 
 .link-group {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
     margin-top: 1rem;
 }
 
@@ -188,15 +199,30 @@ a.button:hover .button-icon {
     color: var(--text-color);
     text-decoration: none;
     border: 1px solid var(--main-border-color);
-    padding: 1rem;
-    border-radius: 8px;
-    transition: background-color 0.2s, transform 0.1s;
-    width: fit-content;
+    padding: 0.6rem 1.1rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
 }
 
 .link-group a:hover {
     background-color: var(--link-hover-bg);
-    transform: scale(1.005);
+    border-color: light-dark(rgba(59, 90, 246, 0.4), rgba(96, 165, 250, 0.4));
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08), 0 0 0 3px light-dark(rgba(59, 90, 246, 0.07), rgba(96, 165, 250, 0.07));
+}
+
+.link-group a:active {
+    transform: translateY(-1px) scale(0.97);
+}
+
+.link-group:has(a:hover) a:not(:hover) {
+    opacity: 0.55;
 }
 
 /* ── Marker Highlight ── */

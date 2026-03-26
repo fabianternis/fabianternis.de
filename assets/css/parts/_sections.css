@@ -123,9 +123,19 @@
     margin: clamp(2rem, 5vw, 4rem) 0;
     margin-top: -2rem;
     padding: 2rem;
+    border: 1px solid var(--main-border-color);
     border-left: 4px solid var(--accent-color);
     background: linear-gradient(90deg, var(--skeleton-base) 0%, transparent 100%);
-    border-radius: 0 12px 12px 0;
+    border-radius: 0 14px 14px 0;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.site-info:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07), 0 0 0 3px light-dark(rgba(59, 90, 246, 0.06), rgba(96, 165, 250, 0.06));
+    transform: translateY(-2px);
 }
 
 .site-info h2 {
@@ -212,13 +222,23 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--main-border-color);
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s ease;
+    padding: 1.75rem;
+    border: 1px solid var(--main-border-color);
+    border-radius: 16px;
+    transition:
+        transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        opacity 0.6s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.project-item:hover {
+    border-color: light-dark(rgba(59, 90, 246, 0.35), rgba(96, 165, 250, 0.35));
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 0 0 3px light-dark(rgba(59, 90, 246, 0.06), rgba(96, 165, 250, 0.06));
 }
 
 .project-item:last-child {
-    border-bottom: none;
+    border-bottom: 1px solid var(--main-border-color);
 }
 
 .project-item .project-info {
@@ -247,13 +267,28 @@
 }
 
 .technology-tag {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     padding: 0.25rem 0.75rem;
     background-color: var(--background-color);
     border: 1px solid var(--main-border-color);
     border-radius: 99px;
     font-family: var(--font-mono);
     color: var(--text-color);
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.technology-tag:hover {
+    border-color: light-dark(rgba(59, 90, 246, 0.5), rgba(96, 165, 250, 0.5));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.technology-tags:has(.technology-tag:hover) .technology-tag:not(:hover) {
+    opacity: 0.5;
 }
 
 .project-links {
@@ -332,7 +367,7 @@
     flex-direction: column;
     gap: 0.4rem;
     transition:
-        transform 0.2s ease,
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
         box-shadow 0.2s ease,
         border-color 0.2s ease;
     position: relative;
@@ -344,22 +379,28 @@
     position: absolute;
     inset-block: 0;
     left: 0;
-    width: 20px;
+    width: 3px;
     background-color: var(--accent-color);
     opacity: 0;
     border-radius: 3px 0 0 3px;
-    transition: opacity 0.2s ease, width 0.234s ease;
+    transition: opacity 0.2s ease, width 0.2s ease;
 }
 
 .mtex-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-medium);
-    border-color: var(--accent-color);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 0 0 3px light-dark(rgba(59, 90, 246, 0.07), rgba(96, 165, 250, 0.07));
+    border-color: light-dark(rgba(59, 90, 246, 0.4), rgba(96, 165, 250, 0.4));
 }
 
 .mtex-card:hover::before {
-    opacity: 0.45;
-    width: 25px;
+    opacity: 1;
+    width: 4px;
+}
+
+/* Dim siblings on hover */
+.mtex-grid:has(.mtex-card:hover) .mtex-card:not(:hover) {
+    opacity: 0.6;
+    transform: translateY(1px);
 }
 
 .mtex-card-title {
@@ -388,4 +429,234 @@
     opacity: 0.7;
     margin: 0;
     flex: 1;
+}
+
+/* ── Hero Stats Bar ── */
+
+.hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-block: 2rem 3rem;
+    padding: 1.25rem 1.75rem;
+    background-color: var(--main-bg-color);
+    border: 1px solid var(--main-border-color);
+    border-radius: 16px;
+    width: fit-content;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.hero-stats:hover {
+    border-color: light-dark(rgba(59, 90, 246, 0.3), rgba(96, 165, 250, 0.3));
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+}
+
+.hero-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-inline: 1.5rem;
+    gap: 0.2rem;
+}
+
+.hero-stat-number {
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: var(--accent-color);
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.hero-stat-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-color);
+    opacity: 0.6;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.hero-stat-divider {
+    width: 1px;
+    height: 2.5rem;
+    background-color: var(--main-border-color);
+    flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+    .hero-stats {
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+    }
+    .hero-stat-divider { display: none; }
+}
+
+/* ── Domains Section ── */
+
+#domains {
+    margin-top: 4rem;
+    padding-top: 2rem;
+}
+
+#domains .section-title {
+    width: fit-content;
+}
+
+#domains .section-title::after {
+    content: "";
+    display: block;
+    width: 7.5%;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.4s cubic-bezier(.96, .63, .43, .91);
+}
+
+#domains:hover .section-title::after {
+    width: 88%;
+}
+
+.domains-subtitle {
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    opacity: 0.65;
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.domains-counter-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 3rem 4rem;
+    background: linear-gradient(135deg, var(--main-bg-color) 0%, var(--skeleton-base) 100%);
+    border: 1px solid var(--main-border-color);
+    border-radius: 20px;
+    width: fit-content;
+    min-width: 280px;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition:
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.domains-counter-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, light-dark(rgba(59, 90, 246, 0.07), rgba(96, 165, 250, 0.07)) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.domains-counter-card:hover {
+    transform: translateY(-4px);
+    border-color: light-dark(rgba(59, 90, 246, 0.4), rgba(96, 165, 250, 0.4));
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1), 0 0 0 3px light-dark(rgba(59, 90, 246, 0.07), rgba(96, 165, 250, 0.07));
+}
+
+.domains-counter-inner {
+    display: flex;
+    align-items: baseline;
+    gap: 0.1em;
+    line-height: 1;
+}
+
+.domains-counter-number {
+    font-family: var(--font-heading);
+    font-size: clamp(4rem, 10vw, 7rem);
+    font-weight: 700;
+    color: var(--accent-color);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    tabular-nums: normal;
+    font-variant-numeric: tabular-nums;
+}
+
+.domains-counter-plus {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--accent-color);
+    opacity: 0.6;
+}
+
+.domains-counter-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0;
+    text-align: center;
+}
+
+.domains-counter-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent-color);
+    text-decoration: none;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid light-dark(rgba(59, 90, 246, 0.3), rgba(96, 165, 250, 0.3));
+    border-radius: 99px;
+    margin-top: 0.25rem;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.domains-counter-link:hover {
+    background-color: light-dark(rgba(59, 90, 246, 0.07), rgba(96, 165, 250, 0.07));
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.domains-counter-link svg {
+    transition: transform 0.2s ease;
+}
+
+.domains-counter-link:hover svg {
+    transform: translate(2px, -2px);
+}
+
+.domains-tld-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.domains-tld {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--main-border-color);
+    border-radius: 99px;
+    color: var(--text-color);
+    opacity: 0.7;
+    transition:
+        border-color 0.2s ease,
+        opacity 0.2s ease,
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.domains-tld:hover {
+    opacity: 1;
+    border-color: light-dark(rgba(59, 90, 246, 0.5), rgba(96, 165, 250, 0.5));
+    transform: translateY(-2px);
+}
+
+.domains-tld-grid:has(.domains-tld:hover) .domains-tld:not(:hover) {
+    opacity: 0.35;
 }
