@@ -1,0 +1,305 @@
+/* ── Buttons ── */
+
+a.button {
+    appearance: none;
+    background-color: var(--button-bg);
+    background-image: none;
+    border: 1px solid var(--button-border-color);
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: var(--button-text-color);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-size: var(--base-size);
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0 5px 10px 0;
+    overflow: visible;
+    padding: 12px 40px;
+    text-align: center;
+    text-transform: none;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-decoration: none;
+    transition:
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+a.button:focus {
+    outline: none;
+    text-decoration: none;
+}
+
+a.button:hover {
+    text-decoration: none;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15), 0 0 0 3px light-dark(rgba(59, 90, 246, 0.12), rgba(96, 165, 250, 0.12));
+}
+
+a.button:active {
+    outline: 0;
+    transform: scale(0.97);
+    box-shadow: none;
+}
+
+/* Dim sibling buttons when one is hovered */
+.project-links:has(a.button:hover) a.button:not(:hover) {
+    opacity: 0.6;
+}
+
+@media (min-width: 768px) {
+    a.button {
+        padding: 12px 50px;
+    }
+}
+
+.button-icon {
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: middle;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
+    filter: light-dark(invert(1), invert(0));
+}
+
+a.button:hover .button-icon {
+    transform: rotate(-12deg) scale(1.15) translateX(-2px);
+    filter: light-dark(invert(1) brightness(0) saturate(100%) invert(50%) sepia(1) hue-rotate(200deg),
+            invert(0) brightness(0) saturate(100%) invert(50%) sepia(1) hue-rotate(200deg));
+}
+
+/* ── Socials ── */
+
+.socials-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block: 2.5rem;
+    position: relative;
+    z-index: 10;
+}
+
+.social-links-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.social-icon-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background-color: var(--background-color);
+    border: 1px solid var(--main-border-color);
+    color: var(--text-color);
+    text-decoration: none;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.2s ease;
+}
+
+.social-icon-link img {
+    width: 22px;
+    height: 22px;
+    filter: invert(var(--filter-svg-invert, 0%));
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
+}
+
+.social-icon-link:hover {
+    border-color: light-dark(rgba(59, 90, 246, 0.4), rgba(96, 165, 250, 0.4));
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.1),
+        0 0 0 3px light-dark(rgba(59, 90, 246, 0.08), rgba(96, 165, 250, 0.08));
+    background-color: var(--link-hover-bg);
+}
+
+.social-icon-link:hover img {
+    transform: scale(1.2) rotate(-6deg);
+}
+
+.social-icon-link:active {
+    transform: scale(0.95);
+}
+
+/* Stagger siblings down slightly when one is hovered */
+.social-links-container:has(.social-icon-link:hover) .social-icon-link:not(:hover) {
+    opacity: 0.65;
+}
+
+.social-icon-link .tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background-color: var(--text-color);
+    color: var(--background-color);
+    padding: 5px 10px;
+    border-radius: 7px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        opacity 0.18s ease,
+        transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Tooltip arrow */
+.social-icon-link .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--text-color);
+}
+
+.social-icon-link:hover .tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ── Links Grid ── */
+
+.links-grid {
+    margin-bottom: 3rem;
+    padding-block: 1rem;
+}
+
+.link-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.link-group a {
+    color: var(--text-color);
+    text-decoration: none;
+    border: 1px solid var(--main-border-color);
+    padding: 0.6rem 1.1rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.link-group a:hover {
+    background-color: var(--link-hover-bg);
+    border-color: light-dark(rgba(59, 90, 246, 0.4), rgba(96, 165, 250, 0.4));
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08), 0 0 0 3px light-dark(rgba(59, 90, 246, 0.07), rgba(96, 165, 250, 0.07));
+}
+
+.link-group a:active {
+    transform: scale(0.97);
+}
+
+.link-group:has(a:hover) a:not(:hover) {
+    opacity: 0.55;
+}
+
+/* ── Marker Highlight ── */
+
+span.marker-highlight {
+    position: relative;
+    display: inline-block;
+}
+
+span.marker-highlight:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    transform: translateY(-50%);
+    width: 250px;
+    height: 42px;
+    background-image: url('/assets/svg/marker/aggressive-stroak-sm.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.33;
+    filter: brightness(0) saturate(100%) invert(75%) sepia(90%) hue-rotate(369deg) saturate(300%) contrast(100%);
+    transition-duration: 0.25s;
+}
+
+span.marker-highlight:hover:after {
+    opacity: 0.2;
+    transition-duration: 0.2s;
+}
+
+/* ── Section title underline ── */
+
+#my-work .projects-grid .section-title,
+.link-category .section-title,
+#mtexdotdev .section-title {
+    width: fit-content;
+}
+
+#my-work .projects-grid .section-title::after,
+.link-category .section-title::after,
+#mtexdotdev .section-title::after {
+    content: "";
+    display: block;
+    width: 7.5%;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.4s cubic-bezier(.96, .63, .43, .91);
+}
+
+#my-work:hover .projects-grid .section-title::after,
+.link-category:hover .section-title::after,
+#mtexdotdev:hover .section-title::after {
+    width: 88%;
+}
+
+/* ── Loader ── */
+
+.loading-grid {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.loader-spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid var(--main-border-color);
+    border-bottom-color: var(--accent-color);
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ── Misc ── */
+
+span.hidden {
+    display: none;
+}

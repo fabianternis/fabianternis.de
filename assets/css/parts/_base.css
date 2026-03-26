@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:wght@600;700&family=Space+Grotesk:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap');
+
+:root {
+    --text-color: light-dark(#2c3e50, #e0e0e0);
+    --background-color: light-dark(whitesmoke, #333);
+    --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-heading: "Space Grotesk", "Inter", sans-serif;
+    --font-display: "Playfair Display", serif;
+    --font-mono: "JetBrains Mono", monospace;
+    --main-margin: clamp(0.1rem, 4vw, 3rem);
+    --base-size: clamp(1rem, 2vw, 1.5rem);
+    --main-bg-color: light-dark(#fef9f3, #1a1a1a);
+    --main-border-color: light-dark(#d4d4d4, #404040);
+    --link-hover-color: light-dark(#1a1a1a, #fef9f3);
+    --link-hover-bg: light-dark(#e5e5e5, #525252);
+    --accent-color: light-dark(#3b5af6, #60a5fa);
+    --accent-color-reversed: light-dark(#60a5fa, #3b5af6);
+    --marker-color: light-dark(yellow, #fbbf24);
+    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.12);
+    --nav-distance-to-top: 4rem;
+    --nav-scrolled-background: light-dark(rgba(200, 200, 200, 0.4), rgba(45, 45, 45, 0.4));
+    --skeleton-base: light-dark(#e0e0e0, #2a2a2a);
+    --skeleton-highlight: light-dark(#f5f5f5, #3a3a3a);
+    --filter-svg-invert: 0%;
+    --button-bg: var(--accent-color);
+    --button-text-color: light-dark(#fef9f3, #1a1a1a);
+    --button-border-color: light-dark(#3b82f6, #60a5fa);
+    --button-shadow-color: light-dark(#000, #fff);
+    --button-offset: 4px;
+
+    color-scheme: light dark;
+}
+
+[data-theme="light"] {
+    color-scheme: light;
+    --filter-svg-invert: 0%;
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+    --filter-svg-invert: 100%;
+}
+
+[data-theme="auto"] {
+    color-scheme: light dark;
+    --filter-svg-invert: 75%;
+}
+
+::selection {
+    color: var(--background-color);
+    background-color: var(--text-color);
+}
+
+html,
+body {
+    min-height: calc(100vh - var(--main-margin) * 2);
+    color: var(--text-color);
+    background-color: var(--main-bg-color);
+    font-family: var(--font-body);
+    cursor: url('/assets/svg/arrowhead-rounded-outline.svg'), auto;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    margin: var(--main-margin);
+    font-size: var(--base-size);
+}
+
+h1 {
+    font-family: var(--font-heading);
+    font-size: calc(var(--base-size) * 1.8);
+    margin-bottom: var(--base-size);
+}
+
+h2 {
+    font-family: var(--font-heading);
+    font-size: calc(var(--base-size) * 1.2);
+    margin-top: var(--base-size);
+    margin-bottom: calc(var(--base-size) / 2);
+}
+
+a:hover {
+    cursor: url('/assets/svg/hand-pointer.svg'), pointer;
+}
+
+.prevent-select {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+[data-language] {
+    display: none;
+}
+
+html[lang="en"] [data-language="en"] {
+    display: block;
+}
+
+html[lang="de"] [data-language="de"] {
+    display: block;
+}
+
+html[lang="en"] span[data-language="en"],
+html[lang="de"] span[data-language="de"] {
+    display: inline;
+}
+
+main {
+    z-index: 4;
+    background-color: var(--background-color);
+    margin-top: 20px;
+    margin-inline: var(--main-margin);
+    padding: 32px;
+    padding-top: calc(48px + var(--nav-distance-to-top));
+    border-radius: 24px;
+    cursor: url('/assets/svg/arrowhead-rounded-outline.svg'), auto;
+    flex-grow: 1;
+    overflow-y: auto;
+    position: relative;
+    top: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.top-bg {
+    z-index: 10;
+    height: 44px;
+    width: 100%;
+    background-color: var(--main-bg-color);
+    position: fixed;
+    top: 0;
+}
+
+.top-bg::after {
+    content: "";
+    z-index: 101;
+    height: 51px;
+    left: var(--main-margin);
+    right: var(--main-margin);
+    background-color: var(--background-color);
+    position: fixed;
+    top: 20px;
+    border-radius: 24px 24px 0 0;
+    transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.4s ease;
+    pointer-events: none;
+    will-change: height, border-radius;
+    backface-visibility: hidden;
+}
+
+body.content-reload .top-bg::after {
+    height: 100vh;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+    border-bottom: 4px dashed var(--accent-color);
+    transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.3s ease;
+}
+
+footer {
+    margin-top: 24px;
+    padding: var(--base-size);
+    text-align: center;
+    color: var(--text-color);
+    background-color: var(--main-bg-color);
+    flex-shrink: 0;
+    font-family: var(--font-body);
+}
+
+footer .footer-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+footer .footer-content ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.2s ease;
+}
+
+footer .footer-content ul li a:hover {
+    background-color: var(--link-hover-bg);
+    border-color: var(--main-border-color);
+}
+
+footer .footer-content ul:has(a:hover) li a:not(:hover) {
+    opacity: 0.5;
+}
