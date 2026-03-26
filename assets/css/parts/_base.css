@@ -203,7 +203,6 @@ footer .footer-content ul li a {
 footer .footer-content ul li a:hover {
     background-color: var(--link-hover-bg);
     border-color: var(--main-border-color);
-    transform: translateY(-2px);
 }
 
 footer .footer-content ul:has(a:hover) li a:not(:hover) {

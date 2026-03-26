@@ -76,7 +76,6 @@ body.scrolled nav {
     transition:
         color 0.2s ease,
         background-color 0.2s ease,
-        transform 0.15s ease,
         opacity 0.2s ease;
 }
 
@@ -102,11 +101,10 @@ body.scrolled nav {
 .nav-link a:hover {
     color: var(--link-hover-color);
     background-color: light-dark(rgba(255,255,255,0.5), rgba(90,90,90,0.3));
-    transform: translateY(-1px);
 }
 
 .nav-link.active a:hover {
-    transform: translateY(-1px);
+    opacity: 1;
 }
 
 /* Hover underline — inactive only */

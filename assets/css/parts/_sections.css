@@ -135,7 +135,6 @@
 
 .site-info:hover {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07), 0 0 0 3px light-dark(rgba(59, 90, 246, 0.06), rgba(96, 165, 250, 0.06));
-    transform: translateY(-2px);
 }
 
 .site-info h2 {
@@ -193,7 +192,7 @@
 }
 
 .site-info:hover .cursor-animated {
-    transform: translateY(-2px) rotate(-1deg);
+    transform: rotate(-1deg);
     color: #f560fa;
 }
 
@@ -283,7 +282,6 @@
 
 .technology-tag:hover {
     border-color: light-dark(rgba(59, 90, 246, 0.5), rgba(96, 165, 250, 0.5));
-    transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
@@ -387,7 +385,6 @@
 }
 
 .mtex-card:hover {
-    transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 0 0 3px light-dark(rgba(59, 90, 246, 0.07), rgba(96, 165, 250, 0.07));
     border-color: light-dark(rgba(59, 90, 246, 0.4), rgba(96, 165, 250, 0.4));
 }
@@ -400,7 +397,6 @@
 /* Dim siblings on hover */
 .mtex-grid:has(.mtex-card:hover) .mtex-card:not(:hover) {
     opacity: 0.6;
-    transform: translateY(1px);
 }
 
 .mtex-card-title {
@@ -558,7 +554,6 @@
 }
 
 .domains-counter-card:hover {
-    transform: translateY(-4px);
     border-color: light-dark(rgba(59, 90, 246, 0.4), rgba(96, 165, 250, 0.4));
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1), 0 0 0 3px light-dark(rgba(59, 90, 246, 0.07), rgba(96, 165, 250, 0.07));
 }
@@ -620,7 +615,6 @@
 .domains-counter-link:hover {
     background-color: light-dark(rgba(59, 90, 246, 0.07), rgba(96, 165, 250, 0.07));
     border-color: var(--accent-color);
-    transform: translateY(-2px);
 }
 
 .domains-counter-link svg {
@@ -673,7 +667,6 @@
 }
 
 .domains-examples-card:hover {
-    transform: translateY(-4px);
     border-color: light-dark(rgba(59, 90, 246, 0.35), rgba(96, 165, 250, 0.35));
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 0 0 3px light-dark(rgba(59, 90, 246, 0.06), rgba(96, 165, 250, 0.06));
 }
@@ -712,12 +705,11 @@
 a.domain-chip:hover {
     border-color: light-dark(rgba(59, 90, 246, 0.5), rgba(96, 165, 250, 0.5));
     background-color: light-dark(rgba(59, 90, 246, 0.05), rgba(96, 165, 250, 0.05));
-    transform: translateY(-2px);
     color: var(--accent-color);
 }
 
 a.domain-chip:active {
-    transform: translateY(0) scale(0.97);
+    transform: scale(0.97);
 }
 
 .domains-examples-grid:has(a.domain-chip:hover) .domain-chip:not(:hover) {
@@ -755,7 +747,6 @@ a.domain-chip:active {
 .domains-tld:hover {
     opacity: 1;
     border-color: light-dark(rgba(59, 90, 246, 0.5), rgba(96, 165, 250, 0.5));
-    transform: translateY(-2px);
 }
 
 .domains-tld-grid:has(.domains-tld:hover) .domains-tld:not(:hover) {
