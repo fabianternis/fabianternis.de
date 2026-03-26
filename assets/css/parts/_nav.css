@@ -257,3 +257,68 @@ a.logo:hover {
 [data-language] {
     transition: opacity 0.22s ease, transform 0.22s ease;
 }
+
+/* ── Mobile Nav ── */
+
+@media (max-width: 600px) {
+    nav {
+        top: 36px;
+        padding-block: 0.6rem;
+        flex-wrap: nowrap;
+        gap: 6px;
+    }
+
+    body.scrolled nav {
+        margin-inline: 0.25rem;
+        padding-inline: 10px;
+        border-radius: 10px;
+    }
+
+    a.logo {
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+
+    .nav-links-container {
+        padding: 3px;
+        border-radius: 10px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .nav-links-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Tighter nav items on mobile */
+    .nav-links-container .nav-link {
+        padding: 1px 2px;
+    }
+
+    nav ul li a {
+        padding: 6px 8px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+
+    /* Right-side controls */
+    .nav-links {
+        gap: 6px;
+        flex-shrink: 0;
+    }
+
+    #themeToggle {
+        width: 28px;
+        height: 28px;
+    }
+
+    #themeToggle svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    #languageSwitch img.flag {
+        width: 26px;
+    }
+}
