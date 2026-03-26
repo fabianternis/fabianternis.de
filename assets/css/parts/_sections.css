@@ -436,13 +436,15 @@
 .hero-stats {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0;
-    margin-block: 2rem 3rem;
-    padding: 1.25rem 1.75rem;
+    margin-block: 2.5rem 3rem;
+    padding: 1rem 2rem;
     background-color: var(--main-bg-color);
     border: 1px solid var(--main-border-color);
     border-radius: 16px;
     width: fit-content;
+    margin-inline: auto;
     transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
@@ -455,21 +457,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-inline: 1.5rem;
-    gap: 0.2rem;
+    padding-inline: clamp(1rem, 3vw, 2rem);
+    gap: 0.3rem;
 }
 
 .hero-stat-number {
     font-family: var(--font-heading);
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
     font-weight: 700;
     color: var(--accent-color);
     line-height: 1;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
 }
 
 .hero-stat-label {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-weight: 500;
     color: var(--text-color);
     opacity: 0.6;
@@ -480,7 +482,7 @@
 
 .hero-stat-divider {
     width: 1px;
-    height: 2.5rem;
+    height: 2rem;
     background-color: var(--main-border-color);
     flex-shrink: 0;
 }
