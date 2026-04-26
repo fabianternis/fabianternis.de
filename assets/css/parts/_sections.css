@@ -860,3 +860,39 @@ a.domain-chip:active {
         gap: 0.4rem;
     }
 }
+
+
+
+/* Container for the images */
+.photography-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.photography-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.photography-item h2 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+/* The Magic Trick for Squares */
+.photography-item img {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Forces the image to be a square */
+  object-fit: cover;    /* Crops the image to fill the square without stretching */
+  border-radius: 8px;   /* Optional: rounded corners look great for galleries */
+  transition: transform 0.3s ease; /* Smooth hover effect */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Optional: Slight zoom effect when hovering */
+.photography-item img:hover {
+  transform: scale(1.02);
+  cursor: pointer;
+}
