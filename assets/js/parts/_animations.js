@@ -33,25 +33,70 @@ export const initNameAnimations = () => {
 export const trackProjectScroll = () => {
     const items = document.querySelectorAll(".project-item");
 
-    // Set initial off-screen state based on alternating direction
-    items.forEach((item, index) => {
-        const direction = index % 2 === 0 ? 1 : -1;
-        item.style.transform = `translateX(${50 * direction}px)`;
+    // Entrance animation
+    items.forEach((item) => {
+        item.style.transform = "translateY(40px)";
         item.style.opacity = "0";
+        item.style.transition = "transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease";
     });
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                entry.target.style.transform = "translateX(0)";
+                entry.target.style.transform = "translateY(0)";
                 entry.target.style.opacity = "1";
-                // Once visible, stop observing so it never resets
-                observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.1 });
 
     items.forEach((item) => observer.observe(item));
+
+    // Active state tracking
+    const activeObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-active");
+            } else {
+                entry.target.classList.remove("is-active");
+            }
+        });
+    }, { threshold: 0.25 });
+
+    items.forEach((item) => activeObserver.observe(item));
+
+    // Automatic Image Scrolling linked to Page Scroll
+    const syncInternalScroll = () => {
+        if (window.innerWidth < 1000) return; // Only on desktop
+
+        items.forEach((item) => {
+            const wrapper = item.querySelector(".image-wrapper");
+            const img = item.querySelector(".project-image");
+            if (!wrapper || !img) return;
+
+            const rect = item.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            // Only update if item is visible
+            if (rect.top < windowHeight && rect.bottom > 0) {
+                // Calculate progress: 0 when item enters from bottom, 1 when it leaves at top
+                // We use a slightly tighter range for better "magic" feel
+                const start = windowHeight;
+                const end = -rect.height;
+                let progress = (rect.top - start) / (end - start);
+                
+                // Clamp progress
+                progress = Math.max(0, Math.min(1, progress));
+
+                const scrollRange = img.scrollHeight - wrapper.clientHeight;
+                // Smoothly set scrollTop (using direct assignment for performance, CSS can handle smooth transitions if needed)
+                wrapper.scrollTop = progress * scrollRange;
+            }
+        });
+    };
+
+    window.addEventListener("scroll", syncInternalScroll, { passive: true });
+    window.addEventListener("resize", syncInternalScroll);
+    syncInternalScroll(); // Initial call
 };
 
 export const initCounters = () => {
