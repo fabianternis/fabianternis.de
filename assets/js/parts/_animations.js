@@ -51,7 +51,7 @@ export const trackProjectScroll = () => {
 
     items.forEach((item) => observer.observe(item));
 
-    // Active state tracking
+    // Active state tracking (highlight card when in view)
     const activeObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
@@ -60,43 +60,9 @@ export const trackProjectScroll = () => {
                 entry.target.classList.remove("is-active");
             }
         });
-    }, { threshold: 0.25 });
+    }, { threshold: 0.1 }); // Lower threshold for long sticky cards
 
     items.forEach((item) => activeObserver.observe(item));
-
-    // Automatic Image Scrolling linked to Page Scroll
-    const syncInternalScroll = () => {
-        if (window.innerWidth < 1000) return; // Only on desktop
-
-        items.forEach((item) => {
-            const wrapper = item.querySelector(".image-wrapper");
-            const img = item.querySelector(".project-image");
-            if (!wrapper || !img) return;
-
-            const rect = item.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-
-            // Only update if item is visible
-            if (rect.top < windowHeight && rect.bottom > 0) {
-                // Calculate progress: 0 when item enters from bottom, 1 when it leaves at top
-                // We use a slightly tighter range for better "magic" feel
-                const start = windowHeight;
-                const end = -rect.height;
-                let progress = (rect.top - start) / (end - start);
-                
-                // Clamp progress
-                progress = Math.max(0, Math.min(1, progress));
-
-                const scrollRange = img.scrollHeight - wrapper.clientHeight;
-                // Smoothly set scrollTop (using direct assignment for performance, CSS can handle smooth transitions if needed)
-                wrapper.scrollTop = progress * scrollRange;
-            }
-        });
-    };
-
-    window.addEventListener("scroll", syncInternalScroll, { passive: true });
-    window.addEventListener("resize", syncInternalScroll);
-    syncInternalScroll(); // Initial call
 };
 
 export const initCounters = () => {
@@ -129,4 +95,189 @@ export const initCounters = () => {
     }, { threshold: 0.5 });
 
     counters.forEach((el) => observer.observe(el));
+};
+
+export const initDomainsAPI = () => {
+    const counterEl = document.getElementById("domainsCounter");
+    const gridEl = document.getElementById("domainsGrid");
+    const tldGridEl = document.getElementById("tldGrid");
+    const searchInput = document.getElementById("domainSearch");
+    
+    if (!gridEl || !tldGridEl) return;
+
+    let allDomains = [];
+    let currentTldFilter = null;
+
+    const renderDomains = (domains) => {
+        if (!domains || domains.length === 0) {
+            gridEl.innerHTML = '<div class="domains-empty-state">No domains found matching your criteria.</div>';
+            return;
+        }
+
+        const html = domains.map(d => {
+            const url = d.url || `https://${d.name}.${d.tld}`;
+            const isMuted = d.status !== 'active';
+            return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="domain-chip ${isMuted ? 'domain-chip--muted' : ''}" title="${d.name}.${d.tld} (${d.status})">${d.name}.${d.tld}</a>`;
+        }).join('');
+
+        gridEl.innerHTML = html;
+    };
+
+    const filterDomains = () => {
+        const query = (searchInput?.value || "").toLowerCase().trim();
+        let filtered = allDomains;
+
+        if (currentTldFilter) {
+            filtered = filtered.filter(d => d.tld === currentTldFilter);
+        }
+
+        if (query) {
+            filtered = filtered.filter(d => `${d.name}.${d.tld}`.toLowerCase().includes(query));
+        }
+
+        renderDomains(filtered.slice(0, 30)); // Limit initial display for perf
+    };
+
+    // 1. Fetch Stats
+    fetch("https://dnbx.de/api/stats")
+        .then(res => res.json())
+        .then(data => {
+            if (data?.status === "success" && data.data?.total_managed && counterEl) {
+                counterEl.dataset.target = data.data.total_managed;
+                // Re-init counter animation for this specific element
+                initCounters();
+            }
+        })
+        .catch(err => console.error("Error fetching DNBX stats:", err));
+
+    // 2. Fetch TLDs
+    fetch("https://dnbx.de/api/tlds")
+        .then(res => res.json())
+        .then(data => {
+            if (data?.status === "success" && data.data) {
+                const tlds = Object.keys(data.data).sort((a, b) => data.data[b].total - data.data[a].total);
+                
+                const html = tlds.map(tld => {
+                    const count = data.data[tld].total;
+                    return `<span class="domains-tld" data-tld="${tld}">.${tld} <span style="opacity:0.5;font-size:0.8em">(${count})</span></span>`;
+                }).join('');
+                
+                tldGridEl.innerHTML = html;
+
+                // Add click listeners to TLDs
+                tldGridEl.querySelectorAll('.domains-tld').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const tld = el.dataset.tld;
+                        
+                        // Toggle active state
+                        if (currentTldFilter === tld) {
+                            currentTldFilter = null;
+                            tldGridEl.querySelectorAll('.domains-tld').forEach(t => t.style.borderColor = '');
+                        } else {
+                            currentTldFilter = tld;
+                            tldGridEl.querySelectorAll('.domains-tld').forEach(t => t.style.borderColor = '');
+                            el.style.borderColor = 'var(--accent-color)';
+                        }
+                        filterDomains();
+                    });
+                    el.style.cursor = 'pointer';
+                });
+            }
+        })
+        .catch(err => console.error("Error fetching DNBX TLDs:", err));
+
+    // 3. Fetch Domains
+    fetch("https://dnbx.de/api/domains?limit=1000")
+        .then(res => res.json())
+        .then(data => {
+            if (data?.status === "success" && data.data) {
+                allDomains = data.data;
+                // Randomize slightly for "explore" feel, but keep active mostly near top
+                allDomains.sort((a, b) => {
+                   if (a.status === 'active' && b.status !== 'active') return -1;
+                   if (a.status !== 'active' && b.status === 'active') return 1;
+                   return Math.random() - 0.5;
+                });
+                filterDomains();
+            } else {
+                 gridEl.innerHTML = '<div class="domains-empty-state">Failed to load domains.</div>';
+            }
+        })
+        .catch(err => {
+            console.error("Error fetching DNBX domains:", err);
+            gridEl.innerHTML = '<div class="domains-empty-state">Could not connect to domain service.</div>';
+        });
+
+    if (searchInput) {
+        searchInput.addEventListener('input', filterDomains);
+    }
+};
+
+export const initLightbox = () => {
+    const images = Array.from(document.querySelectorAll('.photography-item img'));
+    const lightbox = document.getElementById('photographyLightbox');
+    
+    if (!lightbox || images.length === 0) return;
+
+    const lbImage = lightbox.querySelector('.lightbox-image');
+    const lbCaption = lightbox.querySelector('.lightbox-caption');
+    const lbClose = lightbox.querySelector('.lightbox-close');
+    const lbPrev = lightbox.querySelector('.lightbox-prev');
+    const lbNext = lightbox.querySelector('.lightbox-next');
+
+    let currentIndex = 0;
+    let isLightboxOpen = false;
+
+    const updateLightbox = (index) => {
+        if (index < 0) index = images.length - 1;
+        if (index >= images.length) index = 0;
+        currentIndex = index;
+
+        const imgEl = images[currentIndex];
+        lbImage.src = imgEl.src;
+        
+        // Use German alt text if currently on German language, else default alt
+        const lang = document.documentElement.getAttribute("lang") || "en";
+        const caption = lang === 'de' && imgEl.dataset.altDe ? imgEl.dataset.altDe : imgEl.alt;
+        lbCaption.textContent = caption || '';
+    };
+
+    const openLightbox = (index) => {
+        isLightboxOpen = true;
+        updateLightbox(index);
+        lightbox.style.display = 'flex';
+        // Small timeout to allow display:flex to apply before setting opacity for transition
+        setTimeout(() => lightbox.classList.add('active'), 10);
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    };
+
+    const closeLightbox = () => {
+        isLightboxOpen = false;
+        lightbox.classList.remove('active');
+        setTimeout(() => {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 300); // match CSS transition duration
+    };
+
+    images.forEach((img, idx) => {
+        img.addEventListener('click', () => openLightbox(idx));
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', () => updateLightbox(currentIndex - 1));
+    lbNext.addEventListener('click', () => updateLightbox(currentIndex + 1));
+    
+    // Close on overlay click
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (!isLightboxOpen) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') updateLightbox(currentIndex - 1);
+        if (e.key === 'ArrowRight') updateLightbox(currentIndex + 1);
+    });
 };
