@@ -241,3 +241,12 @@ footer .footer-content ul:has(a:hover) li a:not(:hover) {
         --main-margin: 0.4rem;
     }
 }
+
+/* Hide default scrollbar */
+::-webkit-scrollbar {
+    display: none;
+}
+* {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
