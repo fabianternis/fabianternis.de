@@ -303,3 +303,38 @@ span.marker-highlight:hover:after {
 span.hidden {
     display: none;
 }
+
+/* ── Mobile ── */
+
+@media (max-width: 600px) {
+    a.button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        border-radius: 8px;
+    }
+
+    .social-icon-link {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+    }
+
+    .social-icon-link img {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Hide tooltips on touch — they don't work well */
+    .social-icon-link .tooltip {
+        display: none;
+    }
+
+    .link-group {
+        gap: 0.5rem;
+    }
+
+    .link-group a {
+        padding: 0.5rem 0.85rem;
+        font-size: 0.85rem;
+    }
+}

@@ -208,3 +208,36 @@ footer .footer-content ul li a:hover {
 footer .footer-content ul:has(a:hover) li a:not(:hover) {
     opacity: 0.5;
 }
+
+/* ── Mobile ── */
+
+@media (max-width: 600px) {
+    body {
+        margin: 0.5rem;
+        font-size: 1rem;
+    }
+
+    main {
+        padding: 16px;
+        padding-top: calc(36px + var(--nav-distance-to-top));
+        border-radius: 16px;
+        margin-inline: 0.5rem;
+        margin-top: 12px;
+    }
+
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.15rem; }
+
+    footer .footer-content ul {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --nav-distance-to-top: 3rem;
+        --main-margin: 0.4rem;
+    }
+}
