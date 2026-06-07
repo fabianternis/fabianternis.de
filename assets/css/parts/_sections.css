@@ -226,6 +226,7 @@
     border: 1px solid var(--main-border-color);
     border-radius: 24px;
     background-color: var(--main-bg-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
     transition:
         transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
         border-color 0.4s ease,
@@ -237,7 +238,7 @@
 
 .project-item:hover {
     border-color: var(--accent-color);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
 }
 
 .project-item .project-info {
@@ -356,7 +357,7 @@
     /* Active state refinements */
     .project-item.is-active {
         border-color: var(--accent-color);
-        box-shadow: 0 60px 120px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 40px 100px rgba(0, 0, 0, 0.15);
         transform: scale(1.01);
     }
 
@@ -1051,7 +1052,7 @@ a.domain-chip:active {
     max-width: 90%;
     max-height: 80vh;
     border-radius: 8px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
     object-fit: contain;
 }
 
@@ -1061,7 +1062,8 @@ a.domain-chip:active {
     position: absolute;
     background: rgba(255, 255, 255, 0.1);
     color: white;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
     cursor: pointer;
     font-size: 2rem;
     padding: 1rem;
@@ -1076,8 +1078,8 @@ a.domain-chip:active {
 .lightbox-close:hover,
 .lightbox-prev:hover,
 .lightbox-next:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.08);
 }
 
 .lightbox-close {
