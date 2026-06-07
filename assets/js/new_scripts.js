@@ -1,6 +1,7 @@
 import { getStoredTheme, getStoredLang, applyTheme, applyLanguage, executeWithTransition } from './parts/_theme.js';
 import { initNavigation } from './parts/_navigation.js';
 import { initNameAnimations, trackProjectScroll, initCounters, initDomainsAPI, initLightbox } from './parts/_animations.js';
+import { initModals } from './parts/_modals.js';
 
 const langToggle = document.getElementById("languageSwitch");
 
@@ -18,4 +19,5 @@ document.addEventListener("DOMContentLoaded", () => {
     initCounters();
     initDomainsAPI();
     initLightbox();
+    initModals();
 });

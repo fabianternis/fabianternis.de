@@ -491,12 +491,62 @@
     <footer>
       <div class="footer-content">
         <ul>
-          <li><a href="https://fternis.de/imprint">Impressum</a></li>
-          <li><a href="https://fternis.de/privacy">Datenschutz</a></li>
+          <li><a href="#" id="imprint-link">Impressum</a></li>
+          <li><a href="#" id="privacy-link">Datenschutz</a></li>
           <li><a href="#">Kontakt</a></li>
         </ul>
       </div>
     </footer>
+
+    <!-- Modals -->
+    <div id="imprintModal" class="modal-overlay" aria-hidden="true" style="display: none;">
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close Modal">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <div class="modal-body">
+          <h2>Impressum / Imprint</h2>
+          <p>
+            Fabian Ternis<br>
+            Alzeyer Str. 97<br>
+            67592 Flörsheim-Dalsheim<br>
+            Rheinland-Pfalz Germany
+          </p>
+          <p>
+            <canvas class="email-canvas" data-e1="f.ternis" data-e2="xpsystems.eu" width="300" height="20"></canvas><br>
+            <canvas class="email-canvas" data-e1="fabian" data-e2="ternismail.de" width="300" height="20"></canvas>
+          </p>
+          <p>
+            Domain by dnbx.de ("Domain Box") (dnbx.de is a Fabian Ternis Project)<br>
+            Webdesign and webdevelopment by ternis-edv.de and xpsystems.eu (by Fabian Ternis)
+          </p>
+          <p>
+            The page may be hosted on "GitHub Pages" (by Microsoft)
+          </p>
+          <p>
+            we do NOT collect Cookies
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="privacyModal" class="modal-overlay" aria-hidden="true" style="display: none;">
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close Modal">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <div class="modal-body">
+          <h2>Datenschutz / Privacy</h2>
+          <p>
+            We do NOT collect Cookies.
+          </p>
+          <p>
+            The page may be hosted on "GitHub Pages" (by Microsoft). Please refer to their privacy policy for details on any server logs or data collection they may perform.
+          </p>
+        </div>
+      </div>
+    </div>
+
     <script type="module" src="assets/js/new_scripts.js"></script>
   </body>
 </html>
