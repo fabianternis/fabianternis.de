@@ -42,7 +42,6 @@ export async function initStatusAPI() {
         
         const groups = ['all', ...new Set(services.map(s => s.group))];
         
-        // Only re-render if groups changed or empty
         if (filterContainer.children.length > 1 && filterContainer.dataset.groups === groups.join(',')) return;
         filterContainer.dataset.groups = groups.join(',');
 
@@ -89,46 +88,75 @@ export async function initStatusAPI() {
     function updateHistory(history) {
         if (!historyContainer || !history.entries) return;
 
-        // Take last 7 entries for a compact view
-        const recentHistory = history.entries.slice(-7).reverse();
+        // Determine how many days to show based on width
+        const width = window.innerWidth;
+        const daysToShow = width < 600 ? 30 : 60;
+        
+        // Group entries by day
+        const dailyStatus = {};
+        const now = new Date();
+        
+        for (let i = 0; i < daysToShow; i++) {
+            const d = new Date(now);
+            d.setDate(d.getDate() - i);
+            const key = d.toISOString().split('T')[0];
+            dailyStatus[key] = 'operational'; // Default
+        }
+
+        history.entries.forEach(entry => {
+            const dateStr = new Date(entry.ts * 1000).toISOString().split('T')[0];
+            if (dailyStatus.hasOwnProperty(dateStr)) {
+                // If any service is down/degraded, upgrade the day's severity
+                const isDown = Object.values(entry.services).some(s => s.status === 'down');
+                const isDegraded = Object.values(entry.services).some(s => s.status === 'degraded');
+                
+                if (isDown) {
+                    dailyStatus[dateStr] = 'down';
+                } else if (isDegraded && dailyStatus[dateStr] !== 'down') {
+                    dailyStatus[dateStr] = 'degraded';
+                }
+            }
+        });
+
+        const sortedKeys = Object.keys(dailyStatus).sort().reverse();
+        const displayKeys = sortedKeys.slice(0, daysToShow).reverse();
 
         historyContainer.innerHTML = `
-            <h3 class="status-history-title">
-                <span data-language="en">Incidents & Maintenance</span>
-                <span data-language="de">Vorfälle & Wartung</span>
-            </h3>
-            <div class="status-history-timeline">
-                ${recentHistory.map(entry => {
-                    const date = new Date(entry.ts * 1000);
-                    const dateStr = date.toLocaleDateString([], { day: '2-digit', month: '2-digit' });
+            <div class="status-history-header">
+                <h3 class="status-history-title">
+                    <span data-language="en">Availability</span>
+                    <span data-language="de">Verfügbarkeit</span>
+                </h3>
+                <div class="status-history-legend">
+                    <span class="legend-item"><span class="dot status-operational"></span> Operational</span>
+                    <span class="legend-item"><span class="dot status-degraded"></span> Degraded</span>
+                    <span class="legend-item"><span class="dot status-down"></span> Down</span>
+                </div>
+            </div>
+            <div class="status-timebar">
+                ${displayKeys.map(key => {
+                    const status = dailyStatus[key];
+                    const date = new Date(key);
+                    const formattedDate = date.toLocaleDateString([], { day: '2-digit', month: 'short' });
                     
-                    // Simple check: if any service in entry is down
-                    const isDown = Object.values(entry.services).some(s => s.status === 'down');
-                    const isDegraded = Object.values(entry.services).some(s => s.status === 'degraded');
-                    const statusClass = isDown ? 'down' : (isDegraded ? 'degraded' : 'operational');
+                    let statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
+                    if (document.documentElement.getAttribute('lang') === 'de') {
+                        statusLabel = status === 'operational' ? 'Betriebsbereit' : (status === 'down' ? 'Ausfall' : 'Eingeschränkt');
+                    }
 
                     return `
-                        <div class="status-history-item status-${statusClass}">
-                            <div class="history-date">${dateStr}</div>
-                            <div class="history-marker"></div>
-                            <div class="history-content">
-                                <span class="history-status-text">
-                                    ${statusClass === 'operational' ? 
-                                        '<span data-language="en">No incidents reported</span><span data-language="de">Keine Vorfälle gemeldet</span>' : 
-                                        (statusClass === 'down' ? 
-                                            '<span data-language="en">Service Outage</span><span data-language="de">Serviceausfall</span>' : 
-                                            '<span data-language="en">Degraded Performance</span><span data-language="de">Eingeschränkte Leistung</span>')}
-                                </span>
-                            </div>
-                        </div>
+                        <div class="timebar-day status-${status}" title="${formattedDate}: ${statusLabel}"></div>
                     `;
                 }).join('')}
+            </div>
+            <div class="status-timebar-labels">
+                <span>${daysToShow} days ago</span>
+                <span>Today</span>
             </div>
         `;
     }
 
     function updateUI(status, services) {
-        // Update Overall Status
         if (overallElement) {
             const overallStatus = status.overall || 'unknown';
             overallElement.className = `status-overall status-${overallStatus}`;
@@ -152,7 +180,6 @@ export async function initStatusAPI() {
 
         renderServices();
 
-        // Update Last Checked
         if (lastUpdateElement) {
             const date = new Date(status.checked_at * 1000);
             const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -174,4 +201,12 @@ export async function initStatusAPI() {
 
     fetchStatus();
     setInterval(fetchStatus, 60000);
+    
+    // Handle responsive timebar resize
+    window.addEventListener('resize', () => {
+        // Redraw history if container exists
+        if (historyContainer.innerHTML.trim() !== "") {
+            fetchStatus(); // Re-fetch or just re-render from cache if we stored it
+        }
+    });
 }

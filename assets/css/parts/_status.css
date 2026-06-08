@@ -188,71 +188,87 @@
     color: var(--accent-color);
 }
 
-/* History Section */
+/* History / Timebar Section */
 .status-history {
     margin-top: 3rem;
-    padding: 2rem;
+    padding: 2.5rem;
     background-color: light-dark(rgba(0,0,0,0.02), rgba(255,255,255,0.02));
     border: 1px solid var(--main-border-color);
     border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.status-history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .status-history-title {
     font-size: 1.25rem;
     font-weight: 700;
-    margin-bottom: 2rem;
+    margin: 0;
     font-family: var(--font-heading);
 }
 
-.status-history-timeline {
+.status-history-legend {
     display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-
-.status-history-item {
-    display: grid;
-    grid-template-columns: 80px 30px 1fr;
-    align-items: center;
-    min-height: 60px;
-}
-
-.history-date {
-    font-size: 0.9rem;
+    gap: 1.5rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    opacity: 0.5;
-    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.6;
 }
 
-.history-marker {
-    width: 12px;
-    height: 12px;
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-item .dot {
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background-color: var(--main-border-color);
-    position: relative;
-    z-index: 2;
 }
 
-.status-history-item:not(:last-child) .history-marker::after {
-    content: '';
-    position: absolute;
-    top: 12px;
-    left: 50%;
-    width: 2px;
-    height: 48px;
-    background-color: var(--main-border-color);
-    transform: translateX(-50%);
-    opacity: 0.3;
+.dot.status-operational { background-color: #10b981; }
+.dot.status-degraded { background-color: #f59e0b; }
+.dot.status-down { background-color: #ef4444; }
+
+.status-timebar {
+    display: flex;
+    gap: 4px;
+    height: 40px;
 }
 
-.status-operational .history-marker { background-color: #10b981; }
-.status-degraded .history-marker { background-color: #f59e0b; }
-.status-down .history-marker { background-color: #ef4444; }
+.timebar-day {
+    flex: 1;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
 
-.history-content {
-    padding-left: 1rem;
-    font-size: 0.95rem;
+.timebar-day:hover {
+    transform: scaleY(1.2);
+    filter: brightness(1.1);
+}
+
+.timebar-day.status-operational { background-color: #10b981; opacity: 0.8; }
+.timebar-day.status-degraded { background-color: #f59e0b; }
+.timebar-day.status-down { background-color: #ef4444; }
+
+.status-timebar-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
     font-weight: 500;
+    opacity: 0.5;
 }
 
 .status-last-update {
@@ -264,7 +280,7 @@
 
 @media (max-width: 768px) {
     .status-history { padding: 1.5rem; }
-    .status-history-item { grid-template-columns: 60px 30px 1fr; }
+    .status-timebar { gap: 2px; }
 }
 
 @media (max-width: 600px) {
@@ -279,5 +295,10 @@
 
     .status-services-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .status-history-header {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
