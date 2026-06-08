@@ -88,27 +88,6 @@
           </div>
         </div>
 
-        <section id="tech-stack">
-          <h2 class="prevent-select"><span class="marker-highlight">Tech Stack</span> & Tools</h2>
-          <div class="tech-stack-grid">
-            <div class="tech-pill" data-tech="laravel">
-                <span class="tech-name">Laravel</span>
-            </div>
-            <div class="tech-pill" data-tech="php">
-                <span class="tech-name">PHP</span>
-            </div>
-            <div class="tech-pill" data-tech="javascript">
-                <span class="tech-name">JavaScript</span>
-            </div>
-            <div class="tech-pill" data-tech="mysql">
-                <span class="tech-name">MySQL</span>
-            </div>
-            <div class="tech-pill" data-tech="tailwind">
-                <span class="tech-name">TailwindCSS</span>
-            </div>
-          </div>
-        </section>
-
         <div class="site-info">
           <div data-language="de">
             <h2>Wofür ist diese Seite?</h2>
@@ -169,107 +148,137 @@
           </section>
         </div>
         <section id="my-work">
-          <div class="projects-sticky-container">
-            <h1 class="section-title">
-              <span data-language="en">Featured Work</span>
-              <span data-language="de">Ausgewählte Arbeiten</span>
-            </h1>
-            
-            <div class="projects-horizontal-scroll" id="project-list">
-              <!-- Project: ivoternis.de -->
-              <article class="project-item">
-                <div class="project-info">
-                  <div class="project-badge">Personal Project</div>
-                  <h3 class="project-title">ivoternis.de</h3>
-                  <div class="project-description">
-                    <span data-language="de">Ein interaktives Portfolio für einen deutschen Streamer, das Live-Status-Integrationen und eine dynamische Chess.com-Statistikanzeige nutzt.</span>
-                    <span data-language="en">An interactive portfolio for a German streamer, featuring live status integrations and dynamic Chess.com statistics.</span>
-                  </div>
-                  <ul class="technology-tags" aria-label="Used Technologies">
-                    <li class="technology-tag">External REST-API</li>
-                    <li class="technology-tag">Chess.com API</li>
-                    <li class="technology-tag">PHP</li>
-                  </ul>
-                  <div class="project-links">
-                    <a href="https://ivoternis.de" class="project-link button" target="_blank" rel="noopener noreferrer"><img src="assets/svg/open-link.svg" class="button-icon" alt="" aria-hidden="true" />Visit Site</a>
-                    <a href="https://github.com/ivoternis/ivoternis.de" class="project-link button" target="_blank" rel="noopener noreferrer"><img src="assets/svg/socials/github.svg" class="button-icon" alt="" aria-hidden="true" />GitHub</a>
-                  </div>
+          <h1 class="section-title">
+            <span data-language="en">Featured Work</span>
+            <span data-language="de">Ausgewählte Arbeiten</span>
+          </h1>
+          
+          <div class="projects-container">
+            <!-- Project: ivoternis.de -->
+            <article class="project-item" data-project="ivoternis">
+              <div class="project-info-sticky">
+                <div class="project-badge">Personal Project</div>
+                <h3 class="project-title">ivoternis.de</h3>
+                <div class="project-description">
+                  <span data-language="de">Ein interaktives Portfolio für einen deutschen Streamer, das Live-Status-Integrationen und eine dynamische Chess.com-Statistikanzeige nutzt.</span>
+                  <span data-language="en">An interactive portfolio for a German streamer, featuring live status integrations and dynamic Chess.com statistics.</span>
+                </div>
+                <ul class="technology-tags" aria-label="Used Technologies">
+                  <li class="technology-tag">External REST-API</li>
+                  <li class="technology-tag">Chess.com API</li>
+                  <li class="technology-tag">PHP</li>
+                </ul>
+                <div class="project-links">
+                  <a href="https://ivoternis.de" class="project-link button" target="_blank" rel="noopener noreferrer"><img src="assets/svg/open-link.svg" class="button-icon" alt="" aria-hidden="true" />Visit Site</a>
+                  <a href="https://github.com/ivoternis/ivoternis.de" class="project-link button" target="_blank" rel="noopener noreferrer"><img src="assets/svg/socials/github.svg" class="button-icon" alt="" aria-hidden="true" />GitHub</a>
+                </div>
+                <div class="project-progress-container">
+                  <div class="project-progress-bar"></div>
+                </div>
+              </div>
+              <div class="project-image-column">
+                <div class="image-wrapper">
+                  <img src="assets/img/projects/ivoternis-de-v3.png" alt="ivoternis.de Full Preview" class="project-image" loading="lazy" />
                 </div>
                 <div class="image-wrapper">
-                  <img src="assets/img/projects/ivoternis-de-v3.png" alt="ivoternis.de Preview" class="project-image" loading="lazy" />
+                  <img src="assets/img/projects/ivoternis-de.png" alt="ivoternis.de Classic" class="project-image" loading="lazy" />
                 </div>
-              </article>
+              </div>
+            </article>
 
-              <!-- Project: dsc.pics -->
-              <article class="project-item">
-                <div class="project-info">
-                  <div class="project-badge">SaaS / Hosting</div>
-                  <h3 class="project-title">dsc.pics</h3>
-                  <div class="project-description">
-                    <span data-language="de">Leistungsstarke Plattform für Bilder- und Videohosting mit Fokus auf Discord-Integration und integriertem Link-Shortener.</span>
-                    <span data-language="en">A high-performance image and video hosting platform focused on Discord integration and built-in link shortening.</span>
-                  </div>
-                  <ul class="technology-tags" aria-label="Used Technologies">
-                    <li class="technology-tag">Laravel</li>
-                    <li class="technology-tag">MySQL</li>
-                    <li class="technology-tag">TailwindCSS</li>
-                  </ul>
-                  <div class="project-links">
-                    <a href="https://github.com/EuropeHost/dsc.pics" class="project-link button" target="_blank" rel="noopener noreferrer"><img src="assets/svg/socials/github.svg" class="button-icon" alt="" aria-hidden="true" />Source Code</a>
-                  </div>
+            <!-- Project: dsc.pics -->
+            <article class="project-item" data-project="dscpics">
+              <div class="project-info-sticky">
+                <div class="project-badge">SaaS / Hosting</div>
+                <h3 class="project-title">dsc.pics</h3>
+                <div class="project-description">
+                  <span data-language="de">Leistungsstarke Plattform für Bilder- und Videohosting mit Fokus auf Discord-Integration und integriertem Link-Shortener.</span>
+                  <span data-language="en">A high-performance image and video hosting platform focused on Discord integration and built-in link shortening.</span>
+                </div>
+                <ul class="technology-tags" aria-label="Used Technologies">
+                  <li class="technology-tag">Laravel</li>
+                  <li class="technology-tag">MySQL</li>
+                  <li class="technology-tag">TailwindCSS</li>
+                </ul>
+                <div class="project-links">
+                  <a href="https://github.com/EuropeHost/dsc.pics" class="project-link button" target="_blank" rel="noopener noreferrer"><img src="assets/svg/socials/github.svg" class="button-icon" alt="" aria-hidden="true" />Source Code</a>
+                </div>
+                <div class="project-progress-container">
+                  <div class="project-progress-bar"></div>
+                </div>
+              </div>
+              <div class="project-image-column">
+                <div class="image-wrapper">
+                  <img src="assets/img/projects/dsc-pics.png" alt="dsc.pics UI" class="project-image" loading="lazy" />
                 </div>
                 <div class="image-wrapper">
-                  <img src="assets/img/projects/dsc-pics.png" alt="dsc.pics Preview" class="project-image" loading="lazy" />
+                   <img src="assets/img/projects/screencapture-dsc-pics-test-2025-11-16-09_00_42.png" alt="dsc.pics Dashboard" class="project-image" loading="lazy" />
                 </div>
-              </article>
+              </div>
+            </article>
 
-              <!-- Project: Kaufenhof.de -->
-              <article class="project-item">
-                <div class="project-info">
-                  <div class="project-badge">E-Commerce</div>
-                  <h3 class="project-title">Kaufenhof.de</h3>
-                  <div class="project-description">
-                    <span data-language="de">Ein spezialisierter Onlineshop für Süßigkeiten mit einem Fokus auf regionale Barzahlung und intuitive Admin-Verwaltung.</span>
-                    <span data-language="en">A specialized online candy store focusing on local cash payments and intuitive admin management.</span>
-                  </div>
-                  <ul class="technology-tags" aria-label="Used Technologies">
-                    <li class="technology-tag">Laravel</li>
-                    <li class="technology-tag">Blade</li>
-                    <li class="technology-tag">PostgreSQL</li>
-                  </ul>
-                  <div class="project-links">
-                    <a href="https://kaufenhof.de" class="project-link button" target="_blank" rel="noopener noreferrer"><img src="assets/svg/open-link.svg" class="button-icon" alt="" aria-hidden="true" />Visit Store</a>
-                  </div>
+            <!-- Project: Kaufenhof.de -->
+            <article class="project-item" data-project="kaufenhof">
+              <div class="project-info-sticky">
+                <div class="project-badge">E-Commerce</div>
+                <h3 class="project-title">Kaufenhof.de</h3>
+                <div class="project-description">
+                  <span data-language="de">Ein spezialisierter Onlineshop für Süßigkeiten mit einem Fokus auf regionale Barzahlung und intuitive Admin-Verwaltung.</span>
+                  <span data-language="en">A specialized online candy store focusing on local cash payments and intuitive admin management.</span>
+                </div>
+                <ul class="technology-tags" aria-label="Used Technologies">
+                  <li class="technology-tag">Laravel</li>
+                  <li class="technology-tag">Blade</li>
+                  <li class="technology-tag">PostgreSQL</li>
+                </ul>
+                <div class="project-links">
+                  <a href="https://kaufenhof.de" class="project-link button" target="_blank" rel="noopener noreferrer"><img src="assets/svg/open-link.svg" class="button-icon" alt="" aria-hidden="true" />Visit Store</a>
+                </div>
+                <div class="project-progress-container">
+                  <div class="project-progress-bar"></div>
+                </div>
+              </div>
+              <div class="project-image-column">
+                <div class="image-wrapper">
+                  <img src="assets/img/projects/kaufenhof-de-v2.png" alt="Kaufenhof Store" class="project-image" loading="lazy" />
                 </div>
                 <div class="image-wrapper">
-                  <img src="assets/img/projects/kaufenhof-de-v2.png" alt="Kaufenhof Preview" class="project-image" loading="lazy" />
+                  <img src="assets/img/projects/kaufenhof-de.png" alt="Kaufenhof Classic" class="project-image" loading="lazy" />
                 </div>
-              </article>
+              </div>
+            </article>
 
-              <!-- Project: api-sandbox.de -->
-              <article class="project-item">
-                <div class="project-info">
-                  <div class="project-badge">Developer Tool</div>
-                  <h3 class="project-title">api-sandbox.de</h3>
-                  <div class="project-description">
-                    <span data-language="de">Ein minimalistischer API-Playground für Entwickler, um HTTP-Requests direkt im Browser zu testen und zu debuggen.</span>
-                    <span data-language="en">A minimalist API playground for developers to test and debug HTTP requests directly within the browser.</span>
-                  </div>
-                  <ul class="technology-tags" aria-label="Used Technologies">
-                    <li class="technology-tag">JavaScript (ES6+)</li>
-                    <li class="technology-tag">TailwindCSS</li>
-                    <li class="technology-tag">REST API</li>
-                  </ul>
-                  <div class="project-links">
-                    <a href="https://api-sandbox.de/playground.html" class="project-link button" target="_blank" rel="noopener noreferrer"><img src="assets/svg/open-link.svg" class="button-icon" alt="" aria-hidden="true" />Open Playground</a>
-                    <a href="https://github.com/api-sandbox-DE/api-sandbox.de" class="project-link button" target="_blank" rel="noopener noreferrer"><img src="assets/svg/socials/github.svg" class="button-icon" alt="" aria-hidden="true" />GitHub</a>
-                  </div>
+            <!-- Project: api-sandbox.de -->
+            <article class="project-item" data-project="apisandbox">
+              <div class="project-info-sticky">
+                <div class="project-badge">Developer Tool</div>
+                <h3 class="project-title">api-sandbox.de</h3>
+                <div class="project-description">
+                  <span data-language="de">Ein minimalistischer API-Playground für Entwickler, um HTTP-Requests direkt im Browser zu testen und zu debuggen.</span>
+                  <span data-language="en">A minimalist API playground for developers to test and debug HTTP requests directly within the browser.</span>
+                </div>
+                <ul class="technology-tags" aria-label="Used Technologies">
+                  <li class="technology-tag">JavaScript (ES6+)</li>
+                  <li class="technology-tag">TailwindCSS</li>
+                  <li class="technology-tag">REST API</li>
+                </ul>
+                <div class="project-links">
+                  <a href="https://api-sandbox.de/playground.html" class="project-link button" target="_blank" rel="noopener noreferrer"><img src="assets/svg/open-link.svg" class="button-icon" alt="" aria-hidden="true" />Open Playground</a>
+                  <a href="https://github.com/api-sandbox-DE/api-sandbox.de" class="project-link button" target="_blank" rel="noopener noreferrer"><img src="assets/svg/socials/github.svg" class="button-icon" alt="" aria-hidden="true" />GitHub</a>
+                </div>
+                <div class="project-progress-container">
+                  <div class="project-progress-bar"></div>
+                </div>
+              </div>
+              <div class="project-image-column">
+                <div class="image-wrapper">
+                  <img src="assets/img/projects/api-sandbox-de_playground.png" alt="API Sandbox Interface" class="project-image" loading="lazy" />
                 </div>
                 <div class="image-wrapper">
-                  <img src="assets/img/projects/api-sandbox-de_playground.png" alt="API Sandbox Preview" class="project-image" loading="lazy" />
+                  <img src="assets/img/projects/api-sandbox-de.png" alt="API Sandbox Branding" class="project-image" loading="lazy" />
                 </div>
-              </article>
-            </div>
+              </div>
+            </article>
           </div>
         </section>
 

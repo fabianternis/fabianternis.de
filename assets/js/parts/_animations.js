@@ -31,28 +31,9 @@ export const initNameAnimations = () => {
 };
 
 export const trackProjectScroll = () => {
+    // This function can now handle generic entrance animations if needed
     const items = document.querySelectorAll(".project-item");
-
-    // Entrance animation
-    items.forEach((item) => {
-        item.style.transform = "translateY(40px)";
-        item.style.opacity = "0";
-        item.style.transition = "transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease";
-    });
-
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.style.transform = "translateY(0)";
-                entry.target.style.opacity = "1";
-            }
-        });
-    }, { threshold: 0.1 });
-
-    items.forEach((item) => observer.observe(item));
-
-    // Active state tracking (highlight card when in view)
-    const activeObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("is-active");
@@ -60,9 +41,9 @@ export const trackProjectScroll = () => {
                 entry.target.classList.remove("is-active");
             }
         });
-    }, { threshold: 0.1 }); // Lower threshold for long sticky cards
+    }, { threshold: 0.1 });
 
-    items.forEach((item) => activeObserver.observe(item));
+    items.forEach((item) => observer.observe(item));
 };
 
 export const initCounters = () => {
@@ -135,22 +116,19 @@ export const initDomainsAPI = () => {
             filtered = filtered.filter(d => `${d.name}.${d.tld}`.toLowerCase().includes(query));
         }
 
-        renderDomains(filtered.slice(0, 30)); // Limit initial display for perf
+        renderDomains(filtered.slice(0, 30));
     };
 
-    // 1. Fetch Stats
     fetch("https://dnbx.de/api/stats")
         .then(res => res.json())
         .then(data => {
             if (data?.status === "success" && data.data?.total_managed && counterEl) {
                 counterEl.dataset.target = data.data.total_managed;
-                // Re-init counter animation for this specific element
                 initCounters();
             }
         })
         .catch(err => console.error("Error fetching DNBX stats:", err));
 
-    // 2. Fetch TLDs
     fetch("https://dnbx.de/api/tlds")
         .then(res => res.json())
         .then(data => {
@@ -164,12 +142,9 @@ export const initDomainsAPI = () => {
                 
                 tldGridEl.innerHTML = html;
 
-                // Add click listeners to TLDs
                 tldGridEl.querySelectorAll('.domains-tld').forEach(el => {
                     el.addEventListener('click', () => {
                         const tld = el.dataset.tld;
-                        
-                        // Toggle active state
                         if (currentTldFilter === tld) {
                             currentTldFilter = null;
                             tldGridEl.querySelectorAll('.domains-tld').forEach(t => t.style.borderColor = '');
@@ -186,13 +161,11 @@ export const initDomainsAPI = () => {
         })
         .catch(err => console.error("Error fetching DNBX TLDs:", err));
 
-    // 3. Fetch Domains
     fetch("https://dnbx.de/api/domains?limit=1000")
         .then(res => res.json())
         .then(data => {
             if (data?.status === "success" && data.data) {
                 allDomains = data.data;
-                // Randomize slightly for "explore" feel, but keep active mostly near top
                 allDomains.sort((a, b) => {
                    if (a.status === 'active' && b.status !== 'active') return -1;
                    if (a.status !== 'active' && b.status === 'active') return 1;
@@ -236,7 +209,6 @@ export const initLightbox = () => {
         const imgEl = images[currentIndex];
         lbImage.src = imgEl.src;
         
-        // Use German alt text if currently on German language, else default alt
         const lang = document.documentElement.getAttribute("lang") || "en";
         const caption = lang === 'de' && imgEl.dataset.altDe ? imgEl.dataset.altDe : imgEl.alt;
         lbCaption.textContent = caption || '';
@@ -246,9 +218,8 @@ export const initLightbox = () => {
         isLightboxOpen = true;
         updateLightbox(index);
         lightbox.style.display = 'flex';
-        // Small timeout to allow display:flex to apply before setting opacity for transition
         setTimeout(() => lightbox.classList.add('active'), 10);
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        document.body.style.overflow = 'hidden';
     };
 
     const closeLightbox = () => {
@@ -257,7 +228,7 @@ export const initLightbox = () => {
         setTimeout(() => {
             lightbox.style.display = 'none';
             document.body.style.overflow = '';
-        }, 300); // match CSS transition duration
+        }, 300);
     };
 
     images.forEach((img, idx) => {
@@ -268,12 +239,10 @@ export const initLightbox = () => {
     lbPrev.addEventListener('click', () => updateLightbox(currentIndex - 1));
     lbNext.addEventListener('click', () => updateLightbox(currentIndex + 1));
     
-    // Close on overlay click
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) closeLightbox();
     });
 
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         if (!isLightboxOpen) return;
         if (e.key === 'Escape') closeLightbox();
@@ -283,24 +252,37 @@ export const initLightbox = () => {
 };
 
 export const initWorkScroll = () => {
-    const workSection = document.getElementById('my-work');
-    const scrollContainer = workSection?.querySelector('.projects-horizontal-scroll');
-    if (!workSection || !scrollContainer) return;
+    const projectItems = document.querySelectorAll('.project-item');
+    if (projectItems.length === 0) return;
 
-    window.addEventListener('scroll', () => {
-        const rect = workSection.getBoundingClientRect();
-        const sectionHeight = workSection.offsetHeight;
+    const handleScroll = () => {
         const viewHeight = window.innerHeight;
 
-        // Calculate progress within the section (0 to 1)
-        let progress = -rect.top / (sectionHeight - viewHeight);
-        progress = Math.max(0, Math.min(1, progress));
+        projectItems.forEach(item => {
+            const rect = item.getBoundingClientRect();
+            const bar = item.querySelector('.project-progress-bar');
+            if (!bar) return;
 
-        // Total scrollable distance of the horizontal container
-        const scrollWidth = scrollContainer.scrollWidth;
-        const containerWidth = scrollContainer.offsetWidth;
-        const maxScroll = scrollWidth - containerWidth + 64; // Small offset
+            // Calculate how much of the item is scrolled through
+            // The item starts affecting progress when its top enters the viewport
+            // and finishes when its bottom leaves the viewport.
+            // However, since info is sticky, we want progress based on the image column scroll.
+            
+            const start = rect.top;
+            const height = item.offsetHeight;
+            
+            // Progress should be 0 when top is at 'top' of viewport (or sticky position)
+            // and 100 when bottom is at 'top' of viewport.
+            let progress = 0;
+            if (start <= 100) { // approx sticky start
+                progress = Math.abs(start - 100) / (height - viewHeight + 100);
+            }
+            
+            const clampedProgress = Math.max(0, Math.min(100, progress * 100));
+            bar.style.width = `${clampedProgress}%`;
+        });
+    };
 
-        scrollContainer.style.transform = `translateX(${-progress * maxScroll}px)`;
-    });
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial call
 };
