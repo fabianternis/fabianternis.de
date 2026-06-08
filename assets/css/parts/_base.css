@@ -85,8 +85,28 @@ h2 {
     margin-bottom: calc(var(--base-size) / 2);
 }
 
-a:hover {
-    cursor: url('/assets/svg/hand-pointer.svg'), pointer;
+a, 
+button, 
+[role="button"],
+.interactive,
+input[type="submit"],
+input[type="button"],
+#themeToggle,
+#languageSwitch,
+.name span,
+.marker-highlight,
+.site-info,
+.project-link,
+.domain-chip,
+.photography-item img,
+.timebar-day,
+.status-filter-btn {
+    cursor: url('/assets/svg/hand-pointer.svg'), pointer !important;
+}
+
+a:hover,
+button:hover {
+    cursor: url('/assets/svg/hand-pointer.svg'), pointer !important;
 }
 
 .prevent-select {

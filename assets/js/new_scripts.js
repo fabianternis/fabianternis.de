@@ -1,6 +1,6 @@
 import { getStoredTheme, getStoredLang, applyTheme, applyLanguage, executeWithTransition } from './parts/_theme.js';
 import { initNavigation } from './parts/_navigation.js';
-import { initNameAnimations, trackProjectScroll, initCounters, initDomainsAPI, initLightbox } from './parts/_animations.js';
+import { initNameAnimations, trackProjectScroll, initCounters, initDomainsAPI, initLightbox, initWorkScroll } from './parts/_animations.js';
 import { initModals } from './parts/_modals.js';
 import { initStatusAPI } from './parts/_status.js';
 
@@ -22,4 +22,5 @@ document.addEventListener("DOMContentLoaded", () => {
     initLightbox();
     initModals();
     initStatusAPI();
+    initWorkScroll();
 });

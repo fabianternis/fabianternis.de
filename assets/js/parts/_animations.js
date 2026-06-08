@@ -281,3 +281,26 @@ export const initLightbox = () => {
         if (e.key === 'ArrowRight') updateLightbox(currentIndex + 1);
     });
 };
+
+export const initWorkScroll = () => {
+    const workSection = document.getElementById('my-work');
+    const scrollContainer = workSection?.querySelector('.projects-horizontal-scroll');
+    if (!workSection || !scrollContainer) return;
+
+    window.addEventListener('scroll', () => {
+        const rect = workSection.getBoundingClientRect();
+        const sectionHeight = workSection.offsetHeight;
+        const viewHeight = window.innerHeight;
+
+        // Calculate progress within the section (0 to 1)
+        let progress = -rect.top / (sectionHeight - viewHeight);
+        progress = Math.max(0, Math.min(1, progress));
+
+        // Total scrollable distance of the horizontal container
+        const scrollWidth = scrollContainer.scrollWidth;
+        const containerWidth = scrollContainer.offsetWidth;
+        const maxScroll = scrollWidth - containerWidth + 64; // Small offset
+
+        scrollContainer.style.transform = `translateX(${-progress * maxScroll}px)`;
+    });
+};

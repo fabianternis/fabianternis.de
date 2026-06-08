@@ -87,6 +87,28 @@
             <span class="hero-stat-label" data-language="de">MTEX Dienste</span>
           </div>
         </div>
+
+        <section id="tech-stack">
+          <h2 class="prevent-select"><span class="marker-highlight">Tech Stack</span> & Tools</h2>
+          <div class="tech-stack-grid">
+            <div class="tech-pill" data-tech="laravel">
+                <span class="tech-name">Laravel</span>
+            </div>
+            <div class="tech-pill" data-tech="php">
+                <span class="tech-name">PHP</span>
+            </div>
+            <div class="tech-pill" data-tech="javascript">
+                <span class="tech-name">JavaScript</span>
+            </div>
+            <div class="tech-pill" data-tech="mysql">
+                <span class="tech-name">MySQL</span>
+            </div>
+            <div class="tech-pill" data-tech="tailwind">
+                <span class="tech-name">TailwindCSS</span>
+            </div>
+          </div>
+        </section>
+
         <div class="site-info">
           <div data-language="de">
             <h2>Wofür ist diese Seite?</h2>
@@ -147,50 +169,14 @@
           </section>
         </div>
         <section id="my-work">
-          <div class="projects-grid">
-            <h2 class="section-title"><span data-language="en">My Work</span><span data-language="de">Meine Arbeiten</span></h2>
-            <div class="projects-group">
-              <article class="project-item">
-                <div class="project-info">
-                  <h3 class="project-title">fabianternis.dev</h3>
-                  <div class="project-description">
-                    <span data-language="de">Meine persönliche Webseite, die einen Überblick über meine Projekte und Arbeiten bietet, ergänzt durch Informationen über mich und meine Interessen.</span>
-                    <span data-language="en">My personal website, providing an overview of my projects and work, complemented by information about me and my interests.</span>
-                  </div>
-                  <ul class="technology-tags" aria-label="Verwendete Technologien">
-                    <li class="technology-tag">localStorage</li>
-                  </ul>
-                  <div class="project-links">
-                    <a href="https://fabianternis.dev" class="project-link button" target="_blank" rel="noopener noreferrer"><img src="assets/svg/open-link.svg" class="button-icon" alt="" aria-hidden="true" />Webseite öffnen</a>
-                    <a href="https://github.com/fabianternis/websites-sm/blob/main/fabianternis.dev.html" class="project-link button" target="_blank" rel="noopener noreferrer"
-                      ><img src="assets/svg/socials/github.svg" class="button-icon" alt="" aria-hidden="true" />Github Repo</a
-                    >
-                  </div>
-                </div>
-                <div class="image-wrapper">
-                  <img src="assets/img/projects/fabianternis-dev.png" alt="fabianternis.dev Landingpage" class="project-image" loading="lazy" />
-                </div>
-              </article>
-              <article class="project-item">
-                <div class="project-info">
-                  <h3 class="project-title">louixch.de</h3>
-                  <div class="project-description">
-                    <span data-language="de">Eine Webseite für Louixch, die seine Projekte und Arbeiten vorstellt und Einblicke in seine Interessen und Fähigkeiten gibt.</span>
-                    <span data-language="en">A website for Louixch, showcasing his projects and work while providing insights into his interests and skills.</span>
-                  </div>
-                  <ul class="technology-tags" aria-label="Verwendete Technologien">
-                    <li class="technology-tag">External REST-API</li>
-                    <li class="technology-tag">skinview3d</li>
-                  </ul>
-                  <div class="project-links">
-                    <a href="https://louixch.de" class="project-link button" target="_blank" rel="noopener noreferrer"><img src="assets/svg/open-link.svg" class="button-icon" alt="" aria-hidden="true" />Webseite öffnen</a>
-                    <a href="https://github.com/fabianternis/Louixch.de" class="project-link button" target="_blank" rel="noopener noreferrer"><img src="assets/svg/socials/github.svg" class="button-icon" alt="" aria-hidden="true" />Github Repo</a>
-                  </div>
-                </div>
-                <div class="image-wrapper">
-                  <img src="assets/img/projects/louixch-de.png" alt="louixch.de Landingpage" class="project-image" loading="lazy" />
-                </div>
-              </article>
+          <div class="projects-sticky-container">
+            <h1 class="section-title">
+              <span data-language="en">Featured Work</span>
+              <span data-language="de">Ausgewählte Arbeiten</span>
+            </h1>
+            
+            <div class="projects-horizontal-scroll" id="project-list">
+              <!-- Project: ivoternis.de -->
               <article class="project-item">
                 <div class="project-info">
                   <div class="project-badge">Personal Project</div>
@@ -213,6 +199,8 @@
                   <img src="assets/img/projects/ivoternis-de-v3.png" alt="ivoternis.de Preview" class="project-image" loading="lazy" />
                 </div>
               </article>
+
+              <!-- Project: dsc.pics -->
               <article class="project-item">
                 <div class="project-info">
                   <div class="project-badge">SaaS / Hosting</div>
@@ -234,6 +222,8 @@
                   <img src="assets/img/projects/dsc-pics.png" alt="dsc.pics Preview" class="project-image" loading="lazy" />
                 </div>
               </article>
+
+              <!-- Project: Kaufenhof.de -->
               <article class="project-item">
                 <div class="project-info">
                   <div class="project-badge">E-Commerce</div>
@@ -255,6 +245,8 @@
                   <img src="assets/img/projects/kaufenhof-de-v2.png" alt="Kaufenhof Preview" class="project-image" loading="lazy" />
                 </div>
               </article>
+
+              <!-- Project: api-sandbox.de -->
               <article class="project-item">
                 <div class="project-info">
                   <div class="project-badge">Developer Tool</div>
@@ -277,9 +269,6 @@
                   <img src="assets/img/projects/api-sandbox-de_playground.png" alt="API Sandbox Preview" class="project-image" loading="lazy" />
                 </div>
               </article>
-            </div>
-            <div class="loading-grid">
-              <div class="loader" aria-hidden="true"><span class="loader-spinner"></span></div>
             </div>
           </div>
         </section>
