@@ -241,6 +241,8 @@
     gap: 1.5rem;
     padding-right: 2rem;
     z-index: 10;
+    will-change: opacity, transform;
+    transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1), transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .project-badge {
@@ -285,6 +287,29 @@
     border: 1px solid var(--main-border-color);
     border-radius: 100px;
     font-family: var(--font-mono);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tag-logo {
+    height: 0.85rem;
+    width: auto;
+    display: block;
+}
+
+.tag-logo path {
+    fill: currentColor;
+}
+
+.header-logo {
+    height: 0.85em;
+    width: auto;
+    display: inline-block;
+    vertical-align: middle;
+    margin-inline: 0.1em;
+    position: relative;
+    top: -0.05em;
 }
 
 .project-links {

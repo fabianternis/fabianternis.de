@@ -260,29 +260,51 @@ export const initWorkScroll = () => {
 
         projectItems.forEach(item => {
             const rect = item.getBoundingClientRect();
+            const info = item.querySelector('.project-info-sticky');
             const bar = item.querySelector('.project-progress-bar');
-            if (!bar) return;
+            if (!info || !bar) return;
 
-            // Calculate how much of the item is scrolled through
-            // The item starts affecting progress when its top enters the viewport
-            // and finishes when its bottom leaves the viewport.
-            // However, since info is sticky, we want progress based on the image column scroll.
-            
             const start = rect.top;
             const height = item.offsetHeight;
+            const stickyOffset = 100; // approx distance from top where sticky starts
             
-            // Progress should be 0 when top is at 'top' of viewport (or sticky position)
-            // and 100 when bottom is at 'top' of viewport.
+            // Calculate progress (0 to 1)
             let progress = 0;
-            if (start <= 100) { // approx sticky start
-                progress = Math.abs(start - 100) / (height - viewHeight + 100);
+            if (start <= stickyOffset) {
+                progress = Math.abs(start - stickyOffset) / (height - viewHeight + stickyOffset);
             }
-            
-            const clampedProgress = Math.max(0, Math.min(100, progress * 100));
-            bar.style.width = `${clampedProgress}%`;
+            progress = Math.max(0, Math.min(1, progress));
+
+            // Update Progress Bar
+            bar.style.width = `${progress * 100}%`;
+
+            // Seamless Transitions (Opacity & Transform)
+            let opacity = 1;
+            let translateY = 0;
+
+            if (start > stickyOffset) {
+                // Project is coming from below
+                const distanceToSticky = start - stickyOffset;
+                const fadeRange = 300; // pixels before sticky
+                if (distanceToSticky < fadeRange) {
+                    const fadeProgress = 1 - (distanceToSticky / fadeRange);
+                    opacity = fadeProgress;
+                    translateY = (1 - fadeProgress) * 40;
+                } else {
+                    opacity = 0;
+                }
+            } else if (progress > 0.8) {
+                // Project is finishing
+                const fadeOutProgress = (progress - 0.8) / 0.2;
+                opacity = 1 - fadeOutProgress;
+                translateY = fadeOutProgress * -40;
+            }
+
+            info.style.opacity = opacity;
+            info.style.transform = `translateY(${translateY}px)`;
         });
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial call
+    handleScroll();
 };
