@@ -247,6 +247,17 @@
     z-index: 2;
 }
 
+.project-badge {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
 .project-title {
     font-family: var(--font-heading);
     font-size: 1.75rem;
