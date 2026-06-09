@@ -3,6 +3,7 @@ import { initNavigation } from './parts/_navigation.js';
 import { initNameAnimations, trackProjectScroll, initCounters, initDomainsAPI, initLightbox, initWorkScroll } from './parts/_animations.js';
 import { initModals } from './parts/_modals.js';
 import { initStatusAPI } from './parts/_status.js';
+import { initSearch } from './parts/_search.js';
 
 const langToggle = document.getElementById("languageSwitch");
 
@@ -23,4 +24,5 @@ document.addEventListener("DOMContentLoaded", () => {
     initModals();
     initStatusAPI();
     initWorkScroll();
+    initSearch();
 });
