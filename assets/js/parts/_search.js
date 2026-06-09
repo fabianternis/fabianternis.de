@@ -79,7 +79,10 @@ export function initSearch() {
 
     const searchableItems = indexContent();
 
+    let selectedIndex = -1;
+
     const performSearch = (query) => {
+        selectedIndex = -1;
         const q = query.toLowerCase().trim();
         if (!q) {
             searchResults.innerHTML = '';
@@ -106,11 +109,30 @@ export function initSearch() {
         `).join('');
 
         // Handle click on results
-        searchResults.querySelectorAll('.search-result-item').forEach(item => {
+        searchResults.querySelectorAll('.search-result-item').forEach((item, index) => {
+            item.addEventListener('mouseenter', () => {
+                updateSelection(index);
+            });
             item.addEventListener('click', () => {
                 closeSearch();
             });
         });
+
+        updateSelection(0);
+    };
+
+    const updateSelection = (index) => {
+        const items = searchResults.querySelectorAll('.search-result-item');
+        if (items.length === 0) return;
+
+        items.forEach(item => item.classList.remove('selected'));
+
+        if (index >= items.length) index = 0;
+        if (index < 0) index = items.length - 1;
+
+        selectedIndex = index;
+        items[selectedIndex].classList.add('selected');
+        items[selectedIndex].scrollIntoView({ block: 'nearest' });
     };
 
     // Event Listeners
@@ -133,10 +155,22 @@ export function initSearch() {
         if (isSearchOpen) {
             if (e.key === 'Escape') closeSearch();
             
-            // Navigate results with arrows (simple implementation)
-            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            // Navigate results with arrows
+            if (e.key === 'ArrowDown') {
                 e.preventDefault();
-                // Add more complex navigation if needed
+                updateSelection(selectedIndex + 1);
+            }
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                updateSelection(selectedIndex - 1);
+            }
+
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const items = searchResults.querySelectorAll('.search-result-item');
+                if (items.length > 0 && selectedIndex >= 0) {
+                    items[selectedIndex].click();
+                }
             }
         }
     });

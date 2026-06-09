@@ -144,9 +144,9 @@
 .status-down.status-service-card::before { background-color: #ef4444; }
 
 .status-service-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border-color: var(--accent-color);
+    cursor: pointer;
 }
 
 .service-header {
@@ -262,6 +262,7 @@
 .timebar-day.status-operational { background-color: #10b981; opacity: 0.8; }
 .timebar-day.status-degraded { background-color: #f59e0b; }
 .timebar-day.status-down { background-color: #ef4444; }
+.timebar-day.status-unknown { background-color: var(--main-border-color); opacity: 0.5; }
 
 .status-timebar-labels {
     display: flex;
@@ -301,4 +302,16 @@
         flex-direction: column;
         align-items: flex-start;
     }
+}
+
+/* Modal specific charts */
+#latencyChart {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#serviceStatusBar .timebar-day:hover {
+    transform: scaleY(1.3);
+    filter: brightness(1.2);
 }
