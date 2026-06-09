@@ -222,7 +222,6 @@
     grid-template-columns: 1fr;
     gap: 2rem;
     position: relative;
-    min-height: 100vh;
 }
 
 @media (min-width: 1000px) {
@@ -386,7 +385,7 @@
     .project-item {
         min-height: auto;
     }
-    .project-container {
+    .projects-container {
         gap: 6rem;
     }
 }

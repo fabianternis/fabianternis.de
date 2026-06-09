@@ -52,11 +52,22 @@ export function initSearch() {
         document.querySelectorAll('.project-item').forEach(project => {
             const title = project.querySelector('.project-title')?.textContent.trim();
             if (title) {
+                const description = project.querySelector('.project-description')?.textContent.trim() || '';
+                const techTags = Array.from(project.querySelectorAll('.technology-tag'))
+                    .map(tag => tag.textContent.trim())
+                    .filter(t => t.length > 0)
+                    .join(', ');
+
+                let context = description.substring(0, 80) + '...';
+                if (techTags) {
+                    context += ` [Technologies: ${techTags}]`;
+                }
+
                 items.push({
                     type: 'Project',
                     title: title,
                     url: `#my-work`, // Since it's vertical now, maybe just jump to section
-                    context: project.querySelector('.project-description')?.textContent.trim().substring(0, 80) + '...'
+                    context: context
                 });
             }
         });
