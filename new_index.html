@@ -5,12 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fabian Ternis</title>
     <link rel="stylesheet" href="assets/css/new_styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Montserrat:wght@500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Montserrat:wght@500;700&display=swap" rel="stylesheet"/> 
 
     <script>
       const theme = localStorage.getItem("theme-preference") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); document.documentElement.setAttribute("data-theme", theme);
     </script>
   </head>
+  <style>
+    .HIDDEN {
+      display: none;
+      visibility: hidden;
+    }
+  </style>
   <body class="scrolled">
     <div class="top-bg"></div>
     <nav>
@@ -94,7 +100,7 @@
           </div>
         </div>
 
-        <div class="site-info">
+        <div class="site-info HIDDEN">
           <div data-language="de">
             <h2>Wofür ist diese Seite?</h2>
             <p>Diese Seite ist für das <span class="cursor-animated text-animated">spielvolle</span> präsentieren meines Webentwicklungs-könnens.</p>
@@ -141,15 +147,15 @@
             /></a>
           </div>
         </div>
-        <div class="links-grid">
+        <div class="links-grid HIDDEN">
           <section class="link-category">
             <h2 class="section-title">Webseiten und Projekte</h2>
             <div class="link-group">
               <a href="https://fabianternis.dev" target="_blank">fabianternis.dev (EN)</a>
-              <a href="https://fternis.de" target="_blank">fternis.de (EN)</a>
-              <a href="https://dsc.pics" target="_blank">dsc.pics (EN/DE/FR)</a>
-              <a href="https://heimatverein-floersheim-dalsheim.de" target="_blank">heimatverein-floersheim-dalsheim.de (DE)</a>
-              <a href="https://dnbx.de" target="_blank">dnbx.de (DE/EN)</a>
+              <!--a href="https://fternis.de" target="_blank">fternis.de (EN)</a-->
+              <!--a href="https://dsc.pics" target="_blank">dsc.pics (EN/DE/FR)</a-->
+              <!--a href="https://heimatverein-floersheim-dalsheim.de" target="_blank">heimatverein-floersheim-dalsheim.de (DE)</a-->
+              <a href="https://dnbx.de" target="_blank">dnbx.de (EN)</a>
             </div>
           </section>
         </div>
@@ -248,7 +254,7 @@
               </div>
               <div class="tech-info">
                 <h4 class="tech-name">Cloudflare</h4>
-                <div class="tech-category">CDN + Prox + R2</div>
+                <div class="tech-category">CDN + Proxy + R2</div>
               </div>
             </div>
             
