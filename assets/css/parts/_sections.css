@@ -1,10 +1,78 @@
 /* ── Hero / Introduction ── */
 .hero-container {
+    position: relative;
     padding-block: clamp(2rem, 8vw, 5rem) 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-height: clamp(50vh, 60vh, 800px);
+    overflow: hidden;
+}
+
+.hero-spreaded-icons {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.icon-spreaded-wrapper {
+    position: absolute;
+    width: clamp(40px, 8vw, 80px);
+    height: clamp(40px, 8vw, 80px);
+    transition: transform 0.2s ease-out;
+    transform: translate(var(--parallax-x, 0), var(--parallax-y, 0));
+}
+
+.icon-spreaded {
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: grayscale(100%) brightness(var(--icon-brightness, 1));
+    transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+[data-theme="dark"] .icon-spreaded {
+    --icon-brightness: 1.5;
+}
+
+.icon-spreaded-wrapper.icon-tailwind {
+    top: 15%;
+    left: 10%;
+}
+.icon-spreaded-wrapper.icon-tailwind .icon-spreaded {
+    background-image: url('../../svg/hero_spread_tailwind_icon.svg');
+    animation: float 6s ease-in-out infinite;
+}
+
+.icon-spreaded-wrapper.icon-laravel {
+    bottom: 20%;
+    left: 15%;
+}
+.icon-spreaded-wrapper.icon-laravel .icon-spreaded {
+    background-image: url('../../svg/hero_spread_laravel_icon.svg');
+    animation: float 8s ease-in-out infinite 1s;
+}
+
+.icon-spreaded-wrapper.icon-php {
+    top: 25%;
+    right: 12%;
+}
+.icon-spreaded-wrapper.icon-php .icon-spreaded {
+    background-image: url('../../svg/hero_spread_php_icon.svg');
+    animation: float 7s ease-in-out infinite 0.5s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
 }
 
 .introduction h2 {

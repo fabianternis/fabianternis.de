@@ -285,6 +285,35 @@ export const initLightbox = () => {
         if (e.key === 'ArrowRight') updateLightbox(currentIndex + 1);
     });
 };
+
+export const initHeroIconMovement = () => {
+    const trackingArea = document.querySelector("main") || document.body;
+    const hero = document.querySelector(".hero-container");
+    const icons = document.querySelectorAll(".icon-spreaded-wrapper");
+    if (!hero || icons.length === 0) return;
+
+    trackingArea.addEventListener("mousemove", (e) => {
+        const { width, height } = trackingArea.getBoundingClientRect();
+        const mouseX = e.clientX / width - 0.5;
+        const mouseY = e.clientY / height - 0.5;
+
+        icons.forEach((icon, index) => {
+            const speed = (index + 1) * 30; // Increased speed for better feel
+            const x = mouseX * speed;
+            const y = mouseY * speed;
+            
+            icon.style.setProperty("--parallax-x", `${x}px`);
+            icon.style.setProperty("--parallax-y", `${y}px`);
+        });
+    });
+
+    trackingArea.addEventListener("mouseleave", () => {
+        icons.forEach((icon) => {
+            icon.style.setProperty("--parallax-x", `0px`);
+            icon.style.setProperty("--parallax-y", `0px`);
+        });
+    });
+};
 /*
 export const initWorkScroll = () => {
     const projectItems = document.querySelectorAll('.project-item');
