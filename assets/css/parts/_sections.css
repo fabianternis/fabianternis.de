@@ -1362,8 +1362,8 @@ html[data-theme="auto"] .project-image-light {
 
 /* ── Post-it Note ── */
 .more-projects-note {
-    margin-top: 6rem;
-    padding-bottom: 4rem;
+    margin-top: 2rem;
+    padding-bottom: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1375,19 +1375,14 @@ html[data-theme="auto"] .project-image-light {
     text-decoration: none;
     color: inherit;
     display: block;
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.post-it-wrapper:hover {
-    transform: scale(1.05) rotate(2deg);
 }
 
 .post-it {
     background: #fffd75;
     color: #333;
-    padding: 2.5rem 1.5rem 1.5rem;
-    width: 260px;
-    min-height: 260px;
+    padding: 1.5rem 1rem 1rem;
+    width: 200px;
+    min-height: 200px;
     box-shadow: 
         2px 2px 4px rgba(0,0,0,0.1),
         10px 10px 20px rgba(0,0,0,0.15);
@@ -1399,13 +1394,6 @@ html[data-theme="auto"] .project-image-light {
     text-align: center;
     position: relative;
     border-bottom-right-radius: 80px 10px;
-    transition: box-shadow 0.3s ease;
-}
-
-.post-it-wrapper:hover .post-it {
-    box-shadow: 
-        2px 2px 4px rgba(0,0,0,0.1),
-        15px 15px 30px rgba(0,0,0,0.2);
 }
 
 /* Masking Tape Effect */
@@ -1454,18 +1442,18 @@ html[data-theme="auto"] .project-image-light {
 
 @media (max-width: 600px) {
     .more-projects-note {
-        margin-top: 3rem;
-        padding-bottom: 2rem;
+        margin-top: 2rem;
+        padding-bottom: 1rem;
     }
     .post-it {
-        width: 220px;
-        min-height: 220px;
-        padding: 2rem 1rem 1rem;
+        width: 180px;
+        min-height: 180px;
+        padding: 1.2rem 0.8rem 0.8rem;
     }
     .post-it-main {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     .post-it-subtext {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
 }
