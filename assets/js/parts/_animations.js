@@ -222,10 +222,8 @@ export const initHeroTooltips = () => {
 };
 
 export const initLightbox = () => {
-    const images = Array.from(document.querySelectorAll('.photography-item img'));
-    const lightbox = document.getElementById('photographyLightbox');
-    
-    if (!lightbox || images.length === 0) return;
+    const lightbox = document.getElementById('siteLightbox');
+    if (!lightbox) return;
 
     const lbImage = lightbox.querySelector('.lightbox-image');
     const lbCaption = lightbox.querySelector('.lightbox-caption');
@@ -233,23 +231,35 @@ export const initLightbox = () => {
     const lbPrev = lightbox.querySelector('.lightbox-prev');
     const lbNext = lightbox.querySelector('.lightbox-next');
 
+    let currentGallery = [];
     let currentIndex = 0;
     let isLightboxOpen = false;
 
     const updateLightbox = (index) => {
-        if (index < 0) index = images.length - 1;
-        if (index >= images.length) index = 0;
+        if (currentGallery.length === 0) return;
+        if (index < 0) index = currentGallery.length - 1;
+        if (index >= currentGallery.length) index = 0;
         currentIndex = index;
 
-        const imgEl = images[currentIndex];
+        const imgEl = currentGallery[currentIndex];
         lbImage.src = imgEl.src;
         
         const lang = document.documentElement.getAttribute("lang") || "en";
         const caption = lang === 'de' && imgEl.dataset.altDe ? imgEl.dataset.altDe : imgEl.alt;
         lbCaption.textContent = caption || '';
+        
+        // Hide/show arrows if only one image
+        if (currentGallery.length <= 1) {
+            lbPrev.style.display = 'none';
+            lbNext.style.display = 'none';
+        } else {
+            lbPrev.style.display = 'flex';
+            lbNext.style.display = 'flex';
+        }
     };
 
-    const openLightbox = (index) => {
+    const openLightbox = (gallery, index) => {
+        currentGallery = gallery;
         isLightboxOpen = true;
         updateLightbox(index);
         lightbox.style.display = 'flex';
@@ -266,8 +276,10 @@ export const initLightbox = () => {
         }, 300);
     };
 
-    images.forEach((img, idx) => {
-        img.addEventListener('click', () => openLightbox(idx));
+    // Initialize Photography
+    const triggerImages = Array.from(document.querySelectorAll('.photography-item img'));
+    triggerImages.forEach((img, idx) => {
+        img.addEventListener('click', () => openLightbox(triggerImages, idx));
     });
 
     lbClose.addEventListener('click', closeLightbox);
@@ -283,6 +295,110 @@ export const initLightbox = () => {
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowLeft') updateLightbox(currentIndex - 1);
         if (e.key === 'ArrowRight') updateLightbox(currentIndex + 1);
+    });
+};
+
+export const initProjectModals = () => {
+    const modal = document.getElementById('projectDetailsModal');
+    if (!modal) return;
+
+    const sidebar = modal.querySelector('.project-details-info-sidebar');
+    const mainContent = modal.querySelector('.project-details-main-content');
+    const closeBtn = modal.querySelector('.modal-close');
+    const prevBtn = modal.querySelector('.project-modal-prev');
+    const nextBtn = modal.querySelector('.project-modal-next');
+    
+    const projectItems = Array.from(document.querySelectorAll('.project-item'));
+    let currentProjectIndex = -1;
+
+    const updateModalContent = (index) => {
+        if (index < 0 || index >= projectItems.length) return;
+        currentProjectIndex = index;
+        const projectItem = projectItems[currentProjectIndex];
+        
+        // Auto-scroll the background page to this project
+        projectItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        const title = projectItem.querySelector('.project-title').textContent;
+        const badge = projectItem.querySelector('.project-badge').outerHTML;
+        const description = projectItem.querySelector('.project-description').innerHTML;
+        const tags = projectItem.querySelector('.technology-tags').outerHTML;
+        const links = projectItem.querySelector('.project-links').outerHTML;
+        
+        // Find visible image for this project to use as a starting point
+        const activeImg = Array.from(projectItem.querySelectorAll('.project-image')).find(img => window.getComputedStyle(img).display !== 'none');
+
+        // Populate Sidebar
+        sidebar.innerHTML = `
+            <div class="project-details-meta-top">${badge}</div>
+            <h2 class="project-details-title">${title}</h2>
+            <div class="project-details-description">${description}</div>
+            <div class="project-details-tags-wrapper">
+                <h4 style="margin-bottom:0.5rem; opacity:0.7;">Technologies</h4>
+                ${tags}
+            </div>
+            <div class="project-details-links-wrapper">
+                ${links}
+            </div>
+        `;
+
+        // Populate Main Content (Images)
+        mainContent.innerHTML = `
+            <img src="${activeImg ? activeImg.src : ''}" alt="${title}">
+            <div style="height: 20vh; display: flex; align-items: center; justify-content: center; background: var(--main-bg-color); line-height: 1.6; padding: 2rem; text-align: center; opacity: 0.5;">
+                <p>Scroll down for more views if available<br>(Static mockup for now)</p>
+            </div>
+        `;
+        
+        // Reset scroll positions
+        sidebar.scrollTop = 0;
+        mainContent.scrollTop = 0;
+    };
+
+    const openProjectModal = (index) => {
+        updateModalContent(index);
+        modal.style.display = 'flex';
+        setTimeout(() => modal.classList.add('active'), 10);
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeProjectModal = () => {
+        modal.classList.remove('active');
+        setTimeout(() => {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 300);
+    };
+
+    projectItems.forEach((item, index) => {
+        const images = item.querySelectorAll('.project-image');
+        images.forEach(img => {
+            img.addEventListener('click', () => openProjectModal(index));
+        });
+    });
+
+    prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const nextIndex = (currentProjectIndex - 1 + projectItems.length) % projectItems.length;
+        updateModalContent(nextIndex);
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const nextIndex = (currentProjectIndex + 1) % projectItems.length;
+        updateModalContent(nextIndex);
+    });
+
+    closeBtn.addEventListener('click', closeProjectModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeProjectModal();
+    });
+    
+    document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('active')) return;
+        if (e.key === 'Escape') closeProjectModal();
+        if (e.key === 'ArrowLeft') prevBtn.click();
+        if (e.key === 'ArrowRight') nextBtn.click();
     });
 };
 
@@ -314,7 +430,6 @@ export const initHeroIconMovement = () => {
         });
     });
 };
-/*
 export const initWorkScroll = () => {
     const projectItems = document.querySelectorAll('.project-item');
     if (projectItems.length === 0) return;
@@ -333,10 +448,10 @@ export const initWorkScroll = () => {
             const stickyOffset = 100; // approx distance from top where sticky starts
             
             // Calculate progress (0 to 1)
-            let progress = 0;
-            if (start <= stickyOffset) {
-                progress = Math.abs(start - stickyOffset) / (height - viewHeight + stickyOffset);
-            }
+            // Progress starts when the item reaches stickyOffset
+            // Progress ends when the bottom of the item reaches (viewport height - sticky element height)
+            // For simplicity, we use the item's height minus some offset
+            let progress = (stickyOffset - start) / (height - 500); // 500 is a rough estimate for sticky content height + padding
             progress = Math.max(0, Math.min(1, progress));
 
             // Update Progress Bar
@@ -372,4 +487,3 @@ export const initWorkScroll = () => {
     window.addEventListener('scroll', handleScroll);
     handleScroll();
 };
-*/
