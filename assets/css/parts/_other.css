@@ -104,28 +104,36 @@
         color: black;
         padding: 2rem;
         border-radius: 1rem;
-        rotate: var(--rot);
         width: 20vw;
+        transform: translateX(var(--x)) rotate(var(--rot)); /* Corrected: Semicolon added */
     
         &:nth-child(1) {
             --rot: 3deg;
-            transform: translateX(30px);
+            --x: 30px;
             --col: red;
         }
         &:nth-child(2) {
             --rot: 9deg;
-            transform: translateX(12px);
+            --x: 12px;
             --col: orange;
         }
         &:nth-child(3) {
             --rot: -7deg;
-            transform: translateX(-14px);
+            --x: -14px;
             --col: yellow;
         }
         &:nth-child(4) {
             --rot: 11deg;
-            transform: translateX(-33px);
+            --x: -33px;
             --col: pink;
+        }
+    }
+
+    &:has(.effect-3-item:hover) .effect-3-item {
+        transform: translateX(calc(-1 * var(--x))) rotate(calc(.8 * var(--rot)));
+
+        &:hover {
+            --rot: 0;
         }
     }
 }
