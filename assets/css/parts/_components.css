@@ -50,11 +50,6 @@ a.button:active {
     box-shadow: none;
 }
 
-/* Dim sibling buttons when one is hovered */
-.project-links:has(a.button:hover) a.button:not(:hover) {
-    opacity: 0.6;
-}
-
 @media (min-width: 768px) {
     a.button {
         padding: 12px 50px;
@@ -251,13 +246,11 @@ span.marker-highlight:hover:after {
 
 /* ── Section title underline ── */
 
-#my-work .projects-grid .section-title,
 .link-category .section-title,
 #mtexdotdev .section-title {
     width: fit-content;
 }
 
-#my-work .projects-grid .section-title::after,
 .link-category .section-title::after,
 #mtexdotdev .section-title::after {
     content: "";
@@ -268,7 +261,6 @@ span.marker-highlight:hover:after {
     transition: width 0.4s cubic-bezier(.96, .63, .43, .91);
 }
 
-#my-work:hover .projects-grid .section-title::after,
 .link-category:hover .section-title::after,
 #mtexdotdev:hover .section-title::after {
     width: 88%;
