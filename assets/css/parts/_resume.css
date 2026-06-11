@@ -1,0 +1,86 @@
+/* Resume Markdown Viewer Styles */
+#resume-content.markdown-viewer {
+  font-family: var(--font-body);
+  line-height: 1.6;
+  color: var(--text-color);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--background-color);
+  border: 1px solid var(--main-border-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow-light);
+}
+
+#resume-content.markdown-viewer h1,
+#resume-content.markdown-viewer h2,
+#resume-content.markdown-viewer h3,
+#resume-content.markdown-viewer h4 {
+  font-family: var(--font-heading);
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+#resume-content.markdown-viewer h1 {
+  font-size: 2.2rem;
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 0.3em;
+}
+
+#resume-content.markdown-viewer h2 {
+  font-size: 1.8rem;
+  border-bottom: 1px solid var(--main-border-color);
+  padding-bottom: 0.3em;
+}
+
+#resume-content.markdown-viewer h3 {
+  font-size: 1.4rem;
+}
+
+#resume-content.markdown-viewer p {
+  margin-bottom: 1em;
+}
+
+#resume-content.markdown-viewer ul,
+#resume-content.markdown-viewer ol {
+  margin-bottom: 1em;
+  padding-left: 2em;
+}
+
+#resume-content.markdown-viewer li {
+  margin-bottom: 0.5em;
+}
+
+#resume-content.markdown-viewer a {
+  color: var(--accent-color);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--accent-color);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+#resume-content.markdown-viewer a:hover {
+  color: var(--link-hover-color);
+  background-color: var(--link-hover-bg);
+  border-bottom-style: solid;
+}
+
+#resume-content.markdown-viewer hr {
+  height: 1px;
+  border: none;
+  background-color: var(--main-border-color);
+  margin: 2em 0;
+}
+
+#resume-content.markdown-viewer strong {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+/* Loader specific to resume */
+#resume-content .loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}

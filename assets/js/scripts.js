@@ -4,6 +4,7 @@ import { initNameAnimations, /*trackProjectScroll,*/ initCounters, initDomainsAP
 import { initModals } from './parts/_modals.js';
 import { initStatusAPI } from './parts/_status.js';
 import { initSearch } from './parts/_search.js';
+import { initResume } from './parts/_resume.js';
 
 const langToggle = document.getElementById("languageSwitch");
 
@@ -39,4 +40,5 @@ document.addEventListener("DOMContentLoaded", () => {
     initStatusAPI();
     /*initWorkScroll();*/
     initSearch();
+    initResume();
 });

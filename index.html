@@ -10,6 +10,7 @@
     <script>
       const theme = localStorage.getItem("theme-preference") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"); document.documentElement.setAttribute("data-theme", theme);
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <style>
     .HIDDEN {
@@ -23,6 +24,7 @@
       <!--a class="logo prevent-select" href="/#">fabianternis</a-->
       <a class="logo prevent-select" href="#">fabianternis</a>
       <ul class="nav-links-container">
+        <li class="nav-link"><a href="#resume">Resume</a></li>
         <li class="nav-link"><a href="#my-work">Work</a></li>
         <li class="nav-link"><a href="#domains">Domains</a></li>
         <li class="nav-link"><a href="#mtexdotdev">MTEX.dev</a></li>
@@ -284,6 +286,15 @@
                 <div class="tech-category">VCS</div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section id="resume">
+          <h1 class="section-title">
+            <span data-language="en">Resume</span>
+            <span data-language="de">Lebenslauf</span>
+          </h1>
+          <div id="resume-content" class="markdown-viewer">
           </div>
         </section>
 
