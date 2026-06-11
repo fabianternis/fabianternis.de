@@ -4,6 +4,8 @@ export const initModals = () => {
 
     const imprintModal = document.getElementById('imprintModal');
     const privacyModal = document.getElementById('privacyModal');
+    const resumeModal = document.getElementById('resumeModal');
+    const openResumeBtn = document.getElementById('openResumeModalBtn');
 
     if (!imprintModal || !privacyModal) return;
 
@@ -84,6 +86,13 @@ export const initModals = () => {
         privacyLink.addEventListener('click', (e) => {
             e.preventDefault();
             openModal(privacyModal);
+        });
+    }
+
+    if (openResumeBtn && resumeModal) {
+        openResumeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(resumeModal);
         });
     }
 
