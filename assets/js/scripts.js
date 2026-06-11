@@ -1,22 +1,28 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const projectItems = document.querySelectorAll('.project-item');
+import { getStoredTheme, getStoredLang, applyTheme, applyLanguage, executeWithTransition } from './parts/_theme.js';
+import { initNavigation } from './parts/_navigation.js';
+import { initNameAnimations, /*trackProjectScroll,*/ initCounters, initDomainsAPI, initLightbox, /*initWorkScroll*/ } from './parts/_animations.js';
+import { initModals } from './parts/_modals.js';
+import { initStatusAPI } from './parts/_status.js';
+import { initSearch } from './parts/_search.js';
 
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
+const langToggle = document.getElementById("languageSwitch");
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
+langToggle.addEventListener("click", () => {
+    const nextLang = document.documentElement.getAttribute("lang") === "en" ? "de" : "en";
+    executeWithTransition(() => applyLanguage(nextLang, initNameAnimations));
+});
 
-    projectItems.forEach(item => {
-        observer.observe(item);
-   });
+applyTheme(getStoredTheme());
+applyLanguage(getStoredLang(), initNameAnimations);
+
+document.addEventListener("DOMContentLoaded", () => {
+    /*trackProjectScroll();*/
+    initNavigation();
+    initCounters();
+    initDomainsAPI();
+    initLightbox();
+    initModals();
+    initStatusAPI();
+    /*initWorkScroll();*/
+    initSearch();
 });
