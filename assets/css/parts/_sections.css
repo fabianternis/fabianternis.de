@@ -1027,6 +1027,77 @@ a.domain-chip:active {
             top: calc(var(--nav-distance-to-top) + 5rem); /* Dynamic clearance based on navigation bar distance */
             width: 35%;
             height: fit-content; /* Ensure it only takes up needed space to allow sticking */
+
+            .project-badge {
+                display: inline-block;
+                padding: 0.25rem 0.75rem;
+                font-size: 0.8rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                background-color: var(--accent-color);
+                color: var(--button-text-color);
+                border-radius: 9999px;
+                margin-bottom: 1rem;
+            }
+
+            .project-title {
+                font-family: var(--font-heading);
+                font-size: 1.8rem;
+                margin-top: 0;
+                margin-bottom: 1rem;
+                color: var(--text-color);
+            }
+
+            .project-description {
+                font-size: 1.05rem;
+                line-height: 1.7;
+                color: var(--text-color);
+                opacity: 0.9;
+                margin-bottom: 1.5rem;
+                max-width: 60ch;
+            }
+
+            .technology-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                margin-bottom: 2rem;
+                padding-left: 0;
+                list-style: none;
+
+                .technology-tag {
+                    font-family: var(--font-mono);
+                    font-size: 0.8rem;
+                    padding: 4px 10px;
+                    border-radius: 6px;
+                    background-color: var(--main-bg-color);
+                    border: 1px solid var(--main-border-color);
+                    color: var(--text-color);
+                    opacity: 0.8;
+                }
+            }
+
+            .project-links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .project-progress-container {
+                width: 100%;
+                background-color: var(--main-border-color);
+                border-radius: 4px;
+                height: 6px;
+                overflow: hidden;
+
+                .project-progress-bar {
+                    height: 100%;
+                    background-color: var(--accent-color);
+                    width: 100%; /* Can be overridden inline or via JS if dynamic */
+                }
+            }
         }
 
         .project-image-column {
