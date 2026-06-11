@@ -979,13 +979,15 @@ a.domain-chip:active {
         align-items: flex-start; /* Corrected from 'center' to enable sticky track */
         justify-content: space-between;
         gap: 2rem;
+        height: fit-content;
 
         /* Targeting both class variations found in your DOM */
         .project-info,
         .project-info-sticky {
             position: sticky;
-            top: 2rem; /* Adjusted from 0 to provide viewport clearance */
+            top: calc(var(--nav-distance-to-top) + 5rem); /* Dynamic clearance based on navigation bar distance */
             width: 35%;
+            height: fit-content; /* Ensure it only takes up needed space to allow sticking */
         }
 
         .project-image-column {
