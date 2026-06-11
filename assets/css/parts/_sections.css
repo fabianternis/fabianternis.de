@@ -7,6 +7,11 @@
     justify-content: center;
     min-height: clamp(50vh, 60vh, 800px);
     overflow: hidden;
+    overflow: visible;
+}
+
+.hero-title {
+    overflow: visible;
 }
 
 .hero-spreaded-icons {
@@ -1184,11 +1189,10 @@ a.domain-chip:active {
                 display: block;
                 margin-bottom: 2rem;
                 cursor: pointer;
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                transition: box-shadow 0.3s ease;
             }
 
             .project-image:hover {
-                transform: scale(1.02);
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
             }
         }
@@ -1263,6 +1267,18 @@ html[data-theme="auto"] .project-image-light {
     width: 100%;
     height: auto;
     display: block;
+    border-radius: 8px;
+}
+
+.image-wrapper img {
+    transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-radius: 32px;
+    corner-shape: squircle;
+}
+
+.image-wrapper img:hover {
+    border-radius: 8px;
+    corner-shape: initial;
 }
 
 .project-details-title {
@@ -1344,17 +1360,112 @@ html[data-theme="auto"] .project-image-light {
     }
 }
 
-/* Mobile Fallback: Collapse to single column on smaller screens */
-@media (max-width: 768px) {
-    .projects-container .project-item {
-        flex-direction: column;
-        
-        .project-info,
-        .project-info-sticky,
-        .project-image-column {
-            width: 100%;
-            position: relative; /* Disable sticky on mobile */
-            top: auto;
-        }
+/* ── Post-it Note ── */
+.more-projects-note {
+    margin-top: 6rem;
+    padding-bottom: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.post-it-wrapper {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.post-it-wrapper:hover {
+    transform: scale(1.05) rotate(2deg);
+}
+
+.post-it {
+    background: #fffd75;
+    color: #333;
+    padding: 2.5rem 1.5rem 1.5rem;
+    width: 260px;
+    min-height: 260px;
+    box-shadow: 
+        2px 2px 4px rgba(0,0,0,0.1),
+        10px 10px 20px rgba(0,0,0,0.15);
+    transform: rotate(-3deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    border-bottom-right-radius: 80px 10px;
+    transition: box-shadow 0.3s ease;
+}
+
+.post-it-wrapper:hover .post-it {
+    box-shadow: 
+        2px 2px 4px rgba(0,0,0,0.1),
+        15px 15px 30px rgba(0,0,0,0.2);
+}
+
+/* Masking Tape Effect */
+.post-it-tape {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%) rotate(2deg);
+    width: 120px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(2px);
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+    border-left: 1px dashed rgba(0,0,0,0.1);
+    border-right: 1px dashed rgba(0,0,0,0.1);
+    z-index: 2;
+}
+
+.post-it-text {
+    font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", "Comic Neue", cursive;
+    color: #1a1a1a;
+}
+
+.post-it-main {
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.post-it-subtext {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    line-height: 1.4;
+    transform: rotate(1deg);
+}
+
+[data-theme="dark"] .post-it {
+    background: #e9e768;
+    color: #000;
+}
+
+[data-theme="dark"] .post-it-tape {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+@media (max-width: 600px) {
+    .more-projects-note {
+        margin-top: 3rem;
+        padding-bottom: 2rem;
+    }
+    .post-it {
+        width: 220px;
+        min-height: 220px;
+        padding: 2rem 1rem 1rem;
+    }
+    .post-it-main {
+        font-size: 1.2rem;
+    }
+    .post-it-subtext {
+        font-size: 0.85rem;
     }
 }
