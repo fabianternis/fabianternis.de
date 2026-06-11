@@ -186,6 +186,41 @@ export const initDomainsAPI = () => {
     }
 };
 
+export const initHeroTooltips = () => {
+    const tooltip = document.getElementById("heroTooltip");
+    if (!tooltip) return;
+
+    const tooltipImg = tooltip.querySelector("img");
+    const logos = document.querySelectorAll(".header-logo");
+
+    logos.forEach((logo) => {
+        const hoverImg = logo.getAttribute("data-hover-image");
+        if (!hoverImg) return;
+
+        logo.addEventListener("mouseenter", () => {
+            tooltipImg.src = hoverImg;
+            tooltip.classList.add("active");
+        });
+
+        logo.addEventListener("mousemove", (e) => {
+            const x = e.clientX + 20;
+            const y = e.clientY + 20;
+
+            // Prevent tooltip from going off-screen
+            const rect = tooltip.getBoundingClientRect();
+            const maxX = window.innerWidth - rect.width - 20;
+            const maxY = window.innerHeight - rect.height - 20;
+
+            tooltip.style.left = `${Math.min(x, maxX)}px`;
+            tooltip.style.top = `${Math.min(y, maxY)}px`;
+        });
+
+        logo.addEventListener("mouseleave", () => {
+            tooltip.classList.remove("active");
+        });
+    });
+};
+
 export const initLightbox = () => {
     const images = Array.from(document.querySelectorAll('.photography-item img'));
     const lightbox = document.getElementById('photographyLightbox');
