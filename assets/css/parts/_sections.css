@@ -1011,6 +1011,25 @@ a.domain-chip:active {
     }
 }
 
+/* Theme-based dynamic image visibility */
+html[data-theme="light"] .project-image-dark,
+html[data-theme="dark"] .project-image-light {
+    display: none;
+}
+
+html[data-theme="auto"] .project-image-dark {
+    display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    html[data-theme="auto"] .project-image-light {
+        display: none;
+    }
+    html[data-theme="auto"] .project-image-dark {
+        display: block; /* or inline-block, but .project-image uses display: block */
+    }
+}
+
 /* Mobile Fallback: Collapse to single column on smaller screens */
 @media (max-width: 768px) {
     .projects-container .project-item {
