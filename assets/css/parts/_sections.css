@@ -54,10 +54,9 @@
 }
 
 .header-logo {
-    height: 1em;
+    height: 0.72em;
     width: auto;
-    vertical-align: middle;
-    margin-top: -0.2em;
+    vertical-align: baseline;
     transition: transform 0.2s ease;
 }
 
