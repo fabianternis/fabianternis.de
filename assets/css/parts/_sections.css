@@ -965,3 +965,61 @@ a.domain-chip:active {
     .lightbox-next { right: -0.5rem; width: 36px; height: 36px; padding: 0.25rem; }
     .lightbox-close { top: -0.5rem; right: -0.5rem; width: 36px; height: 36px; padding: 0.25rem; }
 }
+
+
+.projects-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem; /* Adds vertical spacing between individual projects */
+
+    /* Native nesting targeting children, no ampersand required */
+    .project-item {
+        display: flex;
+        flex-direction: row; /* Corrected to 'row' for side-by-side layout */
+        align-items: flex-start; /* Corrected from 'center' to enable sticky track */
+        justify-content: space-between;
+        gap: 2rem;
+
+        /* Targeting both class variations found in your DOM */
+        .project-info,
+        .project-info-sticky {
+            position: sticky;
+            top: 2rem; /* Adjusted from 0 to provide viewport clearance */
+            width: 35%;
+        }
+
+        .project-image-column {
+            display: flex;
+            flex-direction: column;
+            width: 65%;
+
+            .image-wrapper {
+                height: auto;
+                width: 100%;
+            }
+
+            /* Ensure images scale correctly within the 65% column */
+            .project-image {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin-bottom: 2rem;
+            }
+        }
+    }
+}
+
+/* Mobile Fallback: Collapse to single column on smaller screens */
+@media (max-width: 768px) {
+    .projects-container .project-item {
+        flex-direction: column;
+        
+        .project-info,
+        .project-info-sticky,
+        .project-image-column {
+            width: 100%;
+            position: relative; /* Disable sticky on mobile */
+            top: auto;
+        }
+    }
+}
