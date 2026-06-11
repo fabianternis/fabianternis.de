@@ -1,5 +1,4 @@
 /* ── Hero / Introduction ── */
-
 .hero-container {
     padding-block: clamp(2rem, 8vw, 5rem) 2rem;
     display: flex;
@@ -232,7 +231,7 @@
 }
 
 .project-info-sticky {
-    position: sticky;
+    position: stcky;
     top: calc(var(--nav-distance-to-top) + 2rem);
     height: fit-content;
     display: flex;

@@ -29,7 +29,7 @@ export const initNameAnimations = () => {
         });
     });
 };
-
+/*
 export const trackProjectScroll = () => {
     // This function can now handle generic entrance animations if needed
     const items = document.querySelectorAll(".project-item");
@@ -45,7 +45,7 @@ export const trackProjectScroll = () => {
 
     items.forEach((item) => observer.observe(item));
 };
-
+*/
 export const initCounters = () => {
     const counters = document.querySelectorAll("[data-target]");
 
@@ -250,7 +250,7 @@ export const initLightbox = () => {
         if (e.key === 'ArrowRight') updateLightbox(currentIndex + 1);
     });
 };
-
+/*
 export const initWorkScroll = () => {
     const projectItems = document.querySelectorAll('.project-item');
     if (projectItems.length === 0) return;
@@ -308,3 +308,4 @@ export const initWorkScroll = () => {
     window.addEventListener('scroll', handleScroll);
     handleScroll();
 };
+*/
