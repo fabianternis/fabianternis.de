@@ -295,26 +295,13 @@
               <span data-language="en">Resume</span>
               <span data-language="de">Lebenslauf</span>
             </h1>
-            <a href="https://github.com/fabianternis/fabianternis/blob/main/RESUME.md" target="_blank" rel="noopener noreferrer" class="button" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
-              <span data-language="en">View on GitHub</span>
-              <span data-language="de">Auf GitHub ansehen</span>
+            <button id="openResumeModalBtn" class="button" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+              <span data-language="en">Open Resume</span>
+              <span data-language="de">Lebenslauf öffnen</span>
               <svg style="width: 16px; height: 16px; margin-left: 0.5rem;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
               </svg>
-            </a>
-          </div>
-
-          <div class="resume-wrapper">
-            <div id="resume-controls" class="resume-controls" style="display: none;">
-              <button class="resume-toggle-btn active" data-view="formatted" data-language="en">Formatted</button>
-              <button class="resume-toggle-btn active" data-view="formatted" data-language="de">Formatiert</button>
-              <button class="resume-toggle-btn" data-view="raw">Raw Markdown</button>
-            </div>
-
-            <div id="resume-content" class="markdown-viewer">
-               <div class="loader-wrapper"><div class="loader" aria-hidden="true"><span class="loader-spinner"></span></div></div>
-            </div>
-            <pre id="resume-raw" class="resume-raw-content" style="display: none;"></pre>
+            </button>
           </div>
         </section>
 
@@ -642,6 +629,37 @@
     </footer>
 
     <!-- Modals -->
+    <div id="resumeModal" class="modal-overlay" aria-hidden="true" style="display: none;">
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close Modal">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <div class="modal-body">
+          <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+            <a href="https://github.com/fabianternis/fabianternis/blob/main/RESUME.md" target="_blank" rel="noopener noreferrer" class="button" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+              <span data-language="en">View on GitHub</span>
+              <span data-language="de">Auf GitHub ansehen</span>
+              <svg style="width: 16px; height: 16px; margin-left: 0.5rem;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
+            </a>
+          </div>
+          <div class="resume-wrapper">
+            <div id="resume-controls" class="resume-controls" style="display: none;">
+              <button class="resume-toggle-btn active" data-view="formatted" data-language="en">Formatted</button>
+              <button class="resume-toggle-btn active" data-view="formatted" data-language="de">Formatiert</button>
+              <button class="resume-toggle-btn" data-view="raw">Raw Markdown</button>
+            </div>
+
+            <div id="resume-content" class="markdown-viewer">
+               <div class="loader-wrapper"><div class="loader" aria-hidden="true"><span class="loader-spinner"></span></div></div>
+            </div>
+            <pre id="resume-raw" class="resume-raw-content" style="display: none;"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="imprintModal" class="modal-overlay" aria-hidden="true" style="display: none;">
       <div class="modal-content">
         <button class="modal-close" aria-label="Close Modal">
