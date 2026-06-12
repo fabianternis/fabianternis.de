@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Fabian Ternis</title>
+        <link rel="stylesheet" href="assets/css/styles.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+    
+        <link rel="stylesheet" href="_pup.css" />
+    </head>
+    <body class="scrolled">
+        <div id="construction-popup" class="popup-overlay hidden" role="dialog" aria-labelledby="popup-title" aria-describedby="popup-description">
+            <div class="popup-content">
+                <button id="close-popup" class="close-btn" aria-label="Close dialog" type="button">
+                    <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <h3 id="popup-title">Work in Progress!</h3>
+                <p id="popup-description">
+                Besuche meine neue Webseite, die sich gerade im Aufbau befindet.
+                </p>
+                <a href="/new_index.html" class="popup-link-btn">
+                Zur neuen Seite
+                </a>
+            </div>
+        </div>
+
+        <nav>
+            <a class="logo prevent-select" href="/#">fabianternis</a>
+            <ul class="nav-links prevent-select">
+                <li class="nav-link"><a href="#">Link</a></li>
+            </ul>
+        </nav>
+        <main>
+            <div class="content-wrapper">
+                <div class="socials-container">
+                    <h2 class="prevent-select"><span class="marker-highlight">Socialmedia</span> & Co.</h2>
+                    <div class="social-links-container">
+                        <a href="https://github.com/fabianternis" target="_blank" class="social-icon-link">
+                            <div class="tooltip">GitHub</div>
+                            <img src="assets/svg/socials/github.svg" alt="GitHub" />
+                        </a>
+                        <a href="https://codepen.io/Michaelninder" target="_blank" class="social-icon-link">
+                            <div class="tooltip">CodePen</div>
+                            <img src="assets/svg/socials/codepen.svg" alt="CodePen" />
+                        </a>
+                        <a href="https://youtube.com/@michaelninder" target="_blank" class="social-icon-link">
+                            <div class="tooltip">YouTube</div>
+                            <img src="assets/svg/socials/youtube.svg" alt="YouTube" />
+                        </a>
+                        <a href="https://tiktok.com/michaelninder" target="_blank" class="social-icon-link">
+                            <div class="tooltip">TikTok</div>
+                            <img src="assets/svg/socials/tiktok.svg" alt="TikTok" />
+                        </a>
+                        <a href="https://twitch.tv/michaelninder" target="_blank" class="social-icon-link">
+                            <div class="tooltip">Twitch</div>
+                            <img src="assets/svg/socials/twitch.svg" alt="Twitch" />
+                        </a>
+                        <a href="https://x.com/micha_was_taken" target="_blank" class="social-icon-link">
+                            <div class="tooltip">X / Twitter</div>
+                            <img src="assets/svg/socials/twitter.svg" alt="X / Twitter" />
+                        </a>
+                        <a href="https://instagram.com/fabianternis" target="_blank" class="social-icon-link">
+                            <div class="tooltip">Instagram</div>
+                            <img src="assets/svg/socials/instagram.svg" alt="Instagram" />
+                        </a>
+                        <a href="https://modrinth.com/user/michaelninder" target="_blank" class="social-icon-link">
+                            <div class="tooltip">Modrinth</div>
+                            <img src="assets/svg/socials/modrinth.svg" alt="Modrinth" />
+                        </a>
+                    </div>
+                </div>
+                <div class="links-grid">
+                    <section class="link-category">
+                        <h2>Webseiten und Projekte</h2>
+                        <div class="link-group">
+                            <a href="https://fabianternis.dev" target="_blank">fabianternis.dev (EN)</a>
+                            <a href="https://fternis.de" target="_blank">fternis.de (EN)</a>
+                            <a href="https://dsc.pics" target="_blank">dsc.pics (EN/DE/FR)</a>
+                            <a href="https://heimatverein-floersheim-dalsheim.de" target="_blank">heimatverein-floersheim-dalsheim.de (DE)</a>
+                        </div>
+                    </section>
+                </div>
+                <section id="my-work">
+                    <div class="projects-grid">
+                        <h2 class="section-title">
+                            <span data-language="de">Meine Arbeiten</span>
+                            <span data-language="en">My Work</span>
+                        </h2>
+                        <div class="projects-group">
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <h3 class="project-title">fabianternis.dev</h3>
+                                    <div class="project-description">
+                                        <span data-language="de">Meine persönliche Webseite, die einen Überblick über meine Projekte und Arbeiten bietet, ergänzt durch Informationen über mich und meine Interessen.</span>
+                                        <span data-language="en">My personal website, providing an overview of my projects and work, complemented by information about me and my interests.</span>
+                                    </div>
+                                    <div class="technology-tags">
+                                        <span class="technology-tag">localStorage</span>
+                                        <span class="technology-tag">GitHub Actions</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="https://fabianternis.dev" class="project-link button" target="_blank">
+                                            <img src="assets/svg/open-link.svg" class="button-icon" />
+                                            <span data-language="de">Webseite öffnen</span>
+                                            <span data-language="en">Open Website</span>
+                                        </a>
+                                        <a href="https://github.com/Michaelninder/websites-sm/blob/main/fabianternis.dev.html" class="project-link button" target="_blank">
+                                            <img src="assets/svg/socials/github.svg" class="button-icon" />
+                                            <span data-language="de">Github Repo</span>
+                                            <span data-language="en">GitHub Repo</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="image-wrapper">
+                                    <img src="assets/img/projects/fabianternis-dev.png" alt="fabianternis.dev Landingpage" class="project-image" />
+                                </div>
+                            </div>
+
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <h3 class="project-title">louixch.de</h3>
+                                    <div class="project-description">
+                                        <span data-language="de">Eine Webseite für Louixch, die seine Projekte und Arbeiten vorstellt und Einblicke in seine Interessen und Fähigkeiten gibt.</span>
+                                        <span data-language="en">A website for Louixch, showcasing his projects and work while providing insights into his interests and skills.</span>
+                                    </div>
+                                    <div class="technology-tags">
+                                        <span class="technology-tag">External REST-API</span>
+                                        <span class="technology-tag">skinview3d</span>
+                                        <span class="technology-tag">JavaScript</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="https://louixch.de" class="project-link button" target="_blank">
+                                            <img src="assets/svg/open-link.svg" class="button-icon" />
+                                            <span data-language="de">Webseite öffnen</span>
+                                            <span data-language="en">Open Website</span>
+                                        </a>
+                                        <a href="https://github.com/michaelninder/Louixch.de" class="project-link button" target="_blank">
+                                            <img src="assets/svg/socials/github.svg" class="button-icon" />
+                                            <span data-language="de">Github Repo</span>
+                                            <span data-language="en">GitHub Repo</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="image-wrapper">
+                                    <img src="assets/img/projects/louixch-de.png" alt="louixch.de Landingpage" class="project-image" />
+                                </div>
+                            </div>
+
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <h3 class="project-title">ivoternis.de</h3>
+                                    <div class="project-description">
+                                        <span data-language="de">Eine Webseite für Ivo Ternis, die seine Projekte und Arbeiten präsentiert, einschließlich Informationen zu seinen Interessen und Fähigkeiten.</span>
+                                        <span data-language="en">A website for Ivo Ternis, presenting his projects and work, including information about his interests and skills.</span>
+                                    </div>
+                                    <div class="technology-tags">
+                                        <span class="technology-tag">External REST-API</span>
+                                        <span class="technology-tag">Chess.com API</span>
+                                        <span class="technology-tag">Modrinth API</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="https://ivoternis.de" class="project-link button" target="_blank">
+                                            <img src="assets/svg/open-link.svg" class="button-icon" />
+                                            <span data-language="de">Webseite öffnen</span>
+                                            <span data-language="en">Open Website</span>
+                                        </a>
+                                        <a href="https://github.com/ivoternis/ivoternis.de" class="project-link button" target="_blank">
+                                            <img src="assets/svg/socials/github.svg" class="button-icon" />
+                                            <span data-language="de">Github Repo</span>
+                                            <span data-language="en">GitHub Repo</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="image-wrapper">
+                                    <img src="assets/img/projects/ivoternis-de.png" alt="ivoternis.de Landingpage" class="project-image" />
+                                </div>
+                            </div>
+
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <h3 class="project-title">fternis.de</h3>
+                                    <div class="project-description">
+                                        <span data-language="de">Meine persönliche Webseite, die meine Projekte und Arbeiten vorstellt und detaillierte Informationen über mich und meine Interessen enthält.</span>
+                                        <span data-language="en">My personal website, introducing my projects and work and containing detailed information about me and my interests.</span>
+                                    </div>
+                                    <div class="technology-tags">
+                                        <span class="technology-tag">TailwindCSS</span>
+                                        <span class="technology-tag">Laravel PHP</span>
+                                        <span class="technology-tag">MySQL</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="https://fternis.de" class="project-link button" target="_blank">
+                                            <img src="assets/svg/open-link.svg" class="button-icon" />
+                                            <span data-language="de">Webseite öffnen</span>
+                                            <span data-language="en">Open Website</span>
+                                        </a>
+                                        <a href="https://github.com/michaelninder/portfolio" class="project-link button" target="_blank">
+                                            <img src="assets/svg/socials/github.svg" class="button-icon" />
+                                            <span data-language="de">Github Repo</span>
+                                            <span data-language="en">GitHub Repo</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="image-wrapper">
+                                    <img src="assets/img/projects/fternis-de.png" alt="fternis.de Landingpage" class="project-image" />
+                                </div>
+                            </div>
+
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <h3 class="project-title">dsc.pics</h3>
+                                    <div class="project-description">
+                                        <span data-language="de">Eine Bilder- und Videohosting-Plattform, ideal für Discord und andere soziale Medien, inklusive Link-Kürzungsfunktion für schnelle Uploads.</span>
+                                        <span data-language="en">An image and video hosting platform, ideal for Discord and other social media, including a link-shortening function for fast uploads.</span>
+                                    </div>
+                                    <div class="technology-tags">
+                                        <span class="technology-tag">Laravel Sanctum</span>
+                                        <span class="technology-tag">Discord OAuth</span>
+                                        <span class="technology-tag">REST-API</span>
+                                        <span class="technology-tag">MySQL</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="https://dsc.pics" class="project-link button" target="_blank">
+                                            <img src="assets/svg/open-link.svg" class="button-icon" />
+                                            <span data-language="de">Webseite öffnen</span>
+                                            <span data-language="en">Open Website</span>
+                                        </a>
+                                        <a href="https://github.com/EuropeHost/dsc.pics" class="project-link button" target="_blank">
+                                            <img src="assets/svg/socials/github.svg" class="button-icon" />
+                                            <span data-language="de">Github Repo</span>
+                                            <span data-language="en">GitHub Repo</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="image-wrapper">
+                                    <img src="assets/img/projects/dsc-pics.png" alt="dsc.pics Landingpage" class="project-image" />
+                                </div>
+                            </div>
+
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <h3 class="project-title">Heimatverein Flörsheim-Dalsheim</h3>
+                                    <div class="project-description">
+                                        <span data-language="de">Eine Webseite für den Heimatverein Flörsheim-Dalsheim mit Funktionen zur Buchbestellung und E-Mail-Bestätigung.</span>
+                                        <span data-language="en">A website for the Flörsheim-Dalsheim historical society featuring book ordering and automated email confirmations.</span>
+                                    </div>
+                                    <div class="technology-tags">
+                                        <span class="technology-tag">Laravel</span>
+                                        <span class="technology-tag">MySQL</span>
+                                        <span class="technology-tag">TailwindCSS</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="https://heimatverein-floersheim-dalsheim.de" class="project-link button" target="_blank">
+                                            <img src="assets/svg/open-link.svg" class="button-icon" />
+                                            <span data-language="de">Webseite öffnen</span>
+                                            <span data-language="en">Open Website</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="image-wrapper">
+                                    <img src="assets/img/projects/heimatverein-floersheim-dalsheim-de.png" alt="Heimatverein Landingpage" class="project-image" />
+                                </div>
+                            </div>
+
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <h3 class="project-title">Kaufenhof.de</h3>
+                                    <div class="project-description">
+                                        <span data-language="de">Onlineshop zum kaufen von (von Admins) eingestellten Süßigkeiten. Nur Barzahlung, da es sich um Schüler handelt.</span>
+                                        <span data-language="en">An online shop for purchasing sweets listed by administrators. Cash only, as it's a student-run project.</span>
+                                    </div>
+                                    <div class="technology-tags">
+                                        <span class="technology-tag">Laravel</span>
+                                        <span class="technology-tag">MySQL</span>
+                                        <span class="technology-tag">localStorage</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="https://kaufenhof.de" class="project-link button" target="_blank">
+                                            <img src="assets/svg/open-link.svg" class="button-icon" />
+                                            <span data-language="de">Webseite öffnen</span>
+                                            <span data-language="en">Open Website</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="image-wrapper">
+                                    <img src="assets/img/projects/kaufenhof-de.png" alt="Kaufenhof Landingpage" class="project-image" />
+                                </div>
+                            </div>
+
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <h3 class="project-title">dnbx.de</h3>
+                                    <div class="project-description">
+                                        <span data-language="de">Eine Webseite für DNBX.de, ein Projekt im Bereich Musik und Unterhaltung.</span>
+                                        <span data-language="en">A website for DNBX.de, a project focused on music and entertainment.</span>
+                                    </div>
+                                    <div class="technology-tags">
+                                        <span class="technology-tag">PHP</span>
+                                        <span class="technology-tag">MySQL</span>
+                                        <span class="technology-tag">Bootstrap</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="https://dnbx.de" class="project-link button" target="_blank">
+                                            <img src="assets/svg/open-link.svg" class="button-icon" />
+                                            <span data-language="de">Webseite öffnen</span>
+                                            <span data-language="en">Open Website</span>
+                                        </a>
+                                        <a href="https://github.com/DNBX-de/" class="project-link button" target="_blank">
+                                            <img src="assets/svg/socials/github.svg" class="button-icon" />
+                                            <span data-language="de">Github Repo</span>
+                                            <span data-language="en">GitHub Repo</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="image-wrapper">
+                                    <img src="assets/img/projects/dnbx-de.png" alt="dnbx.de Landingpage" class="project-image" />
+                                </div>
+                            </div>
+
+                            <div class="project-item">
+                                <div class="project-info">
+                                    <h3 class="project-title">api-sandbox.de - API Playground</h3>
+                                    <div class="project-description">
+                                        <span data-language="de">Ein interaktiver API-Playground zum Testen und Experimentieren mit verschiedenen Endpunkten.</span>
+                                        <span data-language="en">An interactive API playground for testing and experimenting with various endpoints.</span>
+                                    </div>
+                                    <div class="technology-tags">
+                                        <span class="technology-tag">JavaScript</span>
+                                        <span class="technology-tag">TailwindCSS</span>
+                                        <span class="technology-tag">REST API</span>
+                                    </div>
+                                    <div class="project-links">
+                                        <a href="https://api-sandbox.de/playground.html" class="project-link button" target="_blank">
+                                            <img src="assets/svg/open-link.svg" class="button-icon" />
+                                            <span data-language="de">Webseite öffnen</span>
+                                            <span data-language="en">Open Website</span>
+                                        </a>
+                                        <a href="https://github.com/api-sandbox-DE/api-sandbox.de/blob/main/playground.html" class="project-link button" target="_blank">
+                                            <img src="assets/svg/socials/github.svg" class="button-icon" />
+                                            <span data-language="de">Github Repo</span>
+                                            <span data-language="en">GitHub Repo</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="image-wrapper">
+                                    <img src="assets/img/projects/api-sandbox-de_playground.png" alt="api-sandbox playground" class="project-image" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="loading-grid">
+                            <div class="loader">
+                                <span class="loader-spinner"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        <footer>
+            <div class="footer-content">
+                <ul>
+                    <li><a href="https://fternis.de/imprint">Impressum</a></li>
+                    <li><a href="https://fternis.de/privacy">Datenschutz</a></li>
+                    <li><a href="#">Kontakt</a></li>
+                </ul>
+            </div>
+        </footer>
+        <script src="assets/js/scripts.js"></script>
+
+        <script src="_pup.js"></script>
+    </body>
+</html>

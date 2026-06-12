@@ -1,5 +1,0 @@
-/* Entry point — imports all parts in order */
-@import url('parts/_base.css');
-@import url('parts/_nav.css');
-@import url('parts/_components.css');
-@import url('parts/_sections.css');

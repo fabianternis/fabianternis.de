@@ -50,11 +50,6 @@ a.button:active {
     box-shadow: none;
 }
 
-/* Dim sibling buttons when one is hovered */
-.project-links:has(a.button:hover) a.button:not(:hover) {
-    opacity: 0.6;
-}
-
 @media (min-width: 768px) {
     a.button {
         padding: 12px 50px;
@@ -66,13 +61,21 @@ a.button:active {
     height: 1.2em;
     vertical-align: middle;
     transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
-    filter: light-dark(invert(1), invert(0));
+    filter: invert(1); /* Default (Light mode): White icon on blue button */
+}
+
+[data-theme="dark"] .button-icon {
+    filter: invert(0); /* Dark mode: Dark icon on light blue button */
+}
+
+@media (prefers-color-scheme: dark) {
+    [data-theme="auto"] .button-icon {
+        filter: invert(0);
+    }
 }
 
 a.button:hover .button-icon {
     transform: rotate(-12deg) scale(1.15) translateX(-2px);
-    filter: light-dark(invert(1) brightness(0) saturate(100%) invert(50%) sepia(1) hue-rotate(200deg),
-            invert(0) brightness(0) saturate(100%) invert(50%) sepia(1) hue-rotate(200deg));
 }
 
 /* ── Socials ── */
@@ -251,13 +254,11 @@ span.marker-highlight:hover:after {
 
 /* ── Section title underline ── */
 
-#my-work .projects-grid .section-title,
 .link-category .section-title,
 #mtexdotdev .section-title {
     width: fit-content;
 }
 
-#my-work .projects-grid .section-title::after,
 .link-category .section-title::after,
 #mtexdotdev .section-title::after {
     content: "";
@@ -268,7 +269,6 @@ span.marker-highlight:hover:after {
     transition: width 0.4s cubic-bezier(.96, .63, .43, .91);
 }
 
-#my-work:hover .projects-grid .section-title::after,
 .link-category:hover .section-title::after,
 #mtexdotdev:hover .section-title::after {
     width: 88%;
@@ -298,8 +298,126 @@ span.marker-highlight:hover:after {
     100% { transform: rotate(360deg); }
 }
 
+/* ── Modals ── */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(10px) saturate(1.5);
+}
+
+.modal-overlay.active {
+    opacity: 1;
+}
+
+.modal-content {
+    position: relative;
+    background: var(--main-bg-color);
+    border: 1px solid var(--main-border-color);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 90vw;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--button-bg);
+    color: var(--button-text-color);
+    border: 1px solid var(--button-border-color);
+    cursor: pointer;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s ease, filter 0.2s ease, transform 0.2s ease;
+    z-index: 10;
+}
+
+.modal-close:hover {
+    background: var(--button-bg);
+    filter: brightness(1.1);
+    transform: scale(1.08);
+}
+
+.modal-body h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.modal-body p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.email-canvas {
+    vertical-align: middle;
+}
+
 /* ── Misc ── */
 
 span.hidden {
     display: none;
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 600px) {
+    a.button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        border-radius: 8px;
+    }
+
+    .social-icon-link {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+    }
+
+    .social-icon-link img {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Hide tooltips on touch — they don't work well */
+    .social-icon-link .tooltip {
+        display: none;
+    }
+
+    .link-group {
+        gap: 0.5rem;
+    }
+
+    .link-group a {
+        padding: 0.5rem 0.85rem;
+        font-size: 0.85rem;
+    }
 }
