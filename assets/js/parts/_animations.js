@@ -191,31 +191,84 @@ export const initHeroTooltips = () => {
     if (!tooltip) return;
 
     const tooltipImg = tooltip.querySelector("img");
-    const logos = document.querySelectorAll(".header-logo");
+    const tooltipTitle = tooltip.querySelector(".tooltip-title");
+    const tooltipSubtitle = tooltip.querySelector(".tooltip-subtitle");
+    const tooltipTextContent = tooltip.querySelector(".tooltip-text-content");
 
-    logos.forEach((logo) => {
-        const hoverImg = logo.getAttribute("data-hover-image");
-        if (!hoverImg) return;
+    const targets = document.querySelectorAll(".header-logo, .build-item");
 
-        logo.addEventListener("mouseenter", () => {
-            tooltipImg.src = hoverImg;
+    targets.forEach((target) => {
+        const isBuildItem = target.classList.contains("build-item");
+        const hoverImg = target.getAttribute("data-hover-image");
+        const hoverTitle = target.getAttribute("data-hover-title");
+        const hoverSubtitle = target.getAttribute("data-hover-subtitle");
+
+        target.addEventListener("mouseenter", () => {
+            if (isBuildItem) {
+                // Build Item: Show both image and text
+                if (hoverImg) {
+                    tooltipImg.src = hoverImg;
+                    tooltipImg.style.display = "block";
+                } else {
+                    tooltipImg.style.display = "none";
+                }
+                
+                if (hoverTitle) {
+                    tooltipTitle.textContent = hoverTitle;
+                    tooltipSubtitle.textContent = hoverSubtitle || "";
+                    tooltipTextContent.style.display = "flex";
+                } else {
+                    tooltipTextContent.style.display = "none";
+                }
+            } else {
+                // Technology Logo: Show only image
+                if (hoverImg) {
+                    tooltipImg.src = hoverImg;
+                    tooltipImg.style.display = "block";
+                    tooltipTextContent.style.display = "none";
+                } else {
+                    return; // Nothing to show
+                }
+            }
+
             tooltip.classList.add("active");
         });
 
-        logo.addEventListener("mousemove", (e) => {
-            const x = e.clientX + 20;
-            const y = e.clientY + 20;
-
-            // Prevent tooltip from going off-screen
+        target.addEventListener("mousemove", (e) => {
             const rect = tooltip.getBoundingClientRect();
-            const maxX = window.innerWidth - rect.width - 20;
-            const maxY = window.innerHeight - rect.height - 20;
+            let x, y;
 
-            tooltip.style.left = `${Math.min(x, maxX)}px`;
-            tooltip.style.top = `${Math.min(y, maxY)}px`;
+            if (isBuildItem) {
+                // Centered above cursor for build items
+                x = e.clientX - (rect.width / 2);
+                y = e.clientY - rect.height - 15;
+
+                // Constrain to viewport
+                const padding = 10;
+                const maxX = window.innerWidth - rect.width - padding;
+                x = Math.max(padding, Math.min(x, maxX));
+                
+                if (y < padding) {
+                    y = e.clientY + 25; // Flip below if off top
+                }
+            } else {
+                // Bottom right for technology logos
+                x = e.clientX + 20;
+                y = e.clientY + 20;
+
+                // Constrain to viewport
+                const maxX = window.innerWidth - rect.width - 20;
+                const maxY = window.innerHeight - rect.height - 20;
+                
+                x = Math.min(x, maxX);
+                y = Math.min(y, maxY);
+            }
+
+            tooltip.style.left = `${x}px`;
+            tooltip.style.top = `${y}px`;
         });
 
-        logo.addEventListener("mouseleave", () => {
+        target.addEventListener("mouseleave", () => {
             tooltip.classList.remove("active");
         });
     });
