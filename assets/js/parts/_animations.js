@@ -487,3 +487,18 @@ export const initWorkScroll = () => {
     window.addEventListener('scroll', handleScroll);
     handleScroll();
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('#just-some-info .tab');
+
+    if (tabs.length === 0) return;
+
+    tabs[0].classList.add('active');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('mouseenter', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+        });
+    });
+});
