@@ -1616,3 +1616,32 @@ html[data-theme="auto"] .project-image-light {
         }
     }
 }
+@media (max-width: 768px) {
+    #just-some-info .asd-container {
+        flex-direction: column;
+        height: auto;
+    }
+    #just-some-info .asd-container .asd-title-item {
+        width: 100%;
+    }
+    #just-some-info .asd-container .tabs-container {
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .projects-container .project-item {
+        flex-direction: column;
+    }
+    .projects-container .project-item .project-info,
+    .projects-container .project-item .project-info-sticky {
+        width: 100%;
+        position: relative;
+        top: 0;
+    }
+    .projects-container .project-item .project-image-column {
+        width: 100%;
+    }
+}

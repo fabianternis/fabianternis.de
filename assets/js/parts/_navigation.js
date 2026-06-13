@@ -42,4 +42,25 @@ export const initNavigation = () => {
 
     window.addEventListener("scroll", updateActiveLink);
     updateActiveLink();
+
+    const hamburger = document.querySelector(".hamburger-menu");
+    const navLinksContainer = document.querySelector(".nav-links-container");
+
+    if (hamburger && navLinksContainer) {
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("open");
+            hamburger.setAttribute("aria-expanded", hamburger.classList.contains("open"));
+            navLinksContainer.classList.toggle("mobile-open");
+        });
+
+        // Close menu when a link is clicked
+        const mobileNavLinks = navLinksContainer.querySelectorAll(".nav-link a");
+        mobileNavLinks.forEach(link => {
+            link.addEventListener("click", () => {
+                hamburger.classList.remove("open");
+                hamburger.setAttribute("aria-expanded", "false");
+                navLinksContainer.classList.remove("mobile-open");
+            });
+        });
+    }
 };
