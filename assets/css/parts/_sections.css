@@ -176,14 +176,14 @@ html[data-theme="dark"] .dnbx-tld { fill: #888; }
 }
 
 .header-logo {
-    height: 0.72em;
+    height: calc(clamp(1.8rem, 5vw, 3.5rem) * .7);
     width: auto;
     vertical-align: baseline;
     transition: transform 0.2s ease;
 }
 
 .header-logo:hover {
-    transform: scale(1.1);
+    transform: scale(1.025);
 }
 
 .hero-tooltip {
@@ -200,6 +200,11 @@ html[data-theme="dark"] .dnbx-tld { fill: #888; }
     transform: scale(0.95) translateY(10px);
     transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     backdrop-filter: blur(10px);
+
+    &:has(.is-contentful) {
+        padding: 8px;
+        padding-bottom: 8px;
+    }
 }
 
 .hero-tooltip.active {
@@ -212,6 +217,7 @@ html[data-theme="dark"] .dnbx-tld { fill: #888; }
     aspect-ratio: 16 / 9;
     object-fit: cover;
     display: block;
+    border-radius: 8px;
 }
 
 .tooltip-text-content {

@@ -217,8 +217,10 @@ export const initHeroTooltips = () => {
                     tooltipTitle.textContent = hoverTitle;
                     tooltipSubtitle.textContent = hoverSubtitle || "";
                     tooltipTextContent.style.display = "flex";
+                    tooltipTextContent.classList.add("is-contentful");
                 } else {
                     tooltipTextContent.style.display = "none";
+                    tooltipTextContent.classList.remove("is-contentful");
                 }
             } else {
                 // Technology Logo: Show only image
@@ -226,6 +228,7 @@ export const initHeroTooltips = () => {
                     tooltipImg.src = hoverImg;
                     tooltipImg.style.display = "block";
                     tooltipTextContent.style.display = "none";
+                    tooltipTextContent.classList.remove("is-contentful");
                 } else {
                     return; // Nothing to show
                 }
