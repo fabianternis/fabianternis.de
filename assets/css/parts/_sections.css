@@ -173,6 +173,14 @@ html[data-theme="dark"] .dnbx-tld { fill: #888; }
     margin-top: 1rem;
     font-weight: 700;
     max-width: 1100px;
+
+    & .smaller-intro {
+        display: block;
+        font-size: calc(clamp(1.8rem, 5vw, 3.5rem) * .77);
+        margin-top: 0.5rem;
+        font-weight: 400;
+        opacity: 0.95;
+    }
 }
 
 .header-logo {
