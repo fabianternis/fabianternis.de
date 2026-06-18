@@ -558,3 +558,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const targets = document.querySelectorAll(".designed");
+
+  if (window.ResizeObserver) {
+    const ro = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const badge = entry.target.querySelector(".designed-badge");
+        if (badge) {
+          // Use borderBoxSize if supported, falling back to offset dimensions
+          const width = entry.borderBoxSize 
+            ? Math.round(entry.borderBoxSize[0].inlineSize) 
+            : Math.round(entry.target.offsetWidth);
+          const height = entry.borderBoxSize 
+            ? Math.round(entry.borderBoxSize[0].blockSize) 
+            : Math.round(entry.target.offsetHeight);
+          
+          badge.textContent = `${width} × ${height}`;
+        }
+      }
+    });
+
+    targets.forEach((el) => ro.observe(el));
+  } else {
+    // Fallback animation polling loop for legacy browser environments
+    const updateDimensions = () => {
+      targets.forEach((el) => {
+        const badge = el.querySelector(".designed-badge");
+        if (badge) {
+          badge.textContent = `${Math.round(el.offsetWidth)} × ${Math.round(el.offsetHeight)}`;
+        }
+      });
+      requestAnimationFrame(updateDimensions);
+    };
+    requestAnimationFrame(updateDimensions);
+  }
+});
