@@ -1,17 +1,15 @@
 /**
  * xpsystems Status API Integration
+ *
+ * Populates ALL status-container elements on the page (one per locale wrapper).
  */
 
 export async function initStatusAPI() {
-    const statusContainer = document.getElementById('status-container');
-    if (!statusContainer) return;
+    // querySelectorAll: picks up both locale wrapper copies
+    const containers = Array.from(document.querySelectorAll('#status-container'));
+    if (containers.length === 0) return;
 
-    const overallElement = statusContainer.querySelector('.status-overall');
-    const servicesGrid = statusContainer.querySelector('.status-services-grid');
-    const lastUpdateElement = statusContainer.querySelector('.status-last-update');
-    const filterContainer = statusContainer.querySelector('.status-filters');
-
-    let allServices = [];
+    let allServices  = [];
     let currentFilter = 'all';
 
     async function fetchStatus() {
@@ -21,23 +19,24 @@ export async function initStatusAPI() {
                 fetch('https://status.xpsystems.eu/api/services')
             ]);
 
-            const statusData = await statusRes.json();
+            const statusData   = await statusRes.json();
             const servicesData = await servicesRes.json();
 
             allServices = servicesData.services;
-            updateUI(statusData, allServices);
-            updateFilters(allServices);
+            containers.forEach(c => updateUI(c, statusData, allServices));
+            containers.forEach(c => updateFilters(c, allServices));
         } catch (error) {
             console.error('Failed to fetch system status:', error);
-            renderError();
+            containers.forEach(renderError);
         }
     }
 
-    function updateFilters(services) {
+    function updateFilters(statusContainer, services) {
+        const filterContainer = statusContainer.querySelector('.status-filters');
         if (!filterContainer) return;
-        
+
         const groups = ['all', ...new Set(services.map(s => s.group))];
-        
+
         if (filterContainer.children.length > 1 && filterContainer.dataset.groups === groups.join(',')) return;
         filterContainer.dataset.groups = groups.join(',');
 
@@ -50,19 +49,24 @@ export async function initStatusAPI() {
         filterContainer.querySelectorAll('.status-filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 currentFilter = btn.dataset.group;
-                filterContainer.querySelectorAll('.status-filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                renderServices();
+                // Update filter buttons in ALL containers when one is clicked
+                containers.forEach(c => {
+                    c.querySelectorAll('.status-filter-btn').forEach(b => {
+                        b.classList.toggle('active', b.dataset.group === currentFilter);
+                    });
+                    renderServices(c, allServices);
+                });
             });
         });
     }
 
-    function renderServices() {
+    function renderServices(statusContainer, services) {
+        const servicesGrid = statusContainer.querySelector('.status-services-grid');
         if (!servicesGrid) return;
-        
-        const filtered = currentFilter === 'all' 
-            ? allServices.filter(s => s.is_deployed)
-            : allServices.filter(s => s.is_deployed && s.group === currentFilter);
+
+        const filtered = currentFilter === 'all'
+            ? services.filter(s => s.is_deployed)
+            : services.filter(s => s.is_deployed && s.group === currentFilter);
 
         servicesGrid.innerHTML = filtered.map(service => {
             const latencyText = service.latency_ms ? `${service.latency_ms}ms` : '--';
@@ -79,22 +83,23 @@ export async function initStatusAPI() {
                 </div>
             `;
         }).join('');
-
-        // Attach Modal Listeners
     }
 
-    function updateUI(status, services) {
+    function updateUI(statusContainer, status, services) {
+        const overallElement     = statusContainer.querySelector('.status-overall');
+        const lastUpdateElement  = statusContainer.querySelector('.status-last-update');
+
         if (overallElement) {
             const overallStatus = status.overall || 'unknown';
             overallElement.className = `status-overall status-${overallStatus}`;
-            
-            const statusTextEn = overallStatus === 'operational' ? 'All systems operational' : 
-                               overallStatus === 'degraded' ? 'Some systems degraded' :
-                               overallStatus === 'down' ? 'Major outage' : 'System status unknown';
-            
-            const statusTextDe = overallStatus === 'operational' ? 'Alle Systeme sind betriebsbereit' : 
-                               overallStatus === 'degraded' ? 'Einige Systeme sind eingeschränkt' :
-                               overallStatus === 'down' ? 'Schwerwiegende Störung' : 'Systemstatus unbekannt';
+
+            const statusTextEn = overallStatus === 'operational' ? 'All systems operational' :
+                               overallStatus === 'degraded'    ? 'Some systems degraded' :
+                               overallStatus === 'down'        ? 'Major outage' : 'System status unknown';
+
+            const statusTextDe = overallStatus === 'operational' ? 'Alle Systeme sind betriebsbereit' :
+                               overallStatus === 'degraded'    ? 'Einige Systeme sind eingeschränkt' :
+                               overallStatus === 'down'        ? 'Schwerwiegende Störung' : 'Systemstatus unbekannt';
 
             overallElement.innerHTML = `
                 <div class="status-indicator"></div>
@@ -105,10 +110,10 @@ export async function initStatusAPI() {
             `;
         }
 
-        renderServices();
+        renderServices(statusContainer, services);
 
         if (lastUpdateElement) {
-            const date = new Date(status.checked_at * 1000);
+            const date       = new Date(status.checked_at * 1000);
             const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
             lastUpdateElement.innerHTML = `
                 <span data-language="en">Last checked: ${timeString}</span>
@@ -117,7 +122,8 @@ export async function initStatusAPI() {
         }
     }
 
-    function renderError() {
+    function renderError(statusContainer) {
+        const overallElement = statusContainer.querySelector('.status-overall');
         if (overallElement) {
             overallElement.innerHTML = `
                 <span data-language="en">Failed to load system status</span>
@@ -129,3 +135,5 @@ export async function initStatusAPI() {
     fetchStatus();
     setInterval(fetchStatus, 60000);
 }
+
+

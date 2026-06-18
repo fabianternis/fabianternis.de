@@ -6,9 +6,13 @@ import { initStatusAPI } from './parts/_status.js';
 import { initSearch } from './parts/_search.js';
 import { initResume } from './parts/_resume.js';
 
-const langToggle = document.getElementById("languageSwitch");
-
-langToggle.addEventListener("click", () => {
+/**
+ * Language switch — delegated on document so it catches the flag button
+ * in both locale wrappers (id="languageSwitch" and id="languageSwitch-de").
+ */
+document.addEventListener("click", (e) => {
+    const btn = e.target.closest("[id^='languageSwitch']");
+    if (!btn) return;
     const nextLang = document.documentElement.getAttribute("lang") === "en" ? "de" : "en";
     executeWithTransition(() => applyLanguage(nextLang, () => {
         initNameAnimations();

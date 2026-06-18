@@ -1,6 +1,11 @@
+/** Returns the currently visible locale wrapper element. */
+const getActiveWrapper = () =>
+    document.querySelector(`[data-body-locale="${document.body.dataset.locale || 'en'}"]`) || document;
+
 export const initNameAnimations = () => {
-    const lang = document.documentElement.getAttribute("lang");
-    const activeIntroduction = document.querySelector(`.introduction[data-language="${lang}"]`);
+    // Find .introduction inside the currently visible locale wrapper
+    const wrapper = getActiveWrapper();
+    const activeIntroduction = wrapper.querySelector('.introduction');
     if (!activeIntroduction) return;
 
     const nameContainer = activeIntroduction.querySelector(".name");
@@ -9,7 +14,13 @@ export const initNameAnimations = () => {
     const characters = nameContainer.querySelectorAll("span[aria-label]");
     const cursorUrl = "url('/assets/svg/arrowhead-rounded-outline.svg'), auto";
 
+    // Clear existing listeners by cloning + replacing each span
     characters.forEach((char) => {
+        const fresh = char.cloneNode(true);
+        char.parentNode.replaceChild(fresh, char);
+    });
+
+    nameContainer.querySelectorAll("span[aria-label]").forEach((char) => {
         char.style.cursor = cursorUrl;
         let startTime;
 
@@ -47,7 +58,9 @@ export const trackProjectScroll = () => {
 };
 */
 export const initCounters = () => {
-    const counters = document.querySelectorAll("[data-target]");
+    // Only observe counters in the active locale wrapper to avoid double-animation
+    const wrapper  = getActiveWrapper();
+    const counters = wrapper.querySelectorAll("[data-target]");
 
     const animateCounter = (el) => {
         const target = parseInt(el.dataset.target, 10);
@@ -79,10 +92,12 @@ export const initCounters = () => {
 };
 
 export const initDomainsAPI = () => {
-    const counterEl = document.getElementById("domainsCounter");
-    const gridEl = document.getElementById("domainsGrid");
-    const tldGridEl = document.getElementById("tldGrid");
-    const searchInput = document.getElementById("domainSearch");
+    // Use active wrapper to avoid picking up hidden locale's elements
+    const wrapper     = getActiveWrapper();
+    const counterEl   = wrapper.querySelector('[id="domainsCounter"]');
+    const gridEl      = wrapper.querySelector('[id="domainsGrid"]');
+    const tldGridEl   = wrapper.querySelector('[id="tldGrid"]');
+    const searchInput = wrapper.querySelector('[id="domainSearch"]');
     
     if (!gridEl || !tldGridEl) return;
 
@@ -332,8 +347,9 @@ export const initLightbox = () => {
         }, 300);
     };
 
-    // Initialize Photography
-    const triggerImages = Array.from(document.querySelectorAll('.photography-item img'));
+    // Initialize Photography — only from the active locale wrapper
+    const activeWrapper = getActiveWrapper();
+    const triggerImages = Array.from(activeWrapper.querySelectorAll('.photography-item img'));
     triggerImages.forEach((img, idx) => {
         img.addEventListener('click', () => openLightbox(triggerImages, idx));
     });
@@ -358,13 +374,15 @@ export const initProjectModals = () => {
     const modal = document.getElementById('projectDetailsModal');
     if (!modal) return;
 
-    const sidebar = modal.querySelector('.project-details-info-sidebar');
+    const sidebar     = modal.querySelector('.project-details-info-sidebar');
     const mainContent = modal.querySelector('.project-details-main-content');
-    const closeBtn = modal.querySelector('.modal-close');
-    const prevBtn = modal.querySelector('.project-modal-prev');
-    const nextBtn = modal.querySelector('.project-modal-next');
-    
-    const projectItems = Array.from(document.querySelectorAll('.project-item'));
+    const closeBtn    = modal.querySelector('.modal-close');
+    const prevBtn     = modal.querySelector('.project-modal-prev');
+    const nextBtn     = modal.querySelector('.project-modal-next');
+
+    // Only bind to project items in the active locale wrapper
+    const wrapper = getActiveWrapper();
+    const projectItems = Array.from(wrapper.querySelectorAll('.project-item'));
     let currentProjectIndex = -1;
 
     const updateModalContent = (index) => {
@@ -459,9 +477,10 @@ export const initProjectModals = () => {
 };
 
 export const initHeroIconMovement = () => {
-    const trackingArea = document.querySelector("main") || document.body;
-    const hero = document.querySelector(".hero-container");
-    const icons = document.querySelectorAll(".icon-spreaded-wrapper");
+    const wrapper      = getActiveWrapper();
+    const trackingArea = wrapper.querySelector("main") || document.body;
+    const hero         = wrapper.querySelector(".hero-container");
+    const icons        = wrapper.querySelectorAll(".icon-spreaded-wrapper");
     if (!hero || icons.length === 0) return;
 
     trackingArea.addEventListener("mousemove", (e) => {
@@ -487,7 +506,9 @@ export const initHeroIconMovement = () => {
     });
 };
 export const initWorkScroll = () => {
-    const projectItems = document.querySelectorAll('.project-item');
+    // Only observe project items in the active locale wrapper
+    const wrapper      = getActiveWrapper();
+    const projectItems = wrapper.querySelectorAll('.project-item');
     if (projectItems.length === 0) return;
 
     const handleScroll = () => {
