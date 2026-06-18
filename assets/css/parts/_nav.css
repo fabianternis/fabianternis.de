@@ -54,53 +54,55 @@ body.scrolled nav {
     border: 1px solid var(--main-border-color);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+        border-color: light-dark(rgba(59, 90, 246, 0.4), rgba(96, 165, 250, 0.4));
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    & .nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Dim inactive when something is active */
+    &:has(.nav-link.active) .nav-link:not(.active) a {
+        opacity: 0.6;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
 }
 
-.nav-links-container:hover {
-    border-color: light-dark(rgba(59, 90, 246, 0.4), rgba(96, 165, 250, 0.4));
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-}
+.nav-link {
+    & a {
+        position: relative;
+        font-weight: 500;
+        font-size: 0.95em;
+        letter-spacing: 0.01em;
+        padding: 8px 16px;
+        border-radius: 20px;
+        transition:
+            color 0.2s ease,
+            background-color 0.2s ease,
+            opacity 0.2s ease,
+            transform 0.2s ease;
+    }
 
-.nav-links-container .nav-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    /* Active pill */
+    &.active a {
+        background-color: var(--accent-color);
+        color: var(--button-text-color);
+        font-weight: 600;
+    }
 
-.nav-link a {
-    position: relative;
-    font-weight: 500;
-    font-size: 0.95em;
-    letter-spacing: 0.01em;
-    padding: 8px 16px;
-    border-radius: 20px;
-    transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        opacity 0.2s ease,
-        transform 0.2s ease;
-}
-
-/* Dim inactive when something is active */
-.nav-links-container:has(.nav-link.active) .nav-link:not(.active) a {
-    opacity: 0.6;
-}
-
-.nav-links-container:has(.nav-link.active) .nav-link:not(.active) a:hover {
-    opacity: 1;
-}
-
-/* Active pill */
-.nav-link.active a {
-    background-color: var(--accent-color);
-    color: var(--button-text-color);
-    font-weight: 600;
-}
-
-.nav-link:not(.active) a:hover {
-    background-color: light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.1));
-    color: var(--text-color);
-    transform: translateY(-1px);
+    &:not(.active) a:hover {
+        background-color: light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.1));
+        color: var(--text-color);
+        transform: translateY(-1px);
+    }
 }
 
 /* ── Logo ── */
@@ -148,46 +150,47 @@ a.logo:hover {
     border: 1px solid var(--main-border-color);
     box-shadow: var(--shadow-light);
     transition: all 0.145s ease-in-out;
-}
 
-#themeToggle:hover {
-    background-color: var(--link-hover-bg);
-    color: var(--link-hover-color);
-    box-shadow: var(--shadow-medium);
-    transform: rotate(-10deg);
-}
+    &:hover {
+        background-color: var(--link-hover-bg);
+        color: var(--link-hover-color);
+        box-shadow: var(--shadow-medium);
+        transform: rotate(-10deg);
 
-#themeToggle:active {
-    transform: rotate(-15deg);
-    scale: 1.125;
-}
+        & svg {
+            transition: transform .45s ease-in-out;
+            transform: rotate(17.5deg);
+        }
+    }
 
-#themeToggle svg {
-    width: 22px;
-    height: 22px;
-    display: none;
-    transition: all .145s ease-in;
-}
+    &:active {
+        transform: rotate(-15deg);
+        scale: 1.125;
+    }
 
-#themeToggle:hover svg {
-    transition: transform .45s ease-in-out;
-    transform: rotate(17.5deg);
-}
+    & svg {
+        width: 22px;
+        height: 22px;
+        display: none;
+        transition: all .145s ease-in;
+    }
 
-#themeToggle.is-rotating {
-    scale: 1.33;
-}
+    &.is-rotating {
+        scale: 1.33;
 
-#themeToggle.is-rotating svg {
-    transform: rotate(375deg);
-    width: 24px;
-    height: 24px;
-    transition: transform 0.3s ease;
-}
+        & svg {
+            transform: rotate(375deg);
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+    }
 
-[data-theme="light"] #themeToggle .light-icon { display: block; }
-[data-theme="dark"]  #themeToggle .dark-icon  { display: block; }
-[data-theme="auto"]  #themeToggle .auto-icon  { display: block; }
+    /* theme specific icons */
+    [data-theme="light"] & .light-icon { display: block; }
+    [data-theme="dark"] & .dark-icon  { display: block; }
+    [data-theme="auto"] & .auto-icon  { display: block; }
+}
 
 /* ── Language Switch ── */
 
@@ -205,27 +208,27 @@ a.logo:hover {
         border-color 0.2s ease,
         transform 0.2s ease,
         box-shadow 0.2s ease;
-}
 
-#languageSwitch:hover {
-    background: var(--link-hover-bg);
-    border-color: light-dark(rgba(59, 90, 246, 0.35), rgba(96, 165, 250, 0.35));
-    transform: scale(1.08) rotate(2deg);
-    box-shadow: var(--shadow-light);
-}
+    &:hover {
+        background: var(--link-hover-bg);
+        border-color: light-dark(rgba(59, 90, 246, 0.35), rgba(96, 165, 250, 0.35));
+        transform: scale(1.08) rotate(2deg);
+        box-shadow: var(--shadow-light);
+    }
 
-#languageSwitch img.flag {
-    width: 34px;
-    height: auto;
-    display: block;
-    border-radius: 3px;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.12));
-}
+    & img.flag {
+        width: 34px;
+        height: auto;
+        display: block;
+        border-radius: 3px;
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.12));
+    }
 
-/* Flag flip animation on language switch */
-#languageSwitch.flag-flip {
-    transform: rotateY(90deg) scale(0.85);
-    transition: transform 0.15s ease-in;
+    /* Flag flip animation on language switch */
+    &.flag-flip {
+        transform: rotateY(90deg) scale(0.85);
+        transition: transform 0.15s ease-in;
+    }
 }
 
 /* ── Language content fade transition ── */
