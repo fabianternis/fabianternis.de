@@ -552,7 +552,7 @@ html[data-theme="dark"] .dnbx-tld { fill: #888; }
         }
     }
 
-    &-title {
+    .mtex-card-title {
         font-family: var(--font-heading);
         font-size: 1.05rem;
         font-weight: 600;
@@ -561,7 +561,7 @@ html[data-theme="dark"] .dnbx-tld { fill: #888; }
         color: var(--text-color);
     }
 
-    &-domain {
+    .mtex-card-domain {
         font-family: var(--font-mono);
         font-size: 0.8rem;
         font-weight: 500;
@@ -571,7 +571,7 @@ html[data-theme="dark"] .dnbx-tld { fill: #888; }
         opacity: 0.9;
     }
 
-    &-description {
+    .mtex-card-description {
         font-size: 0.9rem;
         line-height: 1.6;
         color: var(--text-color);
