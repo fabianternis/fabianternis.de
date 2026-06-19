@@ -268,3 +268,23 @@ footer .footer-content ul:has(a:hover) li a:not(:hover) {
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
+
+/* Compiler Mock */
+.compiler-mock {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.7;
+    font-family: monospace;
+    border-top: 1px solid var(--border-color, rgba(128, 128, 128, 0.2));
+}
+
+.compiler-mock .compiler-author {
+    font-style: italic;
+    opacity: 0.8;
+}
+
+[data-theme="dark"] .compiler-mock {
+    opacity: 0.6;
+}
